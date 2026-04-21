@@ -11,10 +11,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const navigate = useNavigate();
 
   const navItems = [
-    { label: 'Dashboard', path: '/admin', icon: '📊' },
-    { label: 'Projects', path: '/admin/projects', icon: '🎬' },
-    { label: 'Pages', path: '/admin/pages', icon: '📄' },
-    { label: 'Settings', path: '/admin/settings', icon: '⚙️' },
+    { label: 'Dashboard', path: '/dashboard', icon: '📊' },
+    { label: 'Projects', path: '/dashboard/projects', icon: '🎬' },
+    { label: 'Pages', path: '/dashboard/pages', icon: '📄' },
+    { label: 'Settings', path: '/dashboard/settings', icon: '⚙️' },
   ];
 
   const handleLogout = () => {
