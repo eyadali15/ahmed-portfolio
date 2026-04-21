@@ -9,7 +9,7 @@
     "elements": {
       "titleMarginBottom": 36,
       "subtitleMarginBottom": 20,
-      "dividerMarginY": 24,
+      "dividerMarginY": 0,
       "descriptionMarginBottom": 36
     },
     "layout": {
