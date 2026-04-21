@@ -12,6 +12,12 @@ import AdminLayout from '@/components/layout/AdminLayout';
 import AdminDashboard from '@/pages/admin/AdminDashboard';
 import AdminProjects from '@/pages/admin/AdminProjects';
 import AdminPages from '@/pages/admin/AdminPages';
+import Login from '@/pages/admin/Login';
+
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const isAuth = localStorage.getItem('admin_auth') === 'true';
+  return isAuth ? <>{children}</> : <Login />;
+};
 
 export const router = createBrowserRouter([
   {
@@ -26,11 +32,13 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: '/portfolio-control',
+    path: '/admin',
     element: (
-      <AdminLayout>
-        <Outlet />
-      </AdminLayout>
+      <ProtectedRoute>
+        <AdminLayout>
+          <Outlet />
+        </AdminLayout>
+      </ProtectedRoute>
     ),
     children: [
       { index: true, element: <AdminDashboard /> },
