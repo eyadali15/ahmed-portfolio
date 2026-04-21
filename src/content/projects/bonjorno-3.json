@@ -1,0 +1,22 @@
+{
+  "title": "Bonjorno Coffee Mix 3",
+  "slug": "bonjorno-3",
+  "client": "Bonjorno",
+  "role": "Assistant Director",
+  "category": "commercial",
+  "year": 2024,
+  "vimeoId": "1034176662",
+  "thumbnail": "https://vumbnail.com/1034176662.jpg",
+  "description": "Bonjorno coffee mix commercial - version 3.",
+  "featured": false,
+  "credits": [
+    {
+      "role": "Client",
+      "name": "Bonjorno"
+    },
+    {
+      "role": "Assistant Director",
+      "name": "Ahmed Hany Abuzenada"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Police Day Training Film",
+  "slug": "police-day",
+  "client": "Egyptian Police",
+  "role": "Assistant Director",
+  "category": "film",
+  "year": 2024,
+  "vimeoId": "1034155563",
+  "thumbnail": "https://vumbnail.com/1034155563.jpg",
+  "description": "Training film produced for Police Day celebrations in Egypt.",
+  "featured": false,
+  "credits": [
+    {
+      "role": "Client",
+      "name": "Egyptian Police"
+    },
+    {
+      "role": "Assistant Director",
+      "name": "Ahmed Hany Abuzenada"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Molto Magnum Mix",
+  "slug": "molto-magnum",
+  "client": "Molto / Magnum",
+  "role": "Assistant Director",
+  "category": "commercial",
+  "year": 2024,
+  "vimeoId": "1034166778",
+  "thumbnail": "https://vumbnail.com/1034166778.jpg",
+  "description": "Commercial for Molto and Magnum ice cream brands.",
+  "featured": false,
+  "credits": [
+    {
+      "role": "Client",
+      "name": "Molto / Magnum"
+    },
+    {
+      "role": "Assistant Director",
+      "name": "Ahmed Hany Abuzenada"
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "heroBanner": {
+    "content": {
+      "heroBackground": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1920&q=80",
+      "label": "About",
+      "title": "The art of seeing differently"
+    },
+    "elements": {
+      "labelMarginBottom": 16,
+      "titleMarginBottom": 0
+    },
+    "layout": {
+      "align": "left",
+      "paddingTop": 0, "paddingRight": 0, "paddingBottom": 48, "paddingLeft": 0,
+      "marginTop": 0, "marginRight": 0, "marginBottom": 0, "marginLeft": 0,
+      "gridGap": 0, "gapAfter": 0
+    }
+  },
+  "intro": {
+    "content": {
+      "text1": "I'm Ahmed Hany Abuzenada — an award-winning Saudi filmmaker and assistant director passionate about making a change through storytelling.",
+      "text2": "My work sits at the intersection of technical precision and emotional resonance. Every frame serves the story, every cut feels intentional."
+    },
+    "elements": {
+      "dividerMarginBottom": 32,
+      "text1MarginBottom": 24,
+      "text2MarginBottom": 0
+    },
+    "layout": {
+      "align": "left",
+      "paddingTop": 80, "paddingRight": 0, "paddingBottom": 80, "paddingLeft": 0,
+      "marginTop": 0, "marginRight": 0, "marginBottom": 0, "marginLeft": 0,
+      "gridGap": 0, "gapAfter": 0
+    }
+  },
+  "gallery": {
+    "content": {
+      "label": "Behind the Scenes",
+      "title": "The Filmmaker",
+      "photos": [
+        "/uploads/photo_1_2026-04-21_09-17-26.jpg",
+        "/uploads/photo_2_2026-04-21_09-17-26.jpg",
+        "/uploads/photo_3_2026-04-21_09-17-26.jpg",
+        "/uploads/photo_4_2026-04-21_09-17-26.jpg",
+        "/uploads/photo_5_2026-04-21_09-17-26.jpg",
+        "/uploads/photo_6_2026-04-21_09-17-26.jpg",
+        "/uploads/photo_7_2026-04-21_09-17-26.jpg",
+        "/uploads/photo_8_2026-04-21_09-17-26.jpg"
+      ]
+    },
+    "elements": {
+      "labelMarginBottom": 16,
+      "titleMarginBottom": 48
+    },
+    "layout": {
+      "align": "left",
+      "paddingTop": 96, "paddingRight": 0, "paddingBottom": 96, "paddingLeft": 0,
+      "marginTop": 0, "marginRight": 0, "marginBottom": 0, "marginLeft": 0,
+      "gridGap": 8, "gapAfter": 0
+    }
+  },
+  "philosophy": {
+    "content": {
+      "title1": "Philosophy",
+      "text1": "Cinema is more than entertainment — it's a mirror reflecting our shared humanity. Every project begins with: what truth are we trying to reveal?",
+      "text2": "I approach each production with meticulous attention to detail and deep respect for the collaborative nature of filmmaking.",
+      "title2": "Expertise"
+    },
+    "elements": {
+      "titleMarginBottom": 24,
+      "dividerMarginBottom": 32,
+      "text1MarginBottom": 24,
+      "expertiseItemPaddingBottom": 24,
+      "expertiseItemGap": 32
+    },
+    "layout": {
+      "align": "left",
+      "paddingTop": 96, "paddingRight": 0, "paddingBottom": 96, "paddingLeft": 0,
+      "marginTop": 0, "marginRight": 0, "marginBottom": 0, "marginLeft": 0,
+      "gridGap": 80, "gapAfter": 0
+    }
+  },
+  "timeline": {
+    "content": {
+      "label": "Journey",
+      "title": "Career Timeline"
+    },
+    "elements": {
+      "labelMarginBottom": 16,
+      "titleMarginBottom": 64,
+      "yearMarginBottom": 12,
+      "itemTitleMarginBottom": 12
+    },
+    "layout": {
+      "align": "left",
+      "paddingTop": 96, "paddingRight": 0, "paddingBottom": 96, "paddingLeft": 0,
+      "marginTop": 0, "marginRight": 0, "marginBottom": 0, "marginLeft": 0,
+      "gridGap": 64, "gapAfter": 0
+    }
+  },
+  "quote": {
+    "content": {
+      "text": "Every frame is an opportunity to reveal something true about the world we live in.",
+      "author": "Ahmed Hany Abuzenada"
+    },
+    "elements": {
+      "iconMarginBottom": 32,
+      "quoteMarginBottom": 32
+    },
+    "layout": {
+      "align": "center",
+      "paddingTop": 112, "paddingRight": 0, "paddingBottom": 112, "paddingLeft": 0,
+      "marginTop": 0, "marginRight": 0, "marginBottom": 0, "marginLeft": 0,
+      "gridGap": 0, "gapAfter": 0
+    }
+  }
+}

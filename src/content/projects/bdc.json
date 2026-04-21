@@ -1,0 +1,22 @@
+{
+  "title": "BDC - Balad Development Company",
+  "slug": "bdc",
+  "client": "BDC",
+  "role": "Assistant Director",
+  "category": "commercial",
+  "year": 2024,
+  "vimeoId": "1034153830",
+  "thumbnail": "https://vumbnail.com/1034153830.jpg",
+  "description": "Commercial for BDC - Balad Development Company.",
+  "featured": false,
+  "credits": [
+    {
+      "role": "Client",
+      "name": "BDC"
+    },
+    {
+      "role": "Assistant Director",
+      "name": "Ahmed Hany Abuzenada"
+    }
+  ]
+}

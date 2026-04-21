@@ -1,0 +1,26 @@
+{
+  "title": "SAMSUNG X TALABAT",
+  "slug": "samsung-talabat",
+  "client": "Samsung / Talabat",
+  "role": "Assistant Director",
+  "category": "commercial",
+  "year": 2024,
+  "vimeoId": "914887059",
+  "thumbnail": "https://vumbnail.com/914887059.jpg",
+  "description": "Commercial campaign for Samsung in collaboration with Talabat delivery service.",
+  "featured": false,
+  "credits": [
+    {
+      "role": "Client",
+      "name": "Samsung"
+    },
+    {
+      "role": "Partner",
+      "name": "Talabat"
+    },
+    {
+      "role": "Assistant Director",
+      "name": "Ahmed Hany Abuzenada"
+    }
+  ]
+}

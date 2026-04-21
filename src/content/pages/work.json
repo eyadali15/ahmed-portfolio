@@ -1,0 +1,23 @@
+{
+  "detail": {
+    "backButtonSize": "text-sm",
+    "backButtonPaddingY": 12,
+    "backButtonPaddingX": 24,
+    "videoMarginBottom": 48,
+    "categoryMarginBottom": 16,
+    "titleMarginBottom": 32,
+    "descriptionMarginBottom": 48,
+    "creditsLabelMarginBottom": 24,
+    "creditItemPaddingY": 16,
+    "sidebarItemGap": 32,
+    "sidebarLabelMarginBottom": 8,
+    "relatedTitleMarginBottom": 48,
+    "relatedGridGap": 32,
+    "relatedSectionPaddingY": 64,
+    "contentMaxWidth": 1000,
+    "contentPaddingY": 32,
+    "columnsGap": 64,
+    "topSpacerHeight": 100,
+    "showMoreMarginTop": 64
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "slug": "yamez-albawadi",
+  "client": "Yamez",
+  "thumbnail": "https://vumbnail.com/1150343808.jpg",
+  "featured": false,
+  "role": "Assistant Director",
+  "title": "Yamez Min Albawadi",
+  "credits": [
+    {
+      "role": "Director",
+      "name": "Hamdallah"
+    },
+    {
+      "role": "Assistant Director",
+      "name": "Ahmed Hany Abuzenada"
+    },
+    {
+      "role": "Agency",
+      "name": "KingTut"
+    },
+    {
+      "role": "Production house",
+      "name": "Lighthouse films"
+    }
+  ],
+  "description": "Yamez commercial - a fun and energetic food brand advertisement.",
+  "year": 2025,
+  "category": "commercial",
+  "vimeoId": "1150343808"
+}

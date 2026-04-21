@@ -1,0 +1,83 @@
+{
+  "hero": {
+    "content": {
+      "subtitle": "Assistant Director & Filmmaker",
+      "description": "Crafting cinematic stories that inspire through visual storytelling",
+      "heroVideo": "/uploads/136726-764934405_small.mp4",
+      "bannerVideo": "/uploads/239444_small.mp4"
+    },
+    "elements": {
+      "titleMarginBottom": 36,
+      "subtitleMarginBottom": 20,
+      "dividerMarginY": 24,
+      "descriptionMarginBottom": 36
+    },
+    "layout": {
+      "paddingTop": 0,
+      "align": "center",
+      "gapAfter": 0,
+      "marginTop": 0,
+      "paddingRight": 24,
+      "marginRight": 0,
+      "gridGap": 0,
+      "marginLeft": 0,
+      "paddingLeft": 24,
+      "marginBottom": 0,
+      "paddingBottom": 0
+    }
+  },
+  "featured": {
+    "content": {
+      "label": "Selected Work",
+      "title": "Featured Projects"
+    },
+    "elements": {
+      "labelMarginBottom": 12,
+      "titleMarginBottom": 0,
+      "titleToGridGap": 80,
+      "gridToButtonGap": 112
+    },
+    "layout": {
+      "paddingTop": 160,
+      "align": "left",
+      "gapAfter": 0,
+      "marginTop": 0,
+      "paddingRight": 0,
+      "marginRight": 0,
+      "gridGap": 40,
+      "buttonAlign": "center",
+      "marginLeft": 0,
+      "paddingLeft": 0,
+      "marginBottom": 0,
+      "paddingBottom": 160
+    }
+  },
+  "cta": {
+    "content": {
+      "label": "Let's Collaborate",
+      "title": "Have a vision? Let's bring it to life.",
+      "description": "Whether it's a commercial, documentary, or narrative film — every great project starts with a conversation.",
+      "buttonText": "Start a Conversation"
+    },
+    "elements": {
+      "labelMarginBottom": 32,
+      "titleMarginBottom": 40,
+      "descriptionPaddingTop": 36,
+      "descriptionMarginBottom": 96,
+      "buttonMarginTop": 20
+    },
+    "layout": {
+      "paddingTop": 176,
+      "align": "center",
+      "gapAfter": 0,
+      "marginTop": 0,
+      "paddingRight": 0,
+      "marginRight": 0,
+      "gridGap": 0,
+      "marginLeft": 0,
+      "paddingLeft": 0,
+      "marginBottom": 0,
+      "paddingBottom": 176
+    }
+  }
+}

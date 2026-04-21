@@ -1,0 +1,54 @@
+{
+  "header": {
+    "content": {
+      "label": "Get in Touch",
+      "title": "Let's create together",
+      "description": "Whether you're looking for an assistant director or a creative collaborator — I'd love to hear from you."
+    },
+    "elements": {
+      "labelMarginBottom": 20,
+      "titleMarginBottom": 24,
+      "dividerMarginBottom": 24,
+      "descriptionMarginBottom": 0
+    },
+    "layout": {
+      "paddingTop": 64,
+      "align": "center",
+      "gapAfter": 0,
+      "marginTop": 0,
+      "paddingRight": 0,
+      "marginRight": 0,
+      "gridGap": 0,
+      "marginLeft": 0,
+      "paddingLeft": 0,
+      "marginBottom": 80,
+      "paddingBottom": 0
+    }
+  },
+  "info": {
+    "content": {
+      "email": "contact@ahmedabuzenada.com",
+      "location": "Saudi Arabia",
+      "vimeoUrl": "https://vimeo.com/ahmedabuzenada",
+      "linkedinUrl": "https://linkedin.com",
+      "whatsappUrl": "https://wa.me/"
+    },
+    "elements": {
+      "sectionLabelMarginBottom": 12,
+      "infoItemsGap": 40
+    },
+    "layout": {
+      "paddingTop": 0,
+      "align": "center",
+      "gapAfter": 0,
+      "marginTop": 0,
+      "paddingRight": 0,
+      "marginRight": 0,
+      "gridGap": 80,
+      "marginLeft": 0,
+      "paddingLeft": 0,
+      "marginBottom": 0,
+      "paddingBottom": 0
+    }
+  }
+}

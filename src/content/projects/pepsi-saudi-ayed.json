@@ -1,0 +1,30 @@
+{
+  "slug": "pepsi-saudi-ayed",
+  "client": "Pepsi Saudi",
+  "thumbnail": "https://vumbnail.com/1149329410.jpg",
+  "featured": true,
+  "role": "Assistant Director",
+  "title": "PEPSI SAUDI X AYED",
+  "credits": [
+    {
+      "role": "Client",
+      "name": "Pepsi Saudi"
+    },
+    {
+      "role": "Artist",
+      "name": "Ayed"
+    },
+    {
+      "role": "Director",
+      "name": "Hamdallah"
+    },
+    {
+      "role": "Assistant Director",
+      "name": "Ahmed Hany Abuzenada"
+    }
+  ],
+  "description": "Pepsi Saudi Arabia commercial campaign featuring Ayed.",
+  "year": 2025,
+  "category": "commercial",
+  "vimeoId": "1149329410"
+}

@@ -1,0 +1,18 @@
+{
+  "title": "A Story of a Heart",
+  "slug": "story-of-heart",
+  "client": "Independent",
+  "role": "Director",
+  "category": "film",
+  "year": 2021,
+  "vimeoId": "640960065",
+  "thumbnail": "https://vumbnail.com/640960065.jpg",
+  "description": "A short film exploring the emotional journey of the human heart through visual storytelling.",
+  "featured": false,
+  "credits": [
+    {
+      "role": "Director",
+      "name": "Ahmed Hany Abuzenada"
+    }
+  ]
+}

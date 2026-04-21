@@ -1,0 +1,22 @@
+{
+  "title": "Sports Boulevard",
+  "slug": "sports-boulevard",
+  "client": "Sports Boulevard",
+  "role": "Assistant Director",
+  "category": "commercial",
+  "year": 2024,
+  "vimeoId": "1034162350",
+  "thumbnail": "https://vumbnail.com/1034162350.jpg",
+  "description": "Commercial for the Sports Boulevard project in Riyadh, Saudi Arabia.",
+  "featured": false,
+  "credits": [
+    {
+      "role": "Client",
+      "name": "Sports Boulevard"
+    },
+    {
+      "role": "Assistant Director",
+      "name": "Ahmed Hany Abuzenada"
+    }
+  ]
+}
