@@ -41,14 +41,14 @@
       "paddingTop": 164,
       "align": "left",
       "gapAfter": 0,
-      "marginTop": 0,
+      "marginTop": 30,
       "paddingRight": 0,
       "marginRight": 0,
       "gridGap": 40,
       "buttonAlign": "center",
       "marginLeft": 0,
       "paddingLeft": 0,
-      "marginBottom": 0,
+      "marginBottom": 30,
       "paddingBottom": 160
     }
   },
