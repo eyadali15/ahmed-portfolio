@@ -14,8 +14,8 @@
     },
     "layout": {
       "paddingTop": 0,
-      "align": "right",
-      "gapAfter": 0,
+      "align": "center",
+      "gapAfter": 50,
       "marginTop": 0,
       "paddingRight": 24,
       "marginRight": 0,
