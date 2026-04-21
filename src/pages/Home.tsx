@@ -70,7 +70,7 @@ function FeaturedSection() {
   return (
     <section style={box(l)}>
       <div className="container-main" style={{ textAlign: l.align as Align }}>
-        <SectionTitle label={c.label} title={c.title} />
+        <SectionTitle label={c.label} title={c.title} titlePaddingBottom={10} />
         <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: l.gridGap, marginTop: e.titleToGridGap }}>
           {featured.map((project) => (
             <Link key={project.slug} to={`/work/${project.slug}`} className="featured-card group block text-left">

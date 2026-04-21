@@ -9,9 +9,10 @@ interface SectionTitleProps {
   title: string;
   className?: string;
   align?: 'left' | 'center';
+  titlePaddingBottom?: number | string;
 }
 
-export default function SectionTitle({ label, title, className = '', align = 'left' }: SectionTitleProps) {
+export default function SectionTitle({ label, title, className = '', align = 'left', titlePaddingBottom = 0 }: SectionTitleProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -31,7 +32,10 @@ export default function SectionTitle({ label, title, className = '', align = 'le
       {label && (
         <p className="st-animate text-[10px] uppercase tracking-[0.3em] text-[var(--color-accent)] mb-3">{label}</p>
       )}
-      <h2 className="st-animate font-[var(--font-heading)] text-2xl md:text-3xl lg:text-4xl text-[var(--color-text-primary)] leading-tight">
+      <h2 
+        className="st-animate font-[var(--font-heading)] text-2xl md:text-3xl lg:text-4xl text-[var(--color-text-primary)] leading-tight"
+        style={{ paddingBottom: titlePaddingBottom }}
+      >
         {title}
       </h2>
     </div>
