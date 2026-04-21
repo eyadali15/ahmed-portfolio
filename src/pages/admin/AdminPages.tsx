@@ -51,13 +51,14 @@ export default function AdminPages() {
 
   const handleUpdate = (section: string, category: string, elementKey: string, propKey: string, value: any) => {
     setContent(prev => {
-      const sectionData = { ...prev[section as keyof typeof prev] };
+      const currentSection = section as keyof typeof prev;
+      const sectionData = { ...prev[currentSection] } as any;
       if (category === 'content') {
-        (sectionData as any).content[elementKey] = value;
+        sectionData.content[elementKey] = value;
       } else if (category === 'spacing') {
-        (sectionData as any).spacing[elementKey][propKey] = value;
+        sectionData.spacing[elementKey][propKey] = value;
       } else {
-        (sectionData as any).layout[elementKey] = value;
+        sectionData.layout[elementKey] = value;
       }
       return { ...prev, [section]: sectionData };
     });
