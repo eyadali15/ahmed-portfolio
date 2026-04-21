@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: '/admin',
+    path: '/portfolio-control',
     element: (
       <AdminLayout>
         <Outlet />
