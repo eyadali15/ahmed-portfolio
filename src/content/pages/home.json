@@ -7,7 +7,7 @@
       "bannerVideo": "/uploads/239444_small.mp4"
     },
     "elements": {
-      "titleMarginBottom": 40,
+      "titleMarginBottom": 36,
       "subtitleMarginBottom": 20,
       "dividerMarginY": 24,
       "descriptionMarginBottom": 36
@@ -38,7 +38,7 @@
       "gridToButtonGap": 112
     },
     "layout": {
-      "paddingTop": 160,
+      "paddingTop": 0,
       "align": "left",
       "gapAfter": 0,
       "marginTop": 0,
