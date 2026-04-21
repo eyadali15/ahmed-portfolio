@@ -33,8 +33,8 @@
     },
     "elements": {
       "labelMarginBottom": 12,
-      "titleMarginBottom": 3,
-      "titleToGridGap": 0,
+      "titleMarginBottom": 0,
+      "titleToGridGap": 3,
       "gridToButtonGap": 112
     },
     "layout": {
