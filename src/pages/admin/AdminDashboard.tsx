@@ -15,8 +15,8 @@ export default function AdminDashboard() {
     <div className="space-y-8 max-w-7xl">
       {/* Welcome */}
       <section>
-        <h2 className="text-3xl font-bold tracking-tight mb-2">Welcome back, Ahmed 👋</h2>
-        <p className="text-white/40 text-sm">Here's what's happening with your portfolio today.</p>
+        <h2 className="text-3xl font-bold tracking-tight mb-2">Welcome back, Ahmed (Cloudflare Mode) 🚀</h2>
+        <p className="text-white/40 text-sm">You are now running on Cloudflare. Netlify has been removed.</p>
       </section>
 
       {/* Stats */}
