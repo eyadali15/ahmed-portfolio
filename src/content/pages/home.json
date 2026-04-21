@@ -32,7 +32,7 @@
       "title": "Featured Projects"
     },
     "elements": {
-      "labelMarginBottom": 12,
+      "labelMarginBottom": 20,
       "titleMarginBottom": 0,
       "titleToGridGap": 0,
       "gridToButtonGap": 112
