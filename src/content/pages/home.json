@@ -7,7 +7,7 @@
       "bannerVideo": "/uploads/239444_small.mp4"
     },
     "elements": {
-      "titleMarginBottom": 36,
+      "titleMarginBottom": 40,
       "subtitleMarginBottom": 20,
       "dividerMarginY": 24,
       "descriptionMarginBottom": 36
@@ -19,7 +19,7 @@
       "marginTop": 0,
       "paddingRight": 24,
       "marginRight": 0,
-      "gridGap": 50,
+      "gridGap": 0,
       "marginLeft": 0,
       "paddingLeft": 24,
       "marginBottom": 0,
