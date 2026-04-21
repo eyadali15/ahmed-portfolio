@@ -33,7 +33,7 @@
     },
     "elements": {
       "labelMarginBottom": 12,
-      "titleMarginBottom": 0,
+      "titleMarginBottom": 5,
       "titleToGridGap": 3,
       "gridToButtonGap": 112
     },
