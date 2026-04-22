@@ -22,9 +22,13 @@ export interface Project {
 // Load all project JSON files at build time
 const projectModules = import.meta.glob<{ default: Project }>('../content/projects/*.json', { eager: true });
 
-export const projects: Project[] = Object.values(projectModules)
-  .map((mod) => mod.default)
-  .sort((a, b) => b.year - a.year || a.title.localeCompare(b.title));
+export function sortProjects(projectList: Project[]) {
+  return [...projectList].sort((a, b) => b.year - a.year || a.title.localeCompare(b.title));
+}
+
+export const projects: Project[] = sortProjects(
+  Object.values(projectModules).map((mod) => mod.default)
+);
 
 export const getProjectBySlug = (slug: string): Project | undefined => {
   return projects.find((p) => p.slug === slug);
