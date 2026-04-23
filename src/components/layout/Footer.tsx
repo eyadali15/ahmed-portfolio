@@ -35,7 +35,7 @@ export default function Footer() {
         </div>
         <div className="border-t border-[var(--color-border)] flex flex-col md:flex-row items-center justify-between gap-4"
           style={{ paddingTop: s.bottomBarPaddingY, paddingBottom: s.bottomBarPaddingY }}>
-          <p className="text-xs text-white/25">© {new Date().getFullYear()} Ahmed Hany Abuzenada. All rights reserved. <span className="text-[var(--color-accent)]/20 ml-2">CLOUDFLARE MODE 🚀</span></p>
+          <p className="text-xs text-white/25">© {new Date().getFullYear()} Ahmed Hany Abuzenada. All rights reserved.</p>
           <p className="text-xs text-white/25">Crafted with passion for cinema</p>
         </div>
       </div>

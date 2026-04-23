@@ -48,12 +48,16 @@ collections:
             widget: "object"
             collapsed: true
             fields:
+              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
                 fields:
+                  - { label: "First Name (large text)", name: "name1", widget: "string", default: "Ahmed" }
+                  - { label: "Last Name (accent color)", name: "name2", widget: "string", default: "Abuzenada" }
                   - { label: "Subtitle", name: "subtitle", widget: "string" }
                   - { label: "Description", name: "description", widget: "string" }
+                  - { label: "Button Text", name: "buttonText", widget: "string", default: "View My Work" }
                   - { label: "🎬 Hero Video Background", name: "heroVideo", widget: "file", default: "/videos/banner.mp4", hint: "Upload MP4 video for the hero section background" }
                   - { label: "🎬 Banner Video (mid-page)", name: "bannerVideo", widget: "file", default: "/videos/banner.mp4", hint: "Upload MP4 video for the video banner section" }
               - label: "🔤 Element Spacing"
@@ -87,12 +91,14 @@ collections:
             widget: "object"
             collapsed: true
             fields:
+              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
                 fields:
                   - { label: "Label", name: "label", widget: "string" }
                   - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Button Text", name: "buttonText", widget: "string", default: "View All Work" }
               - label: "🔤 Element Spacing"
                 name: "elements"
                 widget: "object"
@@ -120,11 +126,19 @@ collections:
                   - { label: "Grid Gap", name: "gridGap", widget: "number", default: 40 }
                   - { label: "Gap After Section", name: "gapAfter", widget: "number", default: 0 }
 
-          - label: "3️⃣ Call to Action"
+          - label: "3️⃣ Video Banner"
+            name: "videoBanner"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
+
+          - label: "4️⃣ Call to Action"
             name: "cta"
             widget: "object"
             collapsed: true
             fields:
+              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
@@ -173,6 +187,7 @@ collections:
             widget: "object"
             collapsed: true
             fields:
+              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
@@ -209,6 +224,7 @@ collections:
             widget: "object"
             collapsed: true
             fields:
+              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
@@ -245,6 +261,7 @@ collections:
             widget: "object"
             collapsed: true
             fields:
+              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
@@ -281,6 +298,7 @@ collections:
             widget: "object"
             collapsed: true
             fields:
+              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
@@ -321,6 +339,7 @@ collections:
             widget: "object"
             collapsed: true
             fields:
+              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
@@ -358,6 +377,7 @@ collections:
             widget: "object"
             collapsed: true
             fields:
+              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
@@ -433,6 +453,7 @@ collections:
             widget: "object"
             collapsed: true
             fields:
+              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
@@ -471,6 +492,7 @@ collections:
             widget: "object"
             collapsed: true
             fields:
+              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
@@ -480,6 +502,7 @@ collections:
                   - { label: "Vimeo URL", name: "vimeoUrl", widget: "string" }
                   - { label: "LinkedIn URL", name: "linkedinUrl", widget: "string" }
                   - { label: "WhatsApp URL", name: "whatsappUrl", widget: "string" }
+                  - { label: "Form Button Text", name: "formButtonText", widget: "string", default: "Send Message" }
               - label: "🔤 Element Spacing"
                 name: "elements"
                 widget: "object"
@@ -560,4 +583,3 @@ collections:
               - { label: "Filter Padding Bottom (px)", name: "filterPaddingBottom", widget: "number", default: 12 }
               - { label: "Filter Padding Left (px)", name: "filterPaddingLeft", widget: "number", default: 28 }
               - { label: "Filter Padding Right (px)", name: "filterPaddingRight", widget: "number", default: 28 }
-

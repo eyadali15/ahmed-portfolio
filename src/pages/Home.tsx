@@ -41,15 +41,15 @@ function HeroSection() {
       <div className="relative z-[3] h-full flex flex-col items-center justify-center px-6" style={{ textAlign: l.align as Align }}>
         <div ref={titleRef} style={{ marginBottom: e.titleMarginBottom }}>
           <h1 className="font-[var(--font-heading)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1] tracking-tight">
-            <span className="hero-word inline-block text-white">Ahmed</span>
-            <span className="hero-word inline-block ml-3 md:ml-4 text-[var(--color-accent)]">Abuzenada</span>
+            <span className="hero-word inline-block text-white">{c.name1 || 'Ahmed'}</span>
+            <span className="hero-word inline-block ml-3 md:ml-4 text-[var(--color-accent)]">{c.name2 || 'Abuzenada'}</span>
           </h1>
         </div>
         <div ref={subtitleRef} style={{ textAlign: l.align as Align }}>
           <p className="text-xs md:text-sm tracking-[0.35em] uppercase text-white/70" style={{ marginBottom: e.subtitleMarginBottom }}>{c.subtitle}</p>
           <div className="w-12 h-px bg-[var(--color-accent)]" style={{ margin: l.align === 'center' ? `${e.dividerMarginY}px auto` : `${e.dividerMarginY}px 0` }} />
           <p className="text-white/50 text-sm max-w-md leading-relaxed" style={{ marginBottom: e.descriptionMarginBottom, margin: l.align === 'center' ? `0 auto ${e.descriptionMarginBottom}px` : `0 0 ${e.descriptionMarginBottom}px` }}>{c.description}</p>
-          <div style={{ display: 'flex', justifyContent: jm[l.align as Align] }}><Button to="/work">View My Work</Button></div>
+          <div style={{ display: 'flex', justifyContent: jm[l.align as Align] }}><Button to="/work">{c.buttonText || 'View My Work'}</Button></div>
         </div>
       </div>
     </section>
@@ -92,7 +92,7 @@ function FeaturedSection() {
           ))}
         </div>
         <div style={{ marginTop: e.gridToButtonGap, display: 'flex', justifyContent: jm[(l.buttonAlign || 'center') as Align] }}>
-          <Button to="/work">View All Work</Button>
+          <Button to="/work">{c.buttonText || 'View All Work'}</Button>
         </div>
       </div>
     </section>
@@ -123,5 +123,12 @@ function CTASection() {
 export default function Home() {
   const setIsLoading = useStore((s) => s.setIsLoading);
   useEffect(() => { setIsLoading(false); return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); }; }, [setIsLoading]);
-  return (<PageTransition><HeroSection /><FeaturedSection /><VideoBanner /><CTASection /></PageTransition>);
+  return (
+    <PageTransition>
+      {content.hero.visible !== false && <HeroSection />}
+      {content.featured.visible !== false && <FeaturedSection />}
+      {content.videoBanner?.visible !== false && <VideoBanner />}
+      {content.cta.visible !== false && <CTASection />}
+    </PageTransition>
+  );
 }

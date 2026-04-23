@@ -1,10 +1,14 @@
 {
   "hero": {
+    "visible": true,
     "content": {
+      "name1": "Ahmed",
+      "name2": "Abuzenada",
       "subtitle": "Filmmaker",
       "description": " ",
       "heroVideo": "/uploads/136726-764934405_small.mp4",
-      "bannerVideo": "/uploads/239444_small.mp4"
+      "bannerVideo": "/uploads/239444_small.mp4",
+      "buttonText": "View My Work"
     },
     "elements": {
       "titleMarginBottom": 36,
@@ -27,9 +31,11 @@
     }
   },
   "featured": {
+    "visible": true,
     "content": {
       "label": "Selected Work",
-      "title": "Featured Projects"
+      "title": "Featured Projects",
+      "buttonText": "View All Work"
     },
     "elements": {
       "labelMarginBottom": 12,
@@ -52,7 +58,11 @@
       "paddingBottom": 160
     }
   },
+  "videoBanner": {
+    "visible": true
+  },
   "cta": {
+    "visible": true,
     "content": {
       "label": "Let's Collaborate",
       "title": "Have a vision? Let's bring it to life.",

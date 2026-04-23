@@ -49,6 +49,7 @@ export default function About() {
   return (
     <PageTransition>
       {/* 1. Hero Banner */}
+      {hb.visible !== false && (
       <section className="relative h-[50vh] min-h-[350px] w-full overflow-hidden flex items-end" style={box(hb.layout)}>
         <img src={hb.content.heroBackground} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-black/60 to-black/30" />
@@ -61,8 +62,10 @@ export default function About() {
           </motion.h1>
         </div>
       </section>
+      )}
 
       {/* 2. Intro */}
+      {intro.visible !== false && (
       <section ref={heroRef} style={box(intro.layout)}>
         <div className="container-main" style={{ textAlign: intro.layout.align as Align }}>
           <div className={intro.layout.align === 'center' ? 'max-w-2xl mx-auto' : 'max-w-2xl'}>
@@ -72,9 +75,10 @@ export default function About() {
           </div>
         </div>
       </section>
+      )}
 
       {/* 3. Photo Gallery */}
-      {gallery && gallery.content && gallery.content.photos && gallery.content.photos.length > 0 && (
+      {gallery.visible !== false && gallery && gallery.content && gallery.content.photos && gallery.content.photos.length > 0 && (
         <section className="border-t border-[var(--color-border)]" style={box(gallery.layout)}>
           <div className="container-main" style={{ textAlign: gallery.layout.align as Align }}>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
@@ -94,6 +98,7 @@ export default function About() {
       )}
 
       {/* 4. Philosophy & Expertise */}
+      {phil.visible !== false && (
       <section className="border-t border-[var(--color-border)]" style={box(phil.layout)}>
         <div className="container-main">
           <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: phil.layout.gridGap }}>
@@ -118,8 +123,10 @@ export default function About() {
           </div>
         </div>
       </section>
+      )}
 
       {/* 5. Timeline */}
+      {tl.visible !== false && (
       <section className="border-t border-[var(--color-border)]" style={box(tl.layout)}>
         <div className="container-main" style={{ textAlign: tl.layout.align as Align }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
@@ -141,8 +148,10 @@ export default function About() {
           </div>
         </div>
       </section>
+      )}
 
       {/* 6. Quote */}
+      {q.visible !== false && (
       <section className="border-t border-[var(--color-border)]" style={box(q.layout)}>
         <div className="container-main max-w-[700px]" style={{ textAlign: q.layout.align as Align }}>
           <motion.div initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
@@ -152,6 +161,7 @@ export default function About() {
           </motion.div>
         </div>
       </section>
+      )}
     </PageTransition>
   );
 }

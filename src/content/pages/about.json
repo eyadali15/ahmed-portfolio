@@ -1,5 +1,6 @@
 {
   "heroBanner": {
+    "visible": true,
     "content": {
       "heroBackground": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1920&q=80",
       "label": "About",
@@ -17,6 +18,7 @@
     }
   },
   "intro": {
+    "visible": true,
     "content": {
       "text1": "I'm Ahmed Hany Abuzenada — an award-winning Saudi filmmaker and assistant director passionate about making a change through storytelling.",
       "text2": "My work sits at the intersection of technical precision and emotional resonance. Every frame serves the story, every cut feels intentional."
@@ -34,6 +36,7 @@
     }
   },
   "gallery": {
+    "visible": true,
     "content": {
       "label": "Behind the Scenes",
       "title": "The Filmmaker",
@@ -60,6 +63,7 @@
     }
   },
   "philosophy": {
+    "visible": true,
     "content": {
       "title1": "Philosophy",
       "text1": "Cinema is more than entertainment — it's a mirror reflecting our shared humanity. Every project begins with: what truth are we trying to reveal?",
@@ -81,6 +85,7 @@
     }
   },
   "timeline": {
+    "visible": true,
     "content": {
       "label": "Journey",
       "title": "Career Timeline"
@@ -99,6 +104,7 @@
     }
   },
   "quote": {
+    "visible": true,
     "content": {
       "text": "Every frame is an opportunity to reveal something true about the world we live in.",
       "author": "Ahmed Hany Abuzenada"
