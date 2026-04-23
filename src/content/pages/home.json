@@ -2,7 +2,7 @@
   "hero": {
     "content": {
       "subtitle": "Filmmaker",
-      "description": " ,",
+      "description": " ",
       "heroVideo": "/uploads/136726-764934405_small.mp4",
       "bannerVideo": "/uploads/239444_small.mp4"
     },
@@ -14,7 +14,7 @@
     },
     "layout": {
       "paddingTop": 0,
-      "align": "center",
+      "align": "right",
       "gapAfter": 0,
       "marginTop": 0,
       "paddingRight": 24,
