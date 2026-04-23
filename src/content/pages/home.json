@@ -35,7 +35,7 @@
     "content": {
       "label": "Selected Work",
       "title": "Projects",
-      "buttonText": "Portfolio"
+      "buttonText": "Show All"
     },
     "elements": {
       "labelMarginBottom": 12,
