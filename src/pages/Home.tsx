@@ -63,7 +63,9 @@ function FeaturedSection() {
   useEffect(() => {
     if (!ref.current) return;
     ref.current.querySelectorAll('.featured-card').forEach((card, i) => {
-      gsap.fromTo(card, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, delay: i * 0.15, ease: 'power3.out', scrollTrigger: { trigger: card, start: 'top 88%', once: true } });
+      gsap.fromTo(card, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: i * 0.12, ease: 'power3.out',
+        scrollTrigger: { trigger: card, start: 'top 95%', once: true, toggleActions: 'play none none none' }
+      });
     });
   }, []);
 

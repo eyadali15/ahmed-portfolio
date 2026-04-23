@@ -17,7 +17,7 @@ export default function VideoBanner() {
   const fallbackImage = vb.content?.fallbackImage || '';
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
+    const check = () => setIsMobile(window.innerWidth < 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
     check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
@@ -42,23 +42,14 @@ export default function VideoBanner() {
 
   return (
     <div ref={containerRef} className="relative w-full h-[50vh] md:h-[65vh] lg:h-[75vh] overflow-hidden">
-      {/* Mobile: show static image, Desktop: show video */}
+      {/* Desktop: parallax video, Mobile: static background */}
       {isMobile ? (
         <div className="absolute inset-0">
           {fallbackImage ? (
             <img src={fallbackImage} alt="" className="w-full h-full object-cover" />
           ) : (
-            <video
-              ref={videoRef}
-              muted
-              playsInline
-              autoPlay
-              loop
-              poster={fallbackImage || undefined}
-              className="w-full h-full object-cover"
-            >
-              <source src={videoSrc} type="video/mp4" />
-            </video>
+            /* No fallback image provided: use a dark cinematic gradient background on mobile */
+            <div className="w-full h-full bg-gradient-to-br from-[#0a0a0a] via-[#1a1a2e] to-[#0f0f0f]" />
           )}
         </div>
       ) : (
@@ -91,11 +82,15 @@ export default function VideoBanner() {
         </div>
       </div>
 
-      {/* Scan line */}
-      <div className="absolute inset-0 z-[4] pointer-events-none overflow-hidden">
-        <div className="absolute left-0 right-0 h-px bg-white/10" style={{ animation: 'scanline 4s linear infinite' }} />
-      </div>
-      <style>{`@keyframes scanline { 0% { top: -2%; } 100% { top: 102%; } }`}</style>
+      {/* Scan line - desktop only */}
+      {!isMobile && (
+        <>
+          <div className="absolute inset-0 z-[4] pointer-events-none overflow-hidden">
+            <div className="absolute left-0 right-0 h-px bg-white/10" style={{ animation: 'scanline 4s linear infinite' }} />
+          </div>
+          <style>{`@keyframes scanline { 0% { top: -2%; } 100% { top: 102%; } }`}</style>
+        </>
+      )}
     </div>
   );
 }
