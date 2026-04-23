@@ -4,12 +4,12 @@
     "content": {
       "name1": "Ahmed",
       "name2": "Abuzenada",
-      "subtitle": "Filmmaker",
+      "subtitle": "Film & Commercial Director",
       "description": " ",
       "heroVideo": "/uploads/136726-764934405_small.mp4",
       "heroPoster": "",
       "bannerVideo": "/uploads/239444_small.mp4",
-      "buttonText": "View My Work"
+      "buttonText": "Portfolio"
     },
     "elements": {
       "titleMarginBottom": 36,
@@ -35,8 +35,8 @@
     "visible": true,
     "content": {
       "label": "Selected Work",
-      "title": "Featured Projects",
-      "buttonText": "View All Work"
+      "title": "Projects",
+      "buttonText": "Show All"
     },
     "elements": {
       "labelMarginBottom": 12,
@@ -72,8 +72,8 @@
     "visible": true,
     "content": {
       "label": "Let's Collaborate",
-      "title": "Have a vision? Let's bring it to life.",
-      "description": "Whether it's a commercial, documentary, or narrative film — every great project starts with a conversation.",
+      "title": "Always eager for the next adventure.",
+      "description": "Whether it's a commercial, documentary, or narrative film, every great project starts with a conversation.",
       "buttonText": "Start a Conversation"
     },
     "elements": {

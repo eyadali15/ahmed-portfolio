@@ -3,18 +3,25 @@
     "visible": true,
     "content": {
       "heroBackground": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1920&q=80",
-      "label": "About",
-      "title": "The art of seeing differently"
+      "label": " ",
+      "title": "About"
     },
     "elements": {
       "labelMarginBottom": 16,
       "titleMarginBottom": 0
     },
     "layout": {
+      "paddingTop": 0,
       "align": "left",
-      "paddingTop": 0, "paddingRight": 0, "paddingBottom": 48, "paddingLeft": 0,
-      "marginTop": 0, "marginRight": 0, "marginBottom": 0, "marginLeft": 0,
-      "gridGap": 0, "gapAfter": 0
+      "gapAfter": 0,
+      "marginTop": 0,
+      "paddingRight": 0,
+      "marginRight": 0,
+      "gridGap": 0,
+      "marginLeft": 0,
+      "paddingLeft": 0,
+      "marginBottom": 0,
+      "paddingBottom": 48
     }
   },
   "intro": {
@@ -29,10 +36,17 @@
       "text2MarginBottom": 0
     },
     "layout": {
+      "paddingTop": 80,
       "align": "left",
-      "paddingTop": 80, "paddingRight": 0, "paddingBottom": 80, "paddingLeft": 0,
-      "marginTop": 0, "marginRight": 0, "marginBottom": 0, "marginLeft": 0,
-      "gridGap": 0, "gapAfter": 0
+      "gapAfter": 0,
+      "marginTop": 0,
+      "paddingRight": 0,
+      "marginRight": 0,
+      "gridGap": 0,
+      "marginLeft": 0,
+      "paddingLeft": 0,
+      "marginBottom": 0,
+      "paddingBottom": 80
     }
   },
   "gallery": {
@@ -56,10 +70,17 @@
       "titleMarginBottom": 48
     },
     "layout": {
+      "paddingTop": 96,
       "align": "left",
-      "paddingTop": 96, "paddingRight": 0, "paddingBottom": 96, "paddingLeft": 0,
-      "marginTop": 0, "marginRight": 0, "marginBottom": 0, "marginLeft": 0,
-      "gridGap": 8, "gapAfter": 0
+      "gapAfter": 0,
+      "marginTop": 0,
+      "paddingRight": 0,
+      "marginRight": 0,
+      "gridGap": 8,
+      "marginLeft": 0,
+      "paddingLeft": 0,
+      "marginBottom": 0,
+      "paddingBottom": 96
     }
   },
   "philosophy": {
@@ -84,10 +105,17 @@
       "expertiseItemGap": 32
     },
     "layout": {
+      "paddingTop": 96,
       "align": "left",
-      "paddingTop": 96, "paddingRight": 0, "paddingBottom": 96, "paddingLeft": 0,
-      "marginTop": 0, "marginRight": 0, "marginBottom": 0, "marginLeft": 0,
-      "gridGap": 80, "gapAfter": 0
+      "gapAfter": 0,
+      "marginTop": 0,
+      "paddingRight": 0,
+      "marginRight": 0,
+      "gridGap": 80,
+      "marginLeft": 0,
+      "paddingLeft": 0,
+      "marginBottom": 0,
+      "paddingBottom": 96
     }
   },
   "timeline": {
@@ -111,10 +139,17 @@
       "itemTitleMarginBottom": 12
     },
     "layout": {
+      "paddingTop": 96,
       "align": "left",
-      "paddingTop": 96, "paddingRight": 0, "paddingBottom": 96, "paddingLeft": 0,
-      "marginTop": 0, "marginRight": 0, "marginBottom": 0, "marginLeft": 0,
-      "gridGap": 64, "gapAfter": 0
+      "gapAfter": 0,
+      "marginTop": 0,
+      "paddingRight": 0,
+      "marginRight": 0,
+      "gridGap": 64,
+      "marginLeft": 0,
+      "paddingLeft": 0,
+      "marginBottom": 0,
+      "paddingBottom": 96
     }
   },
   "quote": {
@@ -128,10 +163,17 @@
       "quoteMarginBottom": 32
     },
     "layout": {
+      "paddingTop": 112,
       "align": "center",
-      "paddingTop": 112, "paddingRight": 0, "paddingBottom": 112, "paddingLeft": 0,
-      "marginTop": 0, "marginRight": 0, "marginBottom": 0, "marginLeft": 0,
-      "gridGap": 0, "gapAfter": 0
+      "gapAfter": 0,
+      "marginTop": 0,
+      "paddingRight": 0,
+      "marginRight": 0,
+      "gridGap": 0,
+      "marginLeft": 0,
+      "paddingLeft": 0,
+      "marginBottom": 0,
+      "paddingBottom": 112
     }
   }
 }
