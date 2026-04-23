@@ -29,8 +29,8 @@ collections:
       - { label: "Your Role", name: "role", widget: "string" }
       - { label: "Category", name: "category", widget: "select", options: [{ label: "Commercial", value: "commercial" }, { label: "Film", value: "film" }, { label: "Documentary", value: "documentary" }] }
       - { label: "Year", name: "year", widget: "number", value_type: "int", min: 2015, max: 2030 }
-      - { label: "Vimeo Video ID", name: "vimeoId", widget: "string" }
-      - { label: "Thumbnail Image", name: "thumbnail", widget: "image", required: true }
+      - { label: "Vimeo Video ID", name: "vimeoId", widget: "string", hint: "Enter the Vimeo video ID. Thumbnail will be auto-generated if left empty below." }
+      - { label: "Thumbnail Image", name: "thumbnail", widget: "image", required: false, hint: "Leave empty to auto-use Vimeo thumbnail (https://vumbnail.com/{vimeoId}.jpg)" }
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Featured on Homepage?", name: "featured", widget: "boolean", default: false }
       - { label: "Credits", name: "credits", widget: "list", summary: "{{fields.role}} — {{fields.name}}", fields: [{ label: "Role", name: "role", widget: "string" }, { label: "Name", name: "name", widget: "string" }] }
@@ -58,23 +58,24 @@ collections:
                   - { label: "Subtitle", name: "subtitle", widget: "string" }
                   - { label: "Description", name: "description", widget: "string" }
                   - { label: "Button Text", name: "buttonText", widget: "string", default: "View My Work" }
-                  - { label: "🎬 Hero Video Background", name: "heroVideo", widget: "file", default: "/videos/banner.mp4", hint: "Upload MP4 video for the hero section background" }
-                  - { label: "🎬 Banner Video (mid-page)", name: "bannerVideo", widget: "file", default: "/videos/banner.mp4", hint: "Upload MP4 video for the video banner section" }
-              - label: "🔤 Element Spacing"
+                  - { label: "🎬 Hero Video Background", name: "heroVideo", widget: "file", default: "/videos/banner.mp4" }
+                  - { label: "🖼️ Hero Poster (mobile fallback)", name: "heroPoster", widget: "image", required: false, hint: "Image shown while video loads on mobile" }
+                  - { label: "🎬 Banner Video (mid-page)", name: "bannerVideo", widget: "file", default: "/videos/banner.mp4" }
+              - label: "📐 Spacing"
                 name: "elements"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "Title → margin bottom (px)", name: "titleMarginBottom", widget: "number", default: 36 }
-                  - { label: "Subtitle → margin bottom (px)", name: "subtitleMarginBottom", widget: "number", default: 20 }
-                  - { label: "Divider → margin Y (px)", name: "dividerMarginY", widget: "number", default: 24 }
-                  - { label: "Description → margin bottom (px)", name: "descriptionMarginBottom", widget: "number", default: 36 }
+                  - { label: "Title → margin bottom", name: "titleMarginBottom", widget: "number", default: 36 }
+                  - { label: "Subtitle → margin bottom", name: "subtitleMarginBottom", widget: "number", default: 20 }
+                  - { label: "Divider → margin Y", name: "dividerMarginY", widget: "number", default: 24 }
+                  - { label: "Description → margin bottom", name: "descriptionMarginBottom", widget: "number", default: 36 }
               - label: "📐 Section Layout"
                 name: "layout"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "▸ Position", name: "align", widget: "select", options: ["left", "center", "right"], default: "center" }
+                  - { label: "Align", name: "align", widget: "select", options: ["left", "center", "right"], default: "center" }
                   - { label: "Padding Top", name: "paddingTop", widget: "number", default: 0 }
                   - { label: "Padding Bottom", name: "paddingBottom", widget: "number", default: 0 }
                   - { label: "Padding Left", name: "paddingLeft", widget: "number", default: 24 }
@@ -99,22 +100,22 @@ collections:
                   - { label: "Label", name: "label", widget: "string" }
                   - { label: "Title", name: "title", widget: "string" }
                   - { label: "Button Text", name: "buttonText", widget: "string", default: "View All Work" }
-              - label: "🔤 Element Spacing"
+              - label: "📐 Spacing"
                 name: "elements"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "Label → margin bottom (px)", name: "labelMarginBottom", widget: "number", default: 12 }
-                  - { label: "Title → margin bottom (px)", name: "titleMarginBottom", widget: "number", default: 0 }
-                  - { label: "Title → Grid gap (px)", name: "titleToGridGap", widget: "number", default: 80 }
-                  - { label: "Grid → Button gap (px)", name: "gridToButtonGap", widget: "number", default: 112 }
+                  - { label: "Label → margin bottom", name: "labelMarginBottom", widget: "number", default: 12 }
+                  - { label: "Title → margin bottom", name: "titleMarginBottom", widget: "number", default: 0 }
+                  - { label: "Title → Grid gap", name: "titleToGridGap", widget: "number", default: 80 }
+                  - { label: "Grid → Button gap", name: "gridToButtonGap", widget: "number", default: 112 }
               - label: "📐 Section Layout"
                 name: "layout"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "▸ Title Position", name: "align", widget: "select", options: ["left", "center", "right"], default: "left" }
-                  - { label: "▸ Button Position", name: "buttonAlign", widget: "select", options: ["left", "center", "right"], default: "center" }
+                  - { label: "Title Align", name: "align", widget: "select", options: ["left", "center", "right"], default: "left" }
+                  - { label: "Button Align", name: "buttonAlign", widget: "select", options: ["left", "center", "right"], default: "center" }
                   - { label: "Padding Top", name: "paddingTop", widget: "number", default: 160 }
                   - { label: "Padding Bottom", name: "paddingBottom", widget: "number", default: 160 }
                   - { label: "Padding Left", name: "paddingLeft", widget: "number", default: 0 }
@@ -132,6 +133,14 @@ collections:
             collapsed: true
             fields:
               - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
+              - label: "📝 Content"
+                name: "content"
+                widget: "object"
+                fields:
+                  - { label: "Label", name: "label", widget: "string", default: "Behind the Lens" }
+                  - { label: "Title Part 1", name: "titlePart1", widget: "string", default: "Where Stories" }
+                  - { label: "Title Part 2 (accent)", name: "titlePart2", widget: "string", default: "Come Alive" }
+                  - { label: "🖼️ Fallback Image (mobile)", name: "fallbackImage", widget: "image", required: false, hint: "Shown on mobile instead of video" }
 
           - label: "4️⃣ Call to Action"
             name: "cta"
@@ -147,22 +156,22 @@ collections:
                   - { label: "Title", name: "title", widget: "string" }
                   - { label: "Description", name: "description", widget: "text" }
                   - { label: "Button Text", name: "buttonText", widget: "string" }
-              - label: "🔤 Element Spacing"
+              - label: "📐 Spacing"
                 name: "elements"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "Label → margin bottom (px)", name: "labelMarginBottom", widget: "number", default: 32 }
-                  - { label: "Title → margin bottom (px)", name: "titleMarginBottom", widget: "number", default: 40 }
-                  - { label: "Description → padding top (px)", name: "descriptionPaddingTop", widget: "number", default: 36 }
-                  - { label: "Description → margin bottom (px)", name: "descriptionMarginBottom", widget: "number", default: 96 }
-                  - { label: "Button → margin top (px)", name: "buttonMarginTop", widget: "number", default: 20 }
+                  - { label: "Label → margin bottom", name: "labelMarginBottom", widget: "number", default: 32 }
+                  - { label: "Title → margin bottom", name: "titleMarginBottom", widget: "number", default: 40 }
+                  - { label: "Description → padding top", name: "descriptionPaddingTop", widget: "number", default: 36 }
+                  - { label: "Description → margin bottom", name: "descriptionMarginBottom", widget: "number", default: 96 }
+                  - { label: "Button → margin top", name: "buttonMarginTop", widget: "number", default: 20 }
               - label: "📐 Section Layout"
                 name: "layout"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "▸ Position", name: "align", widget: "select", options: ["left", "center", "right"], default: "center" }
+                  - { label: "Align", name: "align", widget: "select", options: ["left", "center", "right"], default: "center" }
                   - { label: "Padding Top", name: "paddingTop", widget: "number", default: 176 }
                   - { label: "Padding Bottom", name: "paddingBottom", widget: "number", default: 176 }
                   - { label: "Padding Left", name: "paddingLeft", widget: "number", default: 0 }
@@ -187,7 +196,7 @@ collections:
             widget: "object"
             collapsed: true
             fields:
-              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
+              - { label: "👁️ Show", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
@@ -195,19 +204,19 @@ collections:
                   - { label: "Background Image", name: "heroBackground", widget: "image" }
                   - { label: "Label", name: "label", widget: "string" }
                   - { label: "Title", name: "title", widget: "string" }
-              - label: "🔤 Element Spacing"
+              - label: "📐 Spacing"
                 name: "elements"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "Label → margin bottom (px)", name: "labelMarginBottom", widget: "number", default: 16 }
-                  - { label: "Title → margin bottom (px)", name: "titleMarginBottom", widget: "number", default: 0 }
+                  - { label: "Label → margin bottom", name: "labelMarginBottom", widget: "number", default: 16 }
+                  - { label: "Title → margin bottom", name: "titleMarginBottom", widget: "number", default: 0 }
               - label: "📐 Section Layout"
                 name: "layout"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "▸ Position", name: "align", widget: "select", options: ["left", "center", "right"], default: "left" }
+                  - { label: "Align", name: "align", widget: "select", options: ["left", "center", "right"], default: "left" }
                   - { label: "Padding Top", name: "paddingTop", widget: "number", default: 0 }
                   - { label: "Padding Bottom", name: "paddingBottom", widget: "number", default: 48 }
                   - { label: "Padding Left", name: "paddingLeft", widget: "number", default: 0 }
@@ -217,34 +226,34 @@ collections:
                   - { label: "Margin Left", name: "marginLeft", widget: "number", default: 0 }
                   - { label: "Margin Right", name: "marginRight", widget: "number", default: 0 }
                   - { label: "Grid Gap", name: "gridGap", widget: "number", default: 0 }
-                  - { label: "Gap After Section", name: "gapAfter", widget: "number", default: 0 }
+                  - { label: "Gap After", name: "gapAfter", widget: "number", default: 0 }
 
           - label: "2️⃣ Introduction"
             name: "intro"
             widget: "object"
             collapsed: true
             fields:
-              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
+              - { label: "👁️ Show", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
                 fields:
                   - { label: "Paragraph 1", name: "text1", widget: "text" }
                   - { label: "Paragraph 2", name: "text2", widget: "text" }
-              - label: "🔤 Element Spacing"
+              - label: "📐 Spacing"
                 name: "elements"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "Divider → margin bottom (px)", name: "dividerMarginBottom", widget: "number", default: 32 }
-                  - { label: "Paragraph 1 → margin bottom (px)", name: "text1MarginBottom", widget: "number", default: 24 }
-                  - { label: "Paragraph 2 → margin bottom (px)", name: "text2MarginBottom", widget: "number", default: 0 }
+                  - { label: "Divider → margin bottom", name: "dividerMarginBottom", widget: "number", default: 32 }
+                  - { label: "Text 1 → margin bottom", name: "text1MarginBottom", widget: "number", default: 24 }
+                  - { label: "Text 2 → margin bottom", name: "text2MarginBottom", widget: "number", default: 0 }
               - label: "📐 Section Layout"
                 name: "layout"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "▸ Position", name: "align", widget: "select", options: ["left", "center", "right"], default: "left" }
+                  - { label: "Align", name: "align", widget: "select", options: ["left", "center", "right"], default: "left" }
                   - { label: "Padding Top", name: "paddingTop", widget: "number", default: 80 }
                   - { label: "Padding Bottom", name: "paddingBottom", widget: "number", default: 80 }
                   - { label: "Padding Left", name: "paddingLeft", widget: "number", default: 0 }
@@ -254,14 +263,14 @@ collections:
                   - { label: "Margin Left", name: "marginLeft", widget: "number", default: 0 }
                   - { label: "Margin Right", name: "marginRight", widget: "number", default: 0 }
                   - { label: "Grid Gap", name: "gridGap", widget: "number", default: 0 }
-                  - { label: "Gap After Section", name: "gapAfter", widget: "number", default: 0 }
+                  - { label: "Gap After", name: "gapAfter", widget: "number", default: 0 }
 
           - label: "3️⃣ Photo Gallery"
             name: "gallery"
             widget: "object"
             collapsed: true
             fields:
-              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
+              - { label: "👁️ Show", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
@@ -269,19 +278,19 @@ collections:
                   - { label: "Label", name: "label", widget: "string" }
                   - { label: "Title", name: "title", widget: "string" }
                   - { label: "Photos", name: "photos", widget: "list", field: { label: "Photo", name: "photo", widget: "image" } }
-              - label: "🔤 Element Spacing"
+              - label: "📐 Spacing"
                 name: "elements"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "Label → margin bottom (px)", name: "labelMarginBottom", widget: "number", default: 16 }
-                  - { label: "Title → margin bottom (px)", name: "titleMarginBottom", widget: "number", default: 48 }
+                  - { label: "Label → margin bottom", name: "labelMarginBottom", widget: "number", default: 16 }
+                  - { label: "Title → margin bottom", name: "titleMarginBottom", widget: "number", default: 48 }
               - label: "📐 Section Layout"
                 name: "layout"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "▸ Position", name: "align", widget: "select", options: ["left", "center", "right"], default: "left" }
+                  - { label: "Align", name: "align", widget: "select", options: ["left", "center", "right"], default: "left" }
                   - { label: "Padding Top", name: "paddingTop", widget: "number", default: 96 }
                   - { label: "Padding Bottom", name: "paddingBottom", widget: "number", default: 96 }
                   - { label: "Padding Left", name: "paddingLeft", widget: "number", default: 0 }
@@ -290,15 +299,15 @@ collections:
                   - { label: "Margin Bottom", name: "marginBottom", widget: "number", default: 0 }
                   - { label: "Margin Left", name: "marginLeft", widget: "number", default: 0 }
                   - { label: "Margin Right", name: "marginRight", widget: "number", default: 0 }
-                  - { label: "Grid Gap (between photos)", name: "gridGap", widget: "number", default: 8 }
-                  - { label: "Gap After Section", name: "gapAfter", widget: "number", default: 0 }
+                  - { label: "Grid Gap (photos)", name: "gridGap", widget: "number", default: 8 }
+                  - { label: "Gap After", name: "gapAfter", widget: "number", default: 0 }
 
           - label: "4️⃣ Philosophy & Expertise"
             name: "philosophy"
             widget: "object"
             collapsed: true
             fields:
-              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
+              - { label: "👁️ Show", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
@@ -307,22 +316,29 @@ collections:
                   - { label: "Philosophy Text 1", name: "text1", widget: "text" }
                   - { label: "Philosophy Text 2", name: "text2", widget: "text" }
                   - { label: "Expertise Title", name: "title2", widget: "string" }
-              - label: "🔤 Element Spacing"
+                  - label: "Expertise Items"
+                    name: "expertiseItems"
+                    widget: "list"
+                    summary: "{{fields.title}}"
+                    fields:
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Description", name: "description", widget: "string" }
+              - label: "📐 Spacing"
                 name: "elements"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "Title → margin bottom (px)", name: "titleMarginBottom", widget: "number", default: 24 }
-                  - { label: "Divider → margin bottom (px)", name: "dividerMarginBottom", widget: "number", default: 32 }
-                  - { label: "Text 1 → margin bottom (px)", name: "text1MarginBottom", widget: "number", default: 24 }
-                  - { label: "Expertise item → padding bottom (px)", name: "expertiseItemPaddingBottom", widget: "number", default: 24 }
-                  - { label: "Expertise items → gap (px)", name: "expertiseItemGap", widget: "number", default: 32 }
+                  - { label: "Title → margin bottom", name: "titleMarginBottom", widget: "number", default: 24 }
+                  - { label: "Divider → margin bottom", name: "dividerMarginBottom", widget: "number", default: 32 }
+                  - { label: "Text 1 → margin bottom", name: "text1MarginBottom", widget: "number", default: 24 }
+                  - { label: "Expertise item → padding bottom", name: "expertiseItemPaddingBottom", widget: "number", default: 24 }
+                  - { label: "Expertise items → gap", name: "expertiseItemGap", widget: "number", default: 32 }
               - label: "📐 Section Layout"
                 name: "layout"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "▸ Position", name: "align", widget: "select", options: ["left", "center", "right"], default: "left" }
+                  - { label: "Align", name: "align", widget: "select", options: ["left", "center", "right"], default: "left" }
                   - { label: "Padding Top", name: "paddingTop", widget: "number", default: 96 }
                   - { label: "Padding Bottom", name: "paddingBottom", widget: "number", default: 96 }
                   - { label: "Padding Left", name: "paddingLeft", widget: "number", default: 0 }
@@ -331,36 +347,44 @@ collections:
                   - { label: "Margin Bottom", name: "marginBottom", widget: "number", default: 0 }
                   - { label: "Margin Left", name: "marginLeft", widget: "number", default: 0 }
                   - { label: "Margin Right", name: "marginRight", widget: "number", default: 0 }
-                  - { label: "Grid Gap (between columns)", name: "gridGap", widget: "number", default: 80 }
-                  - { label: "Gap After Section", name: "gapAfter", widget: "number", default: 0 }
+                  - { label: "Grid Gap (columns)", name: "gridGap", widget: "number", default: 80 }
+                  - { label: "Gap After", name: "gapAfter", widget: "number", default: 0 }
 
           - label: "5️⃣ Career Timeline"
             name: "timeline"
             widget: "object"
             collapsed: true
             fields:
-              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
+              - { label: "👁️ Show", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
                 fields:
                   - { label: "Label", name: "label", widget: "string" }
                   - { label: "Title", name: "title", widget: "string" }
-              - label: "🔤 Element Spacing"
+                  - label: "Milestones"
+                    name: "milestones"
+                    widget: "list"
+                    summary: "{{fields.year}} — {{fields.title}}"
+                    fields:
+                      - { label: "Year", name: "year", widget: "string" }
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Description", name: "description", widget: "text" }
+              - label: "📐 Spacing"
                 name: "elements"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "Label → margin bottom (px)", name: "labelMarginBottom", widget: "number", default: 16 }
-                  - { label: "Title → margin bottom (px)", name: "titleMarginBottom", widget: "number", default: 64 }
-                  - { label: "Year text → margin bottom (px)", name: "yearMarginBottom", widget: "number", default: 12 }
-                  - { label: "Item title → margin bottom (px)", name: "itemTitleMarginBottom", widget: "number", default: 12 }
+                  - { label: "Label → margin bottom", name: "labelMarginBottom", widget: "number", default: 16 }
+                  - { label: "Title → margin bottom", name: "titleMarginBottom", widget: "number", default: 64 }
+                  - { label: "Year → margin bottom", name: "yearMarginBottom", widget: "number", default: 12 }
+                  - { label: "Item title → margin bottom", name: "itemTitleMarginBottom", widget: "number", default: 12 }
               - label: "📐 Section Layout"
                 name: "layout"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "▸ Position", name: "align", widget: "select", options: ["left", "center", "right"], default: "left" }
+                  - { label: "Align", name: "align", widget: "select", options: ["left", "center", "right"], default: "left" }
                   - { label: "Padding Top", name: "paddingTop", widget: "number", default: 96 }
                   - { label: "Padding Bottom", name: "paddingBottom", widget: "number", default: 96 }
                   - { label: "Padding Left", name: "paddingLeft", widget: "number", default: 0 }
@@ -369,34 +393,34 @@ collections:
                   - { label: "Margin Bottom", name: "marginBottom", widget: "number", default: 0 }
                   - { label: "Margin Left", name: "marginLeft", widget: "number", default: 0 }
                   - { label: "Margin Right", name: "marginRight", widget: "number", default: 0 }
-                  - { label: "Grid Gap (between items)", name: "gridGap", widget: "number", default: 64 }
-                  - { label: "Gap After Section", name: "gapAfter", widget: "number", default: 0 }
+                  - { label: "Grid Gap (items)", name: "gridGap", widget: "number", default: 64 }
+                  - { label: "Gap After", name: "gapAfter", widget: "number", default: 0 }
 
           - label: "6️⃣ Quote"
             name: "quote"
             widget: "object"
             collapsed: true
             fields:
-              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
+              - { label: "👁️ Show", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
                 fields:
                   - { label: "Quote Text", name: "text", widget: "string" }
                   - { label: "Author", name: "author", widget: "string" }
-              - label: "🔤 Element Spacing"
+              - label: "📐 Spacing"
                 name: "elements"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "Icon → margin bottom (px)", name: "iconMarginBottom", widget: "number", default: 32 }
-                  - { label: "Quote → margin bottom (px)", name: "quoteMarginBottom", widget: "number", default: 32 }
+                  - { label: "Icon → margin bottom", name: "iconMarginBottom", widget: "number", default: 32 }
+                  - { label: "Quote → margin bottom", name: "quoteMarginBottom", widget: "number", default: 32 }
               - label: "📐 Section Layout"
                 name: "layout"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "▸ Position", name: "align", widget: "select", options: ["left", "center", "right"], default: "center" }
+                  - { label: "Align", name: "align", widget: "select", options: ["left", "center", "right"], default: "center" }
                   - { label: "Padding Top", name: "paddingTop", widget: "number", default: 112 }
                   - { label: "Padding Bottom", name: "paddingBottom", widget: "number", default: 112 }
                   - { label: "Padding Left", name: "paddingLeft", widget: "number", default: 0 }
@@ -406,9 +430,9 @@ collections:
                   - { label: "Margin Left", name: "marginLeft", widget: "number", default: 0 }
                   - { label: "Margin Right", name: "marginRight", widget: "number", default: 0 }
                   - { label: "Grid Gap", name: "gridGap", widget: "number", default: 0 }
-                  - { label: "Gap After Section", name: "gapAfter", widget: "number", default: 0 }
+                  - { label: "Gap After", name: "gapAfter", widget: "number", default: 0 }
 
-  # ─── WORK / PROJECT DETAIL PAGE ───
+  # ─── WORK PAGE (detail spacing) ───
   - name: "workpage"
     label: "🎬 Work Page"
     files:
@@ -420,25 +444,25 @@ collections:
             name: "detail"
             widget: "object"
             fields:
-              - { label: "⬆️ Top Spacer (navbar clearance)", name: "topSpacerHeight", widget: "number", default: 100 }
-              - { label: "⬅️ Back Button — text size (CSS class)", name: "backButtonSize", widget: "select", options: ["text-xs", "text-sm", "text-base", "text-lg"], default: "text-sm" }
-              - { label: "⬅️ Back Button — padding Y (px)", name: "backButtonPaddingY", widget: "number", default: 12 }
-              - { label: "⬅️ Back Button — padding X (px)", name: "backButtonPaddingX", widget: "number", default: 24 }
-              - { label: "🎬 Video → margin below (px)", name: "videoMarginBottom", widget: "number", default: 48 }
-              - { label: "📂 Category → margin below (px)", name: "categoryMarginBottom", widget: "number", default: 16 }
-              - { label: "📝 Title → margin below (px)", name: "titleMarginBottom", widget: "number", default: 32 }
-              - { label: "📄 Description → margin below (px)", name: "descriptionMarginBottom", widget: "number", default: 48 }
-              - { label: "🎬 Credits label → margin below (px)", name: "creditsLabelMarginBottom", widget: "number", default: 24 }
-              - { label: "🎬 Credit item — padding Y (px)", name: "creditItemPaddingY", widget: "number", default: 16 }
-              - { label: "📊 Sidebar items → gap (px)", name: "sidebarItemGap", widget: "number", default: 32 }
-              - { label: "📊 Sidebar label → margin below (px)", name: "sidebarLabelMarginBottom", widget: "number", default: 8 }
-              - { label: "🔗 Related title → margin below (px)", name: "relatedTitleMarginBottom", widget: "number", default: 48 }
-              - { label: "🔗 Related grid → gap (px)", name: "relatedGridGap", widget: "number", default: 32 }
-              - { label: "🔗 Related section → padding Y (px)", name: "relatedSectionPaddingY", widget: "number", default: 64 }
-              - { label: "📐 Content max width (px)", name: "contentMaxWidth", widget: "number", default: 1000 }
-              - { label: "📐 Content padding Y (px)", name: "contentPaddingY", widget: "number", default: 32 }
-              - { label: "📐 Columns gap (px)", name: "columnsGap", widget: "number", default: 64 }
-              - { label: "📐 Show More button → margin top (px)", name: "showMoreMarginTop", widget: "number", default: 64 }
+              - { label: "Top Spacer", name: "topSpacerHeight", widget: "number", default: 100 }
+              - { label: "Back Button — size", name: "backButtonSize", widget: "select", options: ["text-xs", "text-sm", "text-base", "text-lg"], default: "text-sm" }
+              - { label: "Back Button — padding Y", name: "backButtonPaddingY", widget: "number", default: 12 }
+              - { label: "Back Button — padding X", name: "backButtonPaddingX", widget: "number", default: 24 }
+              - { label: "Video → margin below", name: "videoMarginBottom", widget: "number", default: 48 }
+              - { label: "Category → margin below", name: "categoryMarginBottom", widget: "number", default: 16 }
+              - { label: "Title → margin below", name: "titleMarginBottom", widget: "number", default: 32 }
+              - { label: "Description → margin below", name: "descriptionMarginBottom", widget: "number", default: 48 }
+              - { label: "Credits label → margin below", name: "creditsLabelMarginBottom", widget: "number", default: 24 }
+              - { label: "Credit item — padding Y", name: "creditItemPaddingY", widget: "number", default: 16 }
+              - { label: "Sidebar items → gap", name: "sidebarItemGap", widget: "number", default: 32 }
+              - { label: "Sidebar label → margin below", name: "sidebarLabelMarginBottom", widget: "number", default: 8 }
+              - { label: "Related title → margin below", name: "relatedTitleMarginBottom", widget: "number", default: 48 }
+              - { label: "Related grid → gap", name: "relatedGridGap", widget: "number", default: 32 }
+              - { label: "Related section → padding Y", name: "relatedSectionPaddingY", widget: "number", default: 64 }
+              - { label: "Content max width", name: "contentMaxWidth", widget: "number", default: 1000 }
+              - { label: "Content padding Y", name: "contentPaddingY", widget: "number", default: 32 }
+              - { label: "Columns gap", name: "columnsGap", widget: "number", default: 64 }
+              - { label: "Show More → margin top", name: "showMoreMarginTop", widget: "number", default: 64 }
 
   # ─── CONTACT PAGE ───
   - name: "contact"
@@ -453,7 +477,7 @@ collections:
             widget: "object"
             collapsed: true
             fields:
-              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
+              - { label: "👁️ Show", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
@@ -461,21 +485,21 @@ collections:
                   - { label: "Label", name: "label", widget: "string" }
                   - { label: "Title", name: "title", widget: "string" }
                   - { label: "Description", name: "description", widget: "text" }
-              - label: "🔤 Element Spacing"
+              - label: "📐 Spacing"
                 name: "elements"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "Label → margin bottom (px)", name: "labelMarginBottom", widget: "number", default: 20 }
-                  - { label: "Title → margin bottom (px)", name: "titleMarginBottom", widget: "number", default: 24 }
-                  - { label: "Divider → margin bottom (px)", name: "dividerMarginBottom", widget: "number", default: 24 }
-                  - { label: "Description → margin bottom (px)", name: "descriptionMarginBottom", widget: "number", default: 0 }
+                  - { label: "Label → margin bottom", name: "labelMarginBottom", widget: "number", default: 20 }
+                  - { label: "Title → margin bottom", name: "titleMarginBottom", widget: "number", default: 24 }
+                  - { label: "Divider → margin bottom", name: "dividerMarginBottom", widget: "number", default: 24 }
+                  - { label: "Description → margin bottom", name: "descriptionMarginBottom", widget: "number", default: 0 }
               - label: "📐 Section Layout"
                 name: "layout"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "▸ Position", name: "align", widget: "select", options: ["left", "center", "right"], default: "center" }
+                  - { label: "Align", name: "align", widget: "select", options: ["left", "center", "right"], default: "center" }
                   - { label: "Padding Top", name: "paddingTop", widget: "number", default: 64 }
                   - { label: "Padding Bottom", name: "paddingBottom", widget: "number", default: 0 }
                   - { label: "Padding Left", name: "paddingLeft", widget: "number", default: 0 }
@@ -485,14 +509,14 @@ collections:
                   - { label: "Margin Left", name: "marginLeft", widget: "number", default: 0 }
                   - { label: "Margin Right", name: "marginRight", widget: "number", default: 0 }
                   - { label: "Grid Gap", name: "gridGap", widget: "number", default: 0 }
-                  - { label: "Gap After Section", name: "gapAfter", widget: "number", default: 0 }
+                  - { label: "Gap After", name: "gapAfter", widget: "number", default: 0 }
 
           - label: "2️⃣ Contact Info & Form"
             name: "info"
             widget: "object"
             collapsed: true
             fields:
-              - { label: "👁️ Show this section", name: "visible", widget: "boolean", default: true }
+              - { label: "👁️ Show", name: "visible", widget: "boolean", default: true }
               - label: "📝 Content"
                 name: "content"
                 widget: "object"
@@ -503,19 +527,19 @@ collections:
                   - { label: "LinkedIn URL", name: "linkedinUrl", widget: "string" }
                   - { label: "WhatsApp URL", name: "whatsappUrl", widget: "string" }
                   - { label: "Form Button Text", name: "formButtonText", widget: "string", default: "Send Message" }
-              - label: "🔤 Element Spacing"
+              - label: "📐 Spacing"
                 name: "elements"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "Section label → margin bottom (px)", name: "sectionLabelMarginBottom", widget: "number", default: 12 }
-                  - { label: "Info items → gap (px)", name: "infoItemsGap", widget: "number", default: 40 }
+                  - { label: "Section label → margin bottom", name: "sectionLabelMarginBottom", widget: "number", default: 12 }
+                  - { label: "Info items → gap", name: "infoItemsGap", widget: "number", default: 40 }
               - label: "📐 Section Layout"
                 name: "layout"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - { label: "▸ Position", name: "align", widget: "select", options: ["left", "center", "right"], default: "left" }
+                  - { label: "Align", name: "align", widget: "select", options: ["left", "center", "right"], default: "left" }
                   - { label: "Padding Top", name: "paddingTop", widget: "number", default: 0 }
                   - { label: "Padding Bottom", name: "paddingBottom", widget: "number", default: 0 }
                   - { label: "Padding Left", name: "paddingLeft", widget: "number", default: 0 }
@@ -524,18 +548,92 @@ collections:
                   - { label: "Margin Bottom", name: "marginBottom", widget: "number", default: 0 }
                   - { label: "Margin Left", name: "marginLeft", widget: "number", default: 0 }
                   - { label: "Margin Right", name: "marginRight", widget: "number", default: 0 }
-                  - { label: "Grid Gap (between columns)", name: "gridGap", widget: "number", default: 80 }
-                  - { label: "Gap After Section", name: "gapAfter", widget: "number", default: 0 }
+                  - { label: "Grid Gap (columns)", name: "gridGap", widget: "number", default: 80 }
+                  - { label: "Gap After", name: "gapAfter", widget: "number", default: 0 }
 
-  # ─── GLOBAL SETTINGS ───
-  - name: "design"
-    label: "⚙️ Global Settings"
+  # ─── GLOBAL (Navbar, Footer, Work Hero, Project Labels, 404) ───
+  - name: "global"
+    label: "🌐 Global Settings"
     files:
-      - label: "Work Page, Footer & Buttons"
+      - label: "Navbar, Footer, Labels & 404"
+        name: "global"
+        file: "src/content/pages/global.json"
+        fields:
+          - label: "🧭 Navbar"
+            name: "navbar"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "First Name", name: "name1", widget: "string", default: "Ahmed" }
+              - { label: "Last Name", name: "name2", widget: "string", default: "Abuzenada" }
+
+          - label: "📌 Footer"
+            name: "footer"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "First Name", name: "name1", widget: "string" }
+              - { label: "Last Name", name: "name2", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Navigation Column Title", name: "navigationTitle", widget: "string", default: "Navigation" }
+              - { label: "Connect Column Title", name: "connectTitle", widget: "string", default: "Connect" }
+              - { label: "Vimeo URL", name: "vimeoUrl", widget: "string" }
+              - { label: "Vimeo Label", name: "vimeoLabel", widget: "string", default: "Vimeo" }
+              - { label: "Email Address", name: "email", widget: "string" }
+              - { label: "Email Label", name: "emailLabel", widget: "string", default: "Email" }
+              - { label: "LinkedIn URL", name: "linkedinUrl", widget: "string" }
+              - { label: "LinkedIn Label", name: "linkedinLabel", widget: "string", default: "LinkedIn" }
+              - { label: "WhatsApp URL", name: "whatsappUrl", widget: "string" }
+              - { label: "WhatsApp Label", name: "whatsappLabel", widget: "string", default: "WhatsApp" }
+              - { label: "Copyright Name", name: "copyrightName", widget: "string" }
+              - { label: "Tagline", name: "tagline", widget: "string" }
+
+          - label: "💼 Work Page Hero"
+            name: "workHero"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Label", name: "label", widget: "string", default: "Portfolio" }
+              - { label: "Title Part 1", name: "titlePart1", widget: "string", default: "Selected" }
+              - { label: "Title Part 2 (accent)", name: "titlePart2", widget: "string", default: "Work" }
+              - { label: "Show More Button Text", name: "showMoreText", widget: "string", default: "Show More" }
+              - { label: "No Projects Text", name: "noProjectsText", widget: "string", default: "No projects found." }
+
+          - label: "📄 Project Detail Labels"
+            name: "projectDetail"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Back Button Text", name: "backText", widget: "string", default: "Back to Work" }
+              - { label: "Credits Label", name: "creditsLabel", widget: "string", default: "Credits" }
+              - { label: "Related Projects Label", name: "relatedLabel", widget: "string", default: "Related Projects" }
+              - { label: "Not Found Title", name: "notFoundTitle", widget: "string", default: "Project Not Found" }
+              - { label: "Not Found Button", name: "notFoundButton", widget: "string", default: "Back to Work" }
+              - { label: "Client Label", name: "clientLabel", widget: "string", default: "Client" }
+              - { label: "Role Label", name: "roleLabel", widget: "string", default: "Role" }
+              - { label: "Year Label", name: "yearLabel", widget: "string", default: "Year" }
+              - { label: "Category Label", name: "categoryLabel", widget: "string", default: "Category" }
+
+          - label: "🚫 404 Page"
+            name: "notFound"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Label", name: "label", widget: "string", default: "Error 404" }
+              - { label: "Title Part 1", name: "titlePart1", widget: "string", default: "Page" }
+              - { label: "Title Part 2 (accent)", name: "titlePart2", widget: "string", default: "not found" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Button Text", name: "buttonText", widget: "string", default: "Back to Home" }
+
+  # ─── DESIGN SYSTEM ───
+  - name: "design"
+    label: "⚙️ Design System"
+    files:
+      - label: "Spacing, Buttons & Layout"
         name: "spacing"
         file: "src/content/design/spacing.json"
         fields:
-          - label: "💼 Work Page"
+          - label: "💼 Work Page Grid"
             name: "work"
             widget: "object"
             collapsed: true
@@ -547,39 +645,39 @@ collections:
               - { label: "Grid Padding Top", name: "gridPaddingTop", widget: "number", default: 36 }
               - { label: "Bottom Spacer", name: "bottomSpacerHeight", widget: "number", default: 80 }
               - { label: "Top Spacer", name: "topSpacerHeight", widget: "number", default: 110 }
-              - { label: "▸ Title Position", name: "titleAlign", widget: "select", options: ["left", "center", "right"], default: "left" }
-              - { label: "▸ Filter Position", name: "filterAlign", widget: "select", options: ["left", "center", "right"], default: "left" }
+              - { label: "Title Align", name: "titleAlign", widget: "select", options: ["left", "center", "right"], default: "left" }
+              - { label: "Filter Align", name: "filterAlign", widget: "select", options: ["left", "center", "right"], default: "left" }
               - { label: "Section Padding Y", name: "sectionPaddingY", widget: "number", default: 64 }
               - { label: "Section Padding X", name: "sectionPaddingX", widget: "number", default: 0 }
 
-          - label: "📌 Footer"
+          - label: "📌 Footer Spacing"
             name: "footer"
             widget: "object"
             collapsed: true
             fields:
-              - { label: "Padding Top & Bottom", name: "mainPaddingY", widget: "number", default: 64 }
-              - { label: "Padding Left & Right", name: "mainPaddingX", widget: "number", default: 0 }
+              - { label: "Padding Y", name: "mainPaddingY", widget: "number", default: 64 }
+              - { label: "Padding X", name: "mainPaddingX", widget: "number", default: 0 }
               - { label: "Columns Gap", name: "columnsGap", widget: "number", default: 56 }
-              - { label: "Bottom Bar Padding", name: "bottomBarPaddingY", widget: "number", default: 48 }
+              - { label: "Bottom Bar Padding Y", name: "bottomBarPaddingY", widget: "number", default: 48 }
 
           - label: "🔘 Buttons"
             name: "buttons"
             widget: "object"
             collapsed: true
             fields:
-              - { label: "▸ Style", name: "style", widget: "select", options: [{ label: "Rounded Rectangle", value: "rounded" }, { label: "Rectangle", value: "rectangle" }], default: "rounded" }
-              - { label: "Border Radius (px)", name: "borderRadius", widget: "number", default: 8, hint: "Only used when style is Rounded" }
-              - { label: "Padding Top (px)", name: "paddingTop", widget: "number", default: 16 }
-              - { label: "Padding Bottom (px)", name: "paddingBottom", widget: "number", default: 16 }
-              - { label: "Padding Left (px)", name: "paddingLeft", widget: "number", default: 32 }
-              - { label: "Padding Right (px)", name: "paddingRight", widget: "number", default: 32 }
-              - { label: "Margin Top (px)", name: "marginTop", widget: "number", default: 16 }
-              - { label: "Margin Bottom (px)", name: "marginBottom", widget: "number", default: 16 }
-              - { label: "Margin Left (px)", name: "marginLeft", widget: "number", default: 0 }
-              - { label: "Margin Right (px)", name: "marginRight", widget: "number", default: 0 }
-              - { label: "▸ Filter Style", name: "filterStyle", widget: "select", options: [{ label: "Rounded Rectangle", value: "rounded" }, { label: "Rectangle", value: "rectangle" }], default: "rounded" }
-              - { label: "Filter Border Radius (px)", name: "filterBorderRadius", widget: "number", default: 8 }
-              - { label: "Filter Padding Top (px)", name: "filterPaddingTop", widget: "number", default: 12 }
-              - { label: "Filter Padding Bottom (px)", name: "filterPaddingBottom", widget: "number", default: 12 }
-              - { label: "Filter Padding Left (px)", name: "filterPaddingLeft", widget: "number", default: 28 }
-              - { label: "Filter Padding Right (px)", name: "filterPaddingRight", widget: "number", default: 28 }
+              - { label: "Style", name: "style", widget: "select", options: [{ label: "Rounded", value: "rounded" }, { label: "Rectangle", value: "rectangle" }], default: "rounded" }
+              - { label: "Border Radius", name: "borderRadius", widget: "number", default: 8 }
+              - { label: "Padding Top", name: "paddingTop", widget: "number", default: 16 }
+              - { label: "Padding Bottom", name: "paddingBottom", widget: "number", default: 16 }
+              - { label: "Padding Left", name: "paddingLeft", widget: "number", default: 32 }
+              - { label: "Padding Right", name: "paddingRight", widget: "number", default: 32 }
+              - { label: "Margin Top", name: "marginTop", widget: "number", default: 16 }
+              - { label: "Margin Bottom", name: "marginBottom", widget: "number", default: 16 }
+              - { label: "Margin Left", name: "marginLeft", widget: "number", default: 0 }
+              - { label: "Margin Right", name: "marginRight", widget: "number", default: 0 }
+              - { label: "Filter Style", name: "filterStyle", widget: "select", options: [{ label: "Rounded", value: "rounded" }, { label: "Rectangle", value: "rectangle" }], default: "rounded" }
+              - { label: "Filter Border Radius", name: "filterBorderRadius", widget: "number", default: 8 }
+              - { label: "Filter Padding Top", name: "filterPaddingTop", widget: "number", default: 12 }
+              - { label: "Filter Padding Bottom", name: "filterPaddingBottom", widget: "number", default: 12 }
+              - { label: "Filter Padding Left", name: "filterPaddingLeft", widget: "number", default: 28 }
+              - { label: "Filter Padding Right", name: "filterPaddingRight", widget: "number", default: 28 }

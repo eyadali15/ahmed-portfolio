@@ -10,10 +10,12 @@ import { useStore } from '@/store/useStore';
 import { projects } from '@/data/projects';
 import spacing from '@/content/design/spacing.json';
 import workContent from '@/content/pages/work.json';
+import global from '@/content/pages/global.json';
 
 gsap.registerPlugin(ScrollTrigger);
 const s = spacing.work;
 const d = workContent.detail;
+const wh = global.workHero;
 const ITEMS_PER_PAGE = 9;
 
 export default function Work() {
@@ -34,10 +36,10 @@ export default function Work() {
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-black/60 to-black/30" />
         <div className="relative z-10 container-main pb-12">
           <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-[10px] uppercase tracking-[0.4em] text-[var(--color-accent)] mb-4">Portfolio</motion.p>
+            className="text-[10px] uppercase tracking-[0.4em] text-[var(--color-accent)] mb-4">{wh.label}</motion.p>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
             className="font-[var(--font-heading)] text-4xl md:text-5xl lg:text-6xl text-white">
-            Selected <span className="italic text-[var(--color-accent)]">Work</span>
+            {wh.titlePart1} <span className="italic text-[var(--color-accent)]">{wh.titlePart2}</span>
           </motion.h1>
         </div>
       </section>
@@ -57,7 +59,7 @@ export default function Work() {
             </AnimatePresence>
           </motion.div>
 
-          {/* Show More - uses the same Button styling */}
+          {/* Show More */}
           {hasMore && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -67,12 +69,12 @@ export default function Work() {
               style={{ marginTop: d.showMoreMarginTop }}
             >
               <Button onClick={() => setVisibleCount((prev) => prev + ITEMS_PER_PAGE)}>
-                Show More ({filteredProjects.length - visibleCount} remaining)
+                {wh.showMoreText} ({filteredProjects.length - visibleCount} remaining)
               </Button>
             </motion.div>
           )}
 
-          {filteredProjects.length === 0 && (<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-24"><p className="text-white/40">No projects found.</p></motion.div>)}
+          {filteredProjects.length === 0 && (<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-24"><p className="text-white/40">{wh.noProjectsText}</p></motion.div>)}
         </div>
         <div style={{ height: s.bottomSpacerHeight }} />
       </section>

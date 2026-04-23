@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStore } from '@/store/useStore';
 import gsap from 'gsap';
+import global from '@/content/pages/global.json';
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -38,8 +39,8 @@ export default function Navbar() {
       }`}>
         <div className="container-main flex items-center justify-between h-[70px]">
           <Link ref={logoRef} to="/" className="text-sm tracking-wider uppercase">
-            <span className="text-[var(--color-text-primary)] font-semibold">Ahmed</span>
-            <span className="text-[var(--color-accent)] ml-1">Abuzenada</span>
+            <span className="text-[var(--color-text-primary)] font-semibold">{global.navbar.name1}</span>
+            <span className="text-[var(--color-accent)] ml-1">{global.navbar.name2}</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-8">

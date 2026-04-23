@@ -7,6 +7,7 @@
       "subtitle": "Filmmaker",
       "description": " ",
       "heroVideo": "/uploads/136726-764934405_small.mp4",
+      "heroPoster": "",
       "bannerVideo": "/uploads/239444_small.mp4",
       "buttonText": "View My Work"
     },
@@ -59,7 +60,13 @@
     }
   },
   "videoBanner": {
-    "visible": true
+    "visible": true,
+    "content": {
+      "label": "Behind the Lens",
+      "titlePart1": "Where Stories",
+      "titlePart2": "Come Alive",
+      "fallbackImage": ""
+    }
   },
   "cta": {
     "visible": true,

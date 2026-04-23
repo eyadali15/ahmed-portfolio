@@ -14,14 +14,7 @@ const box = (l: Layout) => ({
   marginTop: l.marginTop || undefined, marginBottom: (l.marginBottom || 0) + (l.gapAfter || 0) || undefined, marginLeft: l.marginLeft || undefined, marginRight: l.marginRight || undefined,
 });
 
-const milestones = [
-  { year: '2018', title: 'Began Filmmaking', description: 'First picked up a camera and discovered a passion for visual storytelling.' },
-  { year: '2020', title: 'First Short Film', description: 'Directed and produced first narrative short, selected for multiple festivals.' },
-  { year: '2021', title: 'Trucage Documentary', description: 'Award-winning documentary exploring stunt professionals. Saudi Film Festival selection.' },
-  { year: '2022', title: 'Commercial Work', description: 'Began working as assistant director on major commercial productions.' },
-  { year: '2023', title: 'Major Campaigns', description: 'Collaborated on high-profile campaigns for brands including Almarai.' },
-  { year: '2024', title: 'Creative Direction', description: 'Expanded into creative direction for commercial and documentary projects.' },
-];
+
 
 export default function About() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -112,10 +105,10 @@ export default function About() {
               <h2 className="font-[var(--font-heading)] text-2xl md:text-3xl" style={{ marginBottom: phil.elements.titleMarginBottom }}>{phil.content.title2}</h2>
               <div className="w-10 h-px bg-[var(--color-accent)]" style={{ marginBottom: phil.elements.dividerMarginBottom }} />
               <div style={{ display: 'flex', flexDirection: 'column', gap: phil.elements.expertiseItemGap }}>
-                {[{ title: 'Direction', desc: 'Narrative, documentary, and commercial' }, { title: 'Assistant Direction', desc: 'Large-scale productions' }, { title: 'Storytelling', desc: 'Script development and visual narrative' }, { title: 'Post-Production', desc: 'Editing, grading, and VFX supervision' }].map((item, i) => (
+                {(phil.content.expertiseItems || []).map((item: { title: string; description: string }, i: number) => (
                   <div key={i} className="border-b border-[var(--color-border)]" style={{ paddingBottom: phil.elements.expertiseItemPaddingBottom }}>
                     <h3 className="text-base text-white font-medium mb-1.5">{item.title}</h3>
-                    <p className="text-sm text-white/40">{item.desc}</p>
+                    <p className="text-sm text-white/40">{item.description}</p>
                   </div>
                 ))}
               </div>
@@ -136,7 +129,7 @@ export default function About() {
           <div ref={timelineRef} className="relative text-left">
             <div className="absolute left-3 top-0 bottom-0 w-px bg-[var(--color-border)]" />
             <div style={{ display: 'flex', flexDirection: 'column', gap: tl.layout.gridGap }}>
-              {milestones.map((m, i) => (
+              {(tl.content.milestones || []).map((m: { year: string; title: string; description: string }, i: number) => (
                 <div key={i} className="timeline-item relative pl-14">
                   <div className="absolute left-[8px] top-1 w-2.5 h-2.5 rounded-full border-2 border-[var(--color-accent)] bg-[var(--color-bg)]" />
                   <span className="text-[10px] text-[var(--color-accent)] uppercase tracking-[0.25em] block" style={{ marginBottom: tl.elements.yearMarginBottom }}>{m.year}</span>

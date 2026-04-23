@@ -8,9 +8,11 @@ import VideoPlayer from '@/components/ui/VideoPlayer';
 import Button from '@/components/ui/Button';
 import { getProjectBySlug, getRelatedProjects } from '@/data/projects';
 import workContent from '@/content/pages/work.json';
+import global from '@/content/pages/global.json';
 
 gsap.registerPlugin(ScrollTrigger);
 const d = workContent.detail;
+const pd = global.projectDetail;
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -34,8 +36,8 @@ export default function ProjectDetail() {
       <PageTransition>
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <h1 className="font-[var(--font-heading)] text-3xl mb-6">Project Not Found</h1>
-            <Button to="/work">Back to Work</Button>
+            <h1 className="font-[var(--font-heading)] text-3xl mb-6">{pd.notFoundTitle}</h1>
+            <Button to="/work">{pd.notFoundButton}</Button>
           </div>
         </div>
       </PageTransition>
@@ -53,7 +55,7 @@ export default function ProjectDetail() {
         {/* Spacer for fixed navbar */}
         <div style={{ height: d.topSpacerHeight }} />
 
-        {/* Back button - bigger */}
+        {/* Back button */}
         <div className="container-main" style={{ paddingTop: d.backButtonPaddingY, paddingBottom: d.backButtonPaddingY }}>
           <button onClick={() => navigate('/work')}
             className="detail-animate flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors cursor-pointer group"
@@ -61,7 +63,7 @@ export default function ProjectDetail() {
             <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 12H5m0 0l7 7m-7-7l7-7" />
             </svg>
-            <span className="uppercase tracking-[0.2em] text-sm font-medium">Back to Work</span>
+            <span className="uppercase tracking-[0.2em] text-sm font-medium">{pd.backText}</span>
           </button>
         </div>
 
@@ -86,7 +88,7 @@ export default function ProjectDetail() {
               {project.credits.length > 0 && (
                 <div className="detail-animate">
                   <h3 className="text-[10px] uppercase tracking-[0.25em] text-[var(--color-text-muted)]"
-                    style={{ marginBottom: d.creditsLabelMarginBottom }}>Credits</h3>
+                    style={{ marginBottom: d.creditsLabelMarginBottom }}>{pd.creditsLabel}</h3>
                   <div className="border-t border-[var(--color-border)]">
                     {project.credits.map((credit, i) => (
                       <div key={i} className="flex items-center justify-between border-b border-[var(--color-border)]"
@@ -103,10 +105,10 @@ export default function ProjectDetail() {
             <div className="lg:col-span-1">
               <div className="detail-animate lg:sticky lg:top-28" style={{ display: 'flex', flexDirection: 'column', gap: d.sidebarItemGap }}>
                 {[
-                  { l: 'Client', v: project.client },
-                  { l: 'Role', v: project.role },
-                  { l: 'Year', v: String(project.year) },
-                  { l: 'Category', v: project.category },
+                  { l: pd.clientLabel, v: project.client },
+                  { l: pd.roleLabel, v: project.role },
+                  { l: pd.yearLabel, v: String(project.year) },
+                  { l: pd.categoryLabel, v: project.category },
                 ].map((item) => (
                   <div key={item.l}>
                     <h4 className="text-[9px] uppercase tracking-[0.25em] text-[var(--color-text-muted)]"
@@ -124,7 +126,7 @@ export default function ProjectDetail() {
           <div className="container-main">
             <div className="border-t border-[var(--color-border)]" style={{ paddingTop: d.relatedSectionPaddingY }}>
               <h3 className="text-[10px] uppercase tracking-[0.25em] text-[var(--color-text-muted)]"
-                style={{ marginBottom: d.relatedTitleMarginBottom }}>Related Projects</h3>
+                style={{ marginBottom: d.relatedTitleMarginBottom }}>{pd.relatedLabel}</h3>
               <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: d.relatedGridGap }}>
                 {related.map((p) => (
                   <Link key={p.slug} to={`/work/${p.slug}`} className="group">

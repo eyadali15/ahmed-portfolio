@@ -27,7 +27,14 @@ export function sortProjects(projectList: Project[]) {
 }
 
 export const projects: Project[] = sortProjects(
-  Object.values(projectModules).map((mod) => mod.default)
+  Object.values(projectModules).map((mod) => {
+    const p = mod.default;
+    // Auto-generate thumbnail from Vimeo ID if not provided
+    if (!p.thumbnail && p.vimeoId) {
+      p.thumbnail = `https://vumbnail.com/${p.vimeoId}.jpg`;
+    }
+    return p;
+  })
 );
 
 export const getProjectBySlug = (slug: string): Project | undefined => {

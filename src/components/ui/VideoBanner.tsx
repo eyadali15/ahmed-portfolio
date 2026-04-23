@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import content from '@/content/pages/home.json';
@@ -8,10 +8,23 @@ gsap.registerPlugin(ScrollTrigger);
 export default function VideoBanner() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const videoSrc = content.hero.content.bannerVideo || '/videos/banner.mp4';
+  const vb = content.videoBanner;
+  const label = vb.content?.label || 'Behind the Lens';
+  const titlePart1 = vb.content?.titlePart1 || 'Where Stories';
+  const titlePart2 = vb.content?.titlePart2 || 'Come Alive';
+  const fallbackImage = vb.content?.fallbackImage || '';
 
   useEffect(() => {
-    if (!containerRef.current || !videoRef.current) return;
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  useEffect(() => {
+    if (!containerRef.current || !videoRef.current || isMobile) return;
 
     gsap.to(videoRef.current, {
       yPercent: 15,
@@ -25,20 +38,41 @@ export default function VideoBanner() {
     });
 
     return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div ref={containerRef} className="relative w-full h-[50vh] md:h-[65vh] lg:h-[75vh] overflow-hidden">
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-[130%] object-cover -top-[15%]"
-      >
-        <source src={videoSrc} type="video/mp4" />
-      </video>
+      {/* Mobile: show static image, Desktop: show video */}
+      {isMobile ? (
+        <div className="absolute inset-0">
+          {fallbackImage ? (
+            <img src={fallbackImage} alt="" className="w-full h-full object-cover" />
+          ) : (
+            <video
+              ref={videoRef}
+              muted
+              playsInline
+              autoPlay
+              loop
+              poster={fallbackImage || undefined}
+              className="w-full h-full object-cover"
+            >
+              <source src={videoSrc} type="video/mp4" />
+            </video>
+          )}
+        </div>
+      ) : (
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-[130%] object-cover -top-[15%]"
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
+      )}
 
       {/* Dark overlays */}
       <div className="absolute inset-0 bg-[var(--color-bg)]/40 z-[1]" />
@@ -48,11 +82,11 @@ export default function VideoBanner() {
       <div className="absolute inset-0 z-[3] flex items-center justify-center">
         <div className="text-center px-6">
           <p className="text-[10px] md:text-xs uppercase tracking-[0.5em] text-[var(--color-accent)] mb-5">
-            Behind the Lens
+            {label}
           </p>
           <h2 className="font-[var(--font-heading)] text-3xl md:text-4xl lg:text-5xl text-white leading-tight">
-            Where Stories{' '}
-            <span className="italic text-[var(--color-accent)]">Come Alive</span>
+            {titlePart1}{' '}
+            <span className="italic text-[var(--color-accent)]">{titlePart2}</span>
           </h2>
         </div>
       </div>

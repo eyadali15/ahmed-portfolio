@@ -1,0 +1,48 @@
+{
+  "navbar": {
+    "name1": "Ahmed",
+    "name2": "Abuzenada"
+  },
+  "footer": {
+    "name1": "Ahmed",
+    "name2": "Abuzenada",
+    "description": "Award-winning filmmaker & assistant director based in Saudi Arabia. Crafting cinematic stories that inspire.",
+    "navigationTitle": "Navigation",
+    "connectTitle": "Connect",
+    "vimeoUrl": "https://vimeo.com/ahmedabuzenada",
+    "vimeoLabel": "Vimeo",
+    "email": "contact@ahmedabuzenada.com",
+    "emailLabel": "Email",
+    "linkedinUrl": "https://linkedin.com",
+    "linkedinLabel": "LinkedIn",
+    "whatsappUrl": "https://wa.me/",
+    "whatsappLabel": "WhatsApp",
+    "copyrightName": "Ahmed Hany Abuzenada",
+    "tagline": "Crafted with passion for cinema"
+  },
+  "workHero": {
+    "label": "Portfolio",
+    "titlePart1": "Selected",
+    "titlePart2": "Work",
+    "showMoreText": "Show More",
+    "noProjectsText": "No projects found."
+  },
+  "projectDetail": {
+    "backText": "Back to Work",
+    "creditsLabel": "Credits",
+    "relatedLabel": "Related Projects",
+    "notFoundTitle": "Project Not Found",
+    "notFoundButton": "Back to Work",
+    "clientLabel": "Client",
+    "roleLabel": "Role",
+    "yearLabel": "Year",
+    "categoryLabel": "Category"
+  },
+  "notFound": {
+    "label": "Error 404",
+    "titlePart1": "Page",
+    "titlePart2": "not found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "buttonText": "Back to Home"
+  }
+}

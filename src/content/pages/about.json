@@ -68,7 +68,13 @@
       "title1": "Philosophy",
       "text1": "Cinema is more than entertainment — it's a mirror reflecting our shared humanity. Every project begins with: what truth are we trying to reveal?",
       "text2": "I approach each production with meticulous attention to detail and deep respect for the collaborative nature of filmmaking.",
-      "title2": "Expertise"
+      "title2": "Expertise",
+      "expertiseItems": [
+        { "title": "Direction", "description": "Narrative, documentary, and commercial" },
+        { "title": "Assistant Direction", "description": "Large-scale productions" },
+        { "title": "Storytelling", "description": "Script development and visual narrative" },
+        { "title": "Post-Production", "description": "Editing, grading, and VFX supervision" }
+      ]
     },
     "elements": {
       "titleMarginBottom": 24,
@@ -88,7 +94,15 @@
     "visible": true,
     "content": {
       "label": "Journey",
-      "title": "Career Timeline"
+      "title": "Career Timeline",
+      "milestones": [
+        { "year": "2018", "title": "Began Filmmaking", "description": "First picked up a camera and discovered a passion for visual storytelling." },
+        { "year": "2020", "title": "First Short Film", "description": "Directed and produced first narrative short, selected for multiple festivals." },
+        { "year": "2021", "title": "Trucage Documentary", "description": "Award-winning documentary exploring stunt professionals. Saudi Film Festival selection." },
+        { "year": "2022", "title": "Commercial Work", "description": "Began working as assistant director on major commercial productions." },
+        { "year": "2023", "title": "Major Campaigns", "description": "Collaborated on high-profile campaigns for brands including Almarai." },
+        { "year": "2024", "title": "Creative Direction", "description": "Expanded into creative direction for commercial and documentary projects." }
+      ]
     },
     "elements": {
       "labelMarginBottom": 16,

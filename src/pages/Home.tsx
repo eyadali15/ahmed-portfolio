@@ -33,7 +33,7 @@ function HeroSection() {
 
   return (
     <section className="relative h-screen w-full overflow-hidden" style={box(l)}>
-      <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0">
+      <video autoPlay muted loop playsInline poster={c.heroPoster || undefined} preload="metadata" className="absolute inset-0 w-full h-full object-cover z-0">
         <source src={c.heroVideo || '/videos/banner.mp4'} type="video/mp4" />
       </video>
       <div className="absolute inset-0 z-[1] bg-black/60" />
