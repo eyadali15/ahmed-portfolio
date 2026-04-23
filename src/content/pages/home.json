@@ -34,8 +34,8 @@
     "visible": true,
     "content": {
       "label": "Selected Work",
-      "title": "Featured Projects",
-      "buttonText": "View All Work"
+      "title": "Projects",
+      "buttonText": "Portfolio"
     },
     "elements": {
       "labelMarginBottom": 12,
@@ -66,7 +66,7 @@
     "content": {
       "label": "Let's Collaborate",
       "title": "Have a vision? Let's bring it to life.",
-      "description": "Whether it's a commercial, documentary, or narrative film — every great project starts with a conversation.",
+      "description": "Whether it's a commercial, documentary, or narrative film, every great project starts with a conversation.",
       "buttonText": "Start a Conversation"
     },
     "elements": {
