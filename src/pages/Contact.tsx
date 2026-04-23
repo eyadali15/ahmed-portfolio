@@ -21,6 +21,7 @@ export default function Contact() {
         <div className="h-[110px]" />
         <div className="container-main">
           {/* 1. Header */}
+          {h.visible !== false && (
           <div style={{ ...box(h.layout), textAlign: h.layout.align as Align }}>
             <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}
               className="text-[10px] uppercase tracking-[0.4em] text-[var(--color-accent)]" style={{ marginBottom: h.elements.labelMarginBottom }}>{h.content.label}</motion.p>
@@ -33,8 +34,10 @@ export default function Contact() {
             <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}
               className="text-white/50 text-base max-w-lg leading-relaxed" style={{ marginBottom: h.elements.descriptionMarginBottom || undefined, margin: h.layout.align === 'center' ? '0 auto' : undefined }}>{h.content.description}</motion.p>
           </div>
+          )}
 
           {/* 2. Info + Form */}
+          {info.visible !== false && (
           <div className="max-w-4xl mx-auto" style={box(info.layout)}>
             <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: info.layout.gridGap }}>
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }} className="flex flex-col justify-center">
@@ -61,6 +64,7 @@ export default function Contact() {
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4 }}><ContactForm /></motion.div>
             </div>
           </div>
+          )}
         </div>
         <div className="h-20" />
       </section>

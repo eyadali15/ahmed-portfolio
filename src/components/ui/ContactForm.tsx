@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import spacing from '@/content/design/spacing.json';
+import contact from '@/content/pages/contact.json';
 
 const b = spacing.buttons;
 
@@ -75,7 +76,8 @@ export default function ContactForm() {
           paddingLeft: b.paddingLeft,
           paddingRight: b.paddingRight,
         }}>
-        <span>{sending ? 'Sending...' : 'Send Message'}</span>
+        {/* Added dynamic text from contact.json later */}
+        <span>{sending ? 'Sending...' : contact.info.content.formButtonText || 'Send Message'}</span>
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
         </svg>
