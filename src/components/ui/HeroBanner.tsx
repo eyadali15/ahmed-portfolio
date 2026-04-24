@@ -32,8 +32,12 @@ function waitForVideo(video: HTMLVideoElement, cb: () => void) {
   const poll = setInterval(() => { n++; if (video.readyState >= 1 && video.duration > 0) { clearInterval(poll); handler(); } if (n > 50) clearInterval(poll); }, 100);
 }
 
+import spacing from '@/content/design/spacing.json';
+
+const s = spacing.home;
+
 export default function HeroBanner() {
-  const { content: c, elements: e, layout: l } = content.hero;
+  const { content: c, layout: l } = content.hero;
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -108,18 +112,18 @@ export default function HeroBanner() {
       </video>
       <div className="absolute inset-0 z-[1] bg-black/50" />
       <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/30 via-transparent to-black/80" />
-      <div className="relative z-[3] h-full flex flex-col items-center justify-center px-6" style={{ textAlign: l.align as Align }}>
-        <div ref={titleRef} style={{ marginBottom: e.titleMarginBottom }}>
+      <div className="relative z-[3] h-full flex flex-col items-center justify-center px-6" style={{ textAlign: s.heroTextAlign as Align }}>
+        <div ref={titleRef} style={{ marginBottom: s.heroTitleMarginBottom }}>
           <h1 className="font-[var(--font-heading)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1] tracking-tight">
             <span className="hero-word inline-block text-white">{c.name1 || 'Ahmed'}</span>
             <span className="hero-word inline-block ml-3 md:ml-4 text-[var(--color-accent)]">{c.name2 || 'Abuzenada'}</span>
           </h1>
         </div>
-        <div ref={subtitleRef} style={{ textAlign: l.align as Align }}>
-          <p className="text-xs md:text-sm tracking-[0.35em] uppercase text-white/70" style={{ marginBottom: e.subtitleMarginBottom }}>{c.subtitle}</p>
-          <div className="w-12 h-px bg-[var(--color-accent)]" style={{ margin: l.align === 'center' ? `${e.dividerMarginY}px auto` : `${e.dividerMarginY}px 0` }} />
-          <p className="text-white/50 text-sm max-w-md leading-relaxed" style={{ marginBottom: e.descriptionMarginBottom, margin: l.align === 'center' ? `0 auto ${e.descriptionMarginBottom}px` : `0 0 ${e.descriptionMarginBottom}px` }}>{c.description}</p>
-          <div style={{ display: 'flex', justifyContent: jm[l.align as Align] }}><Button to="/portfolio">{c.buttonText || 'View Portfolio'}</Button></div>
+        <div ref={subtitleRef} style={{ textAlign: s.heroTextAlign as Align }}>
+          <p className="text-xs md:text-sm tracking-[0.35em] uppercase text-white/70" style={{ marginBottom: s.heroSubtitleMarginBottom }}>{c.subtitle}</p>
+          <div className="w-12 h-px bg-[var(--color-accent)]" style={{ margin: s.heroTextAlign === 'center' ? `24px auto` : `24px 0` }} />
+          <p className="text-white/50 text-sm max-w-md leading-relaxed" style={{ marginBottom: s.heroDescriptionMarginBottom, margin: s.heroTextAlign === 'center' ? `0 auto ${s.heroDescriptionMarginBottom}px` : `0 0 ${s.heroDescriptionMarginBottom}px` }}>{c.description}</p>
+          <div style={{ display: 'flex', justifyContent: jm[s.heroTextAlign as Align] }}><Button to="/portfolio">{c.buttonText || 'View Portfolio'}</Button></div>
         </div>
       </div>
     </section>
