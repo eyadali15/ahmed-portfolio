@@ -15,7 +15,7 @@ interface ButtonProps {
 
 export default function Button({ children, to, href, onClick, className = '' }: ButtonProps) {
   const radius = b.style === 'rounded' ? b.borderRadius : 0;
-  const baseClass = `inline-flex items-center gap-3 border border-[var(--color-accent)] bg-transparent text-white text-sm uppercase tracking-[0.2em] transition-all duration-300 hover:bg-white hover:text-black hover:border-white cursor-pointer font-medium ${className}`;
+  const baseClass = `inline-flex items-center gap-3 border border-[var(--color-accent)] bg-transparent text-white text-sm uppercase tracking-[0.2em] transition-all duration-300 hover:bg-white hover:!text-black hover:border-white cursor-pointer font-medium ${className}`;
   const inlineStyle = {
     borderRadius: radius,
     paddingTop: b.paddingTop,
