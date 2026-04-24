@@ -5,6 +5,54 @@ import content from '@/content/pages/home.json';
 
 gsap.registerPlugin(ScrollTrigger);
 
+function setupScrollVideo(video: HTMLVideoElement, trigger: Element, start: string, end: string) {
+  const duration = video.duration;
+  if (!duration || isNaN(duration)) return;
+  video.pause();
+
+  gsap.to({}, {
+    scrollTrigger: {
+      trigger,
+      start,
+      end,
+      scrub: 1,
+      onUpdate: (self) => {
+        try {
+          video.currentTime = self.progress * duration;
+        } catch (_) { /* ignore */ }
+      },
+    },
+  });
+}
+
+function waitForVideo(video: HTMLVideoElement, callback: () => void) {
+  if (video.readyState >= 1 && video.duration > 0) {
+    callback();
+    return;
+  }
+  const handler = () => {
+    if (video.duration > 0) {
+      video.removeEventListener('loadedmetadata', handler);
+      video.removeEventListener('loadeddata', handler);
+      video.removeEventListener('canplay', handler);
+      callback();
+    }
+  };
+  video.addEventListener('loadedmetadata', handler);
+  video.addEventListener('loadeddata', handler);
+  video.addEventListener('canplay', handler);
+
+  let attempts = 0;
+  const poll = setInterval(() => {
+    attempts++;
+    if (video.readyState >= 1 && video.duration > 0) {
+      clearInterval(poll);
+      handler();
+    }
+    if (attempts > 50) clearInterval(poll);
+  }, 100);
+}
+
 export default function VideoBanner() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -14,37 +62,16 @@ export default function VideoBanner() {
   const titlePart2 = vb.content?.titlePart2 || 'Come Alive';
   const videoSrc = content.hero.content.bannerVideo || '/uploads/239444_small.mp4';
 
-  // Scroll-driven video: frame advances with scroll
   useEffect(() => {
     const video = videoRef.current;
     const container = containerRef.current;
     if (!video || !container) return;
 
-    const setup = () => {
-      const duration = video.duration;
-      if (!duration || isNaN(duration)) return;
+    video.load();
 
-      gsap.to({}, {
-        scrollTrigger: {
-          trigger: container,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1,
-          onUpdate: (self) => {
-            const time = self.progress * duration;
-            if (video.readyState >= 2) {
-              video.currentTime = time;
-            }
-          },
-        },
-      });
-    };
-
-    if (video.readyState >= 1) {
-      setup();
-    } else {
-      video.addEventListener('loadedmetadata', setup, { once: true });
-    }
+    waitForVideo(video, () => {
+      setupScrollVideo(video, container, 'top bottom', 'bottom top');
+    });
 
     return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
   }, []);

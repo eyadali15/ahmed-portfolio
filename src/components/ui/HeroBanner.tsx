@@ -14,6 +14,60 @@ const box = (l: Layout) => ({
 });
 const jm = { left: 'flex-start', center: 'center', right: 'flex-end' } as const;
 
+function setupScrollVideo(video: HTMLVideoElement, trigger: Element, start: string, end: string) {
+  const duration = video.duration;
+  if (!duration || isNaN(duration)) return;
+
+  // Pause autoplay — we control it via scroll
+  video.pause();
+
+  gsap.to({}, {
+    scrollTrigger: {
+      trigger,
+      start,
+      end,
+      scrub: 1,
+      onUpdate: (self) => {
+        try {
+          video.currentTime = self.progress * duration;
+        } catch (_) { /* ignore seek errors */ }
+      },
+    },
+  });
+}
+
+function waitForVideo(video: HTMLVideoElement, callback: () => void) {
+  // Already loaded
+  if (video.readyState >= 1 && video.duration > 0) {
+    callback();
+    return;
+  }
+
+  // Listen for multiple events
+  const handler = () => {
+    if (video.duration > 0) {
+      video.removeEventListener('loadedmetadata', handler);
+      video.removeEventListener('loadeddata', handler);
+      video.removeEventListener('canplay', handler);
+      callback();
+    }
+  };
+  video.addEventListener('loadedmetadata', handler);
+  video.addEventListener('loadeddata', handler);
+  video.addEventListener('canplay', handler);
+
+  // Fallback polling — catches cached videos that already fired events
+  let attempts = 0;
+  const poll = setInterval(() => {
+    attempts++;
+    if (video.readyState >= 1 && video.duration > 0) {
+      clearInterval(poll);
+      handler();
+    }
+    if (attempts > 50) clearInterval(poll); // give up after 5s
+  }, 100);
+}
+
 export default function HeroBanner() {
   const { content: c, elements: e, layout: l } = content.hero;
   const sectionRef = useRef<HTMLElement>(null);
@@ -28,37 +82,18 @@ export default function HeroBanner() {
     if (subtitleRef.current) tl.fromTo(subtitleRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }, '-=0.4');
   }, []);
 
-  // Scroll-driven video: frame advances with scroll
+  // Scroll-driven video
   useEffect(() => {
     const video = videoRef.current;
     const section = sectionRef.current;
     if (!video || !section) return;
 
-    const setup = () => {
-      const duration = video.duration;
-      if (!duration || isNaN(duration)) return;
+    // Force load
+    video.load();
 
-      gsap.to({}, {
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1,
-          onUpdate: (self) => {
-            const time = self.progress * duration;
-            if (video.readyState >= 2) {
-              video.currentTime = time;
-            }
-          },
-        },
-      });
-    };
-
-    if (video.readyState >= 1) {
-      setup();
-    } else {
-      video.addEventListener('loadedmetadata', setup, { once: true });
-    }
+    waitForVideo(video, () => {
+      setupScrollVideo(video, section, 'top top', 'bottom top');
+    });
 
     return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
   }, []);
