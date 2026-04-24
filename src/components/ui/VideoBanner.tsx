@@ -74,7 +74,7 @@ export default function VideoBanner() {
         paddingLeft: layout.paddingLeft || undefined,
         paddingRight: layout.paddingRight || undefined,
         marginTop: layout.marginTop || undefined,
-        marginBottom: layout.marginBottom || undefined,
+        marginBottom: ((layout.marginBottom || 0) + (layout.gapAfter || 0)) || undefined,
         marginLeft: layout.marginLeft || undefined,
         marginRight: layout.marginRight || undefined,
       }}

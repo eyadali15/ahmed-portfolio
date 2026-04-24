@@ -84,7 +84,7 @@ collections:
                   - { label: "Margin Left", name: "marginLeft", widget: "number", default: 0 }
                   - { label: "Margin Right", name: "marginRight", widget: "number", default: 0 }
                   - { label: "Grid Gap", name: "gridGap", widget: "number", default: 0 }
-                  - { label: "Gap After Section", name: "gapAfter", widget: "number", default: 0 }
+                  - { label: "↕️ Gap After Section", name: "gapAfter", widget: "number", default: 0, hint: "Space between this section and the next" }
 
           - label: "2️⃣ Featured Projects"
             name: "featured"
@@ -124,7 +124,7 @@ collections:
                   - { label: "Margin Left", name: "marginLeft", widget: "number", default: 0 }
                   - { label: "Margin Right", name: "marginRight", widget: "number", default: 0 }
                   - { label: "Grid Gap", name: "gridGap", widget: "number", default: 40 }
-                  - { label: "Gap After Section", name: "gapAfter", widget: "number", default: 0 }
+                  - { label: "↕️ Gap After Section", name: "gapAfter", widget: "number", default: 0, hint: "Space between this section and the next" }
 
           - label: "3️⃣ Video Banner"
             name: "videoBanner"
@@ -154,6 +154,7 @@ collections:
                   - { label: "Margin Bottom", name: "marginBottom", widget: "number", default: 0 }
                   - { label: "Margin Left", name: "marginLeft", widget: "number", default: 0 }
                   - { label: "Margin Right", name: "marginRight", widget: "number", default: 0 }
+                  - { label: "↕️ Gap After Section", name: "gapAfter", widget: "number", default: 0, hint: "Space between this section and the next" }
 
           - label: "4️⃣ Call to Action"
             name: "cta"
@@ -194,7 +195,7 @@ collections:
                   - { label: "Margin Left", name: "marginLeft", widget: "number", default: 0 }
                   - { label: "Margin Right", name: "marginRight", widget: "number", default: 0 }
                   - { label: "Grid Gap", name: "gridGap", widget: "number", default: 0 }
-                  - { label: "Gap After Section", name: "gapAfter", widget: "number", default: 0 }
+                  - { label: "↕️ Gap After Section", name: "gapAfter", widget: "number", default: 0, hint: "Space between this section and the next" }
 
   # ─── ABOUT PAGE ───
   - name: "about"
