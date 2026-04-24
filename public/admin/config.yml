@@ -448,7 +448,7 @@ collections:
 
   # ─── WORK PAGE (detail spacing) ───
   - name: "workpage"
-    label: "🎬 Work Page"
+    label: "🎬 Portfolio Page"
     files:
       - label: "Project Detail Spacing"
         name: "work"
@@ -609,7 +609,7 @@ collections:
             fields:
               - { label: "Label", name: "label", widget: "string", default: "Portfolio" }
               - { label: "Title Part 1", name: "titlePart1", widget: "string", default: "Selected" }
-              - { label: "Title Part 2 (accent)", name: "titlePart2", widget: "string", default: "Work" }
+              - { label: "Title Part 2 (accent)", name: "titlePart2", widget: "string", default: "Portfolio" }
               - { label: "Show More Button Text", name: "showMoreText", widget: "string", default: "Show More" }
               - { label: "No Projects Text", name: "noProjectsText", widget: "string", default: "No projects found." }
 
@@ -647,22 +647,84 @@ collections:
         name: "spacing"
         file: "src/content/design/spacing.json"
         fields:
-          - label: "💼 Work Page Grid"
+          - label: "💼 Portfolio Page Grid"
             name: "work"
             widget: "object"
             collapsed: true
             fields:
               - { label: "Hero Background Image", name: "heroBackground", widget: "image" }
-              - { label: "Grid Gap", name: "gridGap", widget: "number", default: 32 }
-              - { label: "Title → Filter Gap", name: "titleToFilterGap", widget: "number", default: 40 }
-              - { label: "Filter → Grid Gap", name: "filterToGridGap", widget: "number", default: 56 }
-              - { label: "Grid Padding Top", name: "gridPaddingTop", widget: "number", default: 36 }
-              - { label: "Bottom Spacer", name: "bottomSpacerHeight", widget: "number", default: 80 }
+              - { label: "↕️ Hero → Filter Gap", name: "titleToFilterGap", widget: "number", default: 40, hint: "Gap between hero title and filter buttons" }
+              - { label: "↕️ Filter → Grid Gap", name: "filterToGridGap", widget: "number", default: 56, hint: "Gap between filter buttons and video grid" }
+              - { label: "↕️ Grid Gap (between cards)", name: "gridGap", widget: "number", default: 32, hint: "Gap between project cards" }
+              - { label: "↕️ Grid Padding Top", name: "gridPaddingTop", widget: "number", default: 36 }
+              - { label: "↕️ Show More Button → Footer", name: "bottomSpacerHeight", widget: "number", default: 80, hint: "Gap between Show More button and footer" }
               - { label: "Top Spacer", name: "topSpacerHeight", widget: "number", default: 110 }
               - { label: "Title Align", name: "titleAlign", widget: "select", options: ["left", "center", "right"], default: "left" }
               - { label: "Filter Align", name: "filterAlign", widget: "select", options: ["left", "center", "right"], default: "left" }
               - { label: "Section Padding Y", name: "sectionPaddingY", widget: "number", default: 64 }
               - { label: "Section Padding X", name: "sectionPaddingX", widget: "number", default: 0 }
+
+          - label: "🏠 Home Page Spacing"
+            name: "home"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Hero Padding X", name: "heroPaddingX", widget: "number", default: 24 }
+              - { label: "Hero Title → margin bottom", name: "heroTitleMarginBottom", widget: "number", default: 36 }
+              - { label: "Hero Subtitle → margin bottom", name: "heroSubtitleMarginBottom", widget: "number", default: 20 }
+              - { label: "Hero Description → margin bottom", name: "heroDescriptionMarginBottom", widget: "number", default: 36 }
+              - { label: "Hero Text Align", name: "heroTextAlign", widget: "select", options: ["left", "center", "right"], default: "center" }
+              - { label: "↕️ Featured Section Padding Y", name: "featuredSectionPaddingY", widget: "number", default: 160 }
+              - { label: "Featured Section Padding X", name: "featuredSectionPaddingX", widget: "number", default: 0 }
+              - { label: "Featured Title Align", name: "featuredTitleAlign", widget: "select", options: ["left", "center", "right"], default: "center" }
+              - { label: "↕️ Featured Title → Grid Gap", name: "featuredTitleToGridGap", widget: "number", default: 80, hint: "Gap between featured title and project cards" }
+              - { label: "↕️ Featured Grid Gap", name: "featuredGridGap", widget: "number", default: 40, hint: "Gap between featured project cards" }
+              - { label: "↕️ Featured Grid → Button Gap", name: "featuredGridToButtonGap", widget: "number", default: 112, hint: "Gap between cards and View All button" }
+              - { label: "Featured Button Align", name: "featuredButtonAlign", widget: "select", options: ["left", "center", "right"], default: "center" }
+              - { label: "Video Banner Height (vh)", name: "videoBannerHeight", widget: "number", default: 75 }
+              - { label: "↕️ CTA Section Padding Y", name: "ctaSectionPaddingY", widget: "number", default: 176 }
+              - { label: "CTA Section Padding X", name: "ctaSectionPaddingX", widget: "number", default: 0 }
+              - { label: "CTA Align", name: "ctaAlign", widget: "select", options: ["left", "center", "right"], default: "center" }
+              - { label: "CTA Label → margin bottom", name: "ctaLabelMarginBottom", widget: "number", default: 32 }
+              - { label: "CTA Title → margin bottom", name: "ctaTitleMarginBottom", widget: "number", default: 40 }
+              - { label: "CTA Text Padding Top", name: "ctaTextPaddingTop", widget: "number", default: 36 }
+              - { label: "CTA Text → margin bottom", name: "ctaTextMarginBottom", widget: "number", default: 96 }
+              - { label: "CTA Button → margin top", name: "ctaButtonMarginTop", widget: "number", default: 20 }
+              - { label: "CTA Button → margin bottom", name: "ctaButtonMarginBottom", widget: "number", default: 36 }
+
+          - label: "👤 About Page Spacing"
+            name: "about"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Top Spacer", name: "topSpacerHeight", widget: "number", default: 110 }
+              - { label: "Hero Padding X", name: "heroPaddingX", widget: "number", default: 0 }
+              - { label: "Hero Padding Y", name: "heroPaddingY", widget: "number", default: 80 }
+              - { label: "Hero Align", name: "heroAlign", widget: "select", options: ["left", "center", "right"], default: "left" }
+              - { label: "↕️ Gallery Section Padding Y", name: "gallerySectionPaddingY", widget: "number", default: 96 }
+              - { label: "↕️ Gallery Gap", name: "galleryGap", widget: "number", default: 8, hint: "Gap between gallery photos" }
+              - { label: "↕️ Philosophy Columns Gap", name: "philosophyColumnsGap", widget: "number", default: 80 }
+              - { label: "↕️ Philosophy Section Padding Y", name: "philosophySectionPaddingY", widget: "number", default: 96 }
+              - { label: "Philosophy Section Padding X", name: "philosophySectionPaddingX", widget: "number", default: 0 }
+              - { label: "↕️ Timeline Items Gap", name: "timelineItemsGap", widget: "number", default: 64 }
+              - { label: "↕️ Timeline Section Padding Y", name: "timelineSectionPaddingY", widget: "number", default: 96 }
+              - { label: "Timeline Section Padding X", name: "timelineSectionPaddingX", widget: "number", default: 0 }
+              - { label: "↕️ Quote Section Padding Y", name: "quoteSectionPaddingY", widget: "number", default: 112 }
+              - { label: "Quote Section Padding X", name: "quoteSectionPaddingX", widget: "number", default: 0 }
+              - { label: "Quote Align", name: "quoteAlign", widget: "select", options: ["left", "center", "right"], default: "center" }
+
+          - label: "✉️ Contact Page Spacing"
+            name: "contact"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Top Spacer", name: "topSpacerHeight", widget: "number", default: 110 }
+              - { label: "↕️ Section Padding Y", name: "sectionPaddingY", widget: "number", default: 64 }
+              - { label: "Section Padding X", name: "sectionPaddingX", widget: "number", default: 0 }
+              - { label: "↕️ Header → Content Gap", name: "headerMarginBottom", widget: "number", default: 80, hint: "Gap between header and contact form" }
+              - { label: "Header Align", name: "headerAlign", widget: "select", options: ["left", "center", "right"], default: "center" }
+              - { label: "↕️ Columns Gap", name: "columnsGap", widget: "number", default: 80, hint: "Gap between info and form columns" }
+              - { label: "↕️ Info Items Gap", name: "infoItemsGap", widget: "number", default: 40, hint: "Gap between contact info items" }
 
           - label: "📌 Footer Spacing"
             name: "footer"
