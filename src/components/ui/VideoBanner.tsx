@@ -5,125 +5,67 @@ import content from '@/content/pages/home.json';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const BLADES = 8;
-
 export default function VideoBanner() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const irisRef = useRef<SVGSVGElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const vb = content.videoBanner;
   const label = vb.content?.label || 'Behind the Lens';
   const titlePart1 = vb.content?.titlePart1 || 'Where Stories';
   const titlePart2 = vb.content?.titlePart2 || 'Come Alive';
+  const videoSrc = content.hero.content.bannerVideo || '/uploads/239444_small.mp4';
 
+  // Scroll-driven video: frame advances with scroll
   useEffect(() => {
-    if (!containerRef.current || !irisRef.current) return;
+    const video = videoRef.current;
+    const container = containerRef.current;
+    if (!video || !container) return;
 
-    // Animate iris blades closing on scroll
-    const blades = irisRef.current.querySelectorAll('.iris-blade');
-    blades.forEach((blade, i) => {
-      const angle = (360 / BLADES) * i;
-      // Start open (translated outward), close on scroll (translate inward)
-      gsap.fromTo(blade,
-        { rotation: angle, x: 0, y: -180 },
-        {
-          y: -60,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top 80%',
-            end: 'bottom 20%',
-            scrub: true,
-          },
-        }
-      );
-    });
+    const setup = () => {
+      const duration = video.duration;
+      if (!duration || isNaN(duration)) return;
 
-    // Subtle scale on the whole iris
-    gsap.fromTo(irisRef.current,
-      { scale: 1.1 },
-      {
-        scale: 0.9,
-        ease: 'none',
+      gsap.to({}, {
         scrollTrigger: {
-          trigger: containerRef.current,
+          trigger: container,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: true,
+          scrub: 0.5,
+          onUpdate: (self) => {
+            const time = self.progress * duration;
+            if (video.readyState >= 2) {
+              video.currentTime = time;
+            }
+          },
         },
-      }
-    );
+      });
+    };
+
+    if (video.readyState >= 1) {
+      setup();
+    } else {
+      video.addEventListener('loadedmetadata', setup, { once: true });
+    }
 
     return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
   }, []);
 
   return (
     <div ref={containerRef} className="relative w-full h-[50vh] md:h-[65vh] lg:h-[75vh] overflow-hidden">
-      {/* Dark base */}
-      <div className="absolute inset-0 bg-[var(--color-bg)]" />
+      {/* Scroll-driven video */}
+      <video
+        ref={videoRef}
+        muted
+        playsInline
+        preload="auto"
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ objectFit: 'cover' }}
+      >
+        <source src={videoSrc} type="video/mp4" />
+      </video>
 
-      {/* Radial glow */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-[500px] h-[500px] rounded-full opacity-[0.06]"
-          style={{ background: 'radial-gradient(circle, #c9a96e 0%, transparent 70%)' }} />
-      </div>
-
-      {/* Camera Iris/Shutter SVG */}
-      <div className="absolute inset-0 flex items-center justify-center z-[1]">
-        <svg ref={irisRef} viewBox="-200 -200 400 400" className="w-[300px] md:w-[400px] lg:w-[500px] h-auto opacity-20">
-          {/* Iris blades */}
-          {Array.from({ length: BLADES }).map((_, i) => {
-            const angle = (360 / BLADES) * i;
-            return (
-              <g key={i} className="iris-blade" style={{ transformOrigin: '0 0', transform: `rotate(${angle}deg)` }}>
-                <path
-                  d="M -40 -180 L 40 -180 L 25 -60 L -25 -60 Z"
-                  fill="#1a1a1a"
-                  stroke="#c9a96e"
-                  strokeWidth="0.5"
-                  opacity="0.6"
-                />
-              </g>
-            );
-          })}
-
-          {/* Outer ring */}
-          <circle cx="0" cy="0" r="190" fill="none" stroke="#c9a96e" strokeWidth="0.5" opacity="0.2" />
-          <circle cx="0" cy="0" r="185" fill="none" stroke="#333" strokeWidth="1" opacity="0.3" />
-
-          {/* Inner lens rings */}
-          <circle cx="0" cy="0" r="50" fill="none" stroke="#c9a96e" strokeWidth="0.5" opacity="0.3" />
-          <circle cx="0" cy="0" r="35" fill="none" stroke="#c9a96e" strokeWidth="0.3" opacity="0.2" />
-          <circle cx="0" cy="0" r="20" fill="#0f0f1a" opacity="0.5" />
-
-          {/* Lens center glow */}
-          <circle cx="0" cy="0" r="25" fill="url(#irisCenterGlow)" opacity="0.4" />
-
-          {/* Tick marks around outer ring */}
-          {Array.from({ length: 36 }).map((_, i) => {
-            const a = (Math.PI * 2 * i) / 36;
-            const r1 = 175;
-            const r2 = i % 3 === 0 ? 168 : 172;
-            return (
-              <line
-                key={i}
-                x1={Math.cos(a) * r1} y1={Math.sin(a) * r1}
-                x2={Math.cos(a) * r2} y2={Math.sin(a) * r2}
-                stroke="#c9a96e" strokeWidth={i % 3 === 0 ? '1' : '0.5'} opacity="0.15"
-              />
-            );
-          })}
-
-          <defs>
-            <radialGradient id="irisCenterGlow">
-              <stop offset="0%" stopColor="#c9a96e" stopOpacity="0.5" />
-              <stop offset="100%" stopColor="#c9a96e" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-        </svg>
-      </div>
-
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-transparent to-[var(--color-bg)]/60 z-[2]" />
+      {/* Dark overlays */}
+      <div className="absolute inset-0 bg-[var(--color-bg)]/40 z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-transparent to-[var(--color-bg)]/70 z-[2]" />
 
       {/* Center content */}
       <div className="absolute inset-0 z-[3] flex items-center justify-center">
