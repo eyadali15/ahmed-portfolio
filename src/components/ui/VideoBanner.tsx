@@ -29,7 +29,7 @@ export default function VideoBanner() {
           trigger: container,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: 0.5,
+          scrub: 2,
           onUpdate: (self) => {
             const time = self.progress * duration;
             if (video.readyState >= 2) {

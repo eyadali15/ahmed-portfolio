@@ -64,7 +64,6 @@ export default function App() {
   return (
     <SmoothScroll>
       <div className="relative min-h-screen bg-[var(--color-bg)]">
-        <div className="film-grain" />
 
         <AnimatePresence mode="wait">
           {isLoading && <LoadingScreen />}
