@@ -26,14 +26,14 @@ import spacing from '@/content/design/spacing.json';
 const s = spacing.home;
 
 function FeaturedSection() {
-  const { content: c, layout: l } = content.featured;
+  const { content: c, elements: e, layout: l } = content.featured;
   const featured = getFeaturedProjects();
 
   return (
-    <section style={{ ...box(l), paddingTop: s.featuredSectionPaddingY, paddingBottom: s.featuredSectionPaddingY, paddingLeft: s.featuredSectionPaddingX || undefined, paddingRight: s.featuredSectionPaddingX || undefined }}>
-      <div className="container-main" style={{ textAlign: s.featuredTitleAlign as Align }}>
+    <section style={box(l)}>
+      <div className="container-main" style={{ textAlign: l.align as Align }}>
         <SectionTitle label={c.label} title={c.title} titlePaddingBottom={10} />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: s.featuredGridGap, marginTop: s.featuredTitleToGridGap }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: l.gridGap, marginTop: e.titleToGridGap }}>
           {featured.map((project, i) => (
             <motion.div
               key={project.slug}
@@ -61,7 +61,7 @@ function FeaturedSection() {
             </motion.div>
           ))}
         </div>
-        <div style={{ marginTop: s.featuredGridToButtonGap, display: 'flex', justifyContent: jm[(s.featuredButtonAlign || 'center') as Align] }}>
+        <div style={{ marginTop: e.gridToButtonGap, display: 'flex', justifyContent: jm[(l.buttonAlign || 'center') as Align] }}>
           <Button to="/portfolio">{c.buttonText || 'View All Work'}</Button>
         </div>
       </div>
@@ -70,19 +70,19 @@ function FeaturedSection() {
 }
 
 function CTASection() {
-  const { content: c, layout: l } = content.cta;
+  const { content: c, elements: e, layout: l } = content.cta;
   return (
-    <section style={{ ...box(l), paddingTop: s.ctaSectionPaddingY, paddingBottom: s.ctaSectionPaddingY, paddingLeft: s.ctaSectionPaddingX || undefined, paddingRight: s.ctaSectionPaddingX || undefined }}>
-      <div className="container-main max-w-[700px]" style={{ textAlign: s.ctaAlign as Align }}>
+    <section style={box(l)}>
+      <div className="container-main max-w-[700px]" style={{ textAlign: l.align as Align }}>
         <motion.p initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
-          className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-accent)]" style={{ marginBottom: s.ctaLabelMarginBottom }}>{c.label}</motion.p>
+          className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-accent)]" style={{ marginBottom: e.labelMarginBottom }}>{c.label}</motion.p>
         <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.1 }}
-          className="font-[var(--font-heading)] text-3xl md:text-4xl lg:text-5xl leading-tight text-white" style={{ marginBottom: s.ctaTitleMarginBottom }}>
+          className="font-[var(--font-heading)] text-3xl md:text-4xl lg:text-5xl leading-tight text-white" style={{ marginBottom: e.titleMarginBottom }}>
           {c.title}
         </motion.h2>
         <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-white/50 max-w-md text-base leading-relaxed" style={{ paddingTop: s.ctaTextPaddingTop, marginBottom: s.ctaTextMarginBottom, margin: s.ctaAlign === 'center' ? `0 auto ${s.ctaTextMarginBottom}px` : undefined }}>{c.description}</motion.p>
-        <motion.div initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }} style={{ marginTop: s.ctaButtonMarginTop, marginBottom: s.ctaButtonMarginBottom, display: 'flex', justifyContent: jm[s.ctaAlign as Align] }}>
+          className="text-white/50 max-w-md text-base leading-relaxed" style={{ paddingTop: e.descriptionPaddingTop, marginBottom: e.descriptionMarginBottom, margin: l.align === 'center' ? `0 auto ${e.descriptionMarginBottom}px` : undefined }}>{c.description}</motion.p>
+        <motion.div initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }} style={{ marginTop: e.buttonMarginTop, display: 'flex', justifyContent: jm[l.align as Align] }}>
           <Button to="/contact">{c.buttonText}</Button>
         </motion.div>
       </div>
