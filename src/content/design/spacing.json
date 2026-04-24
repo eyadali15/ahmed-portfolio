@@ -33,7 +33,7 @@
     "filterAlign": "left",
     "titleAlign": "left",
     "gridGap": 32,
-    "filterToGridGap": 40,
+    "filterToGridGap": 80,
     "bottomSpacerHeight": 80
   },
   "about": {
