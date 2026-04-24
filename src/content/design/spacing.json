@@ -9,7 +9,7 @@
     "heroSubtitleMarginBottom": 20,
     "featuredTitleToGridGap": 80,
     "videoBannerHeight": 75,
-    "featuredGridToButtonGap": 60,
+    "featuredGridToButtonGap": 30,
     "ctaAlign": "center",
     "ctaTextMarginBottom": 96,
     "heroTitleMarginBottom": 36,
