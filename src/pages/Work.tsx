@@ -18,15 +18,28 @@ const d = workContent.detail;
 const wh = global.workHero;
 const ITEMS_PER_PAGE = 9;
 
+const roleTabs = [
+  { key: 'assistant', label: 'Assistant Director' },
+  { key: 'director', label: 'Director' },
+];
+
 export default function Work() {
-  const { activeFilter, setActiveFilter } = useStore();
+  const { activeFilter, setActiveFilter, activeRole, setActiveRole } = useStore();
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
-  const filteredProjects = activeFilter === 'all' ? projects : projects.filter((p) => p.category === activeFilter);
+
+  // Filter by role first
+  const roleFiltered = projects.filter((p) => {
+    if (activeRole === 'assistant') return p.role === 'Assistant Director';
+    return p.role === 'Director' || p.role === 'Director & Writer';
+  });
+
+  // Then filter by category
+  const filteredProjects = activeFilter === 'all' ? roleFiltered : roleFiltered.filter((p) => p.category === activeFilter);
   const visibleProjects = filteredProjects.slice(0, visibleCount);
   const hasMore = visibleCount < filteredProjects.length;
 
-  useEffect(() => { setVisibleCount(ITEMS_PER_PAGE); }, [activeFilter]);
-  useEffect(() => { setActiveFilter('all'); return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); }; }, [setActiveFilter]);
+  useEffect(() => { setVisibleCount(ITEMS_PER_PAGE); }, [activeFilter, activeRole]);
+  useEffect(() => { setActiveFilter('all'); setActiveRole('assistant'); return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); }; }, [setActiveFilter, setActiveRole]);
 
   return (
     <PageTransition>
@@ -46,9 +59,32 @@ export default function Work() {
 
       <section className="min-h-screen">
         <div className="container-main" style={{ paddingTop: s.sectionPaddingY, paddingBottom: s.sectionPaddingY, paddingLeft: s.sectionPaddingX || undefined, paddingRight: s.sectionPaddingX || undefined }}>
-          <div style={{ marginTop: s.titleToFilterGap, marginBottom: s.filterToGridGap, textAlign: (s.filterAlign as 'left' | 'center' | 'right') || 'left' }}>
+
+          {/* Role Tabs */}
+          <div className="flex justify-center gap-3 mb-8" style={{ marginTop: s.titleToFilterGap }}>
+            {roleTabs.map((tab) => (
+              <motion.button
+                key={tab.key}
+                onClick={() => { setActiveRole(tab.key); setActiveFilter('all'); }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className={`relative px-6 py-3 text-sm uppercase tracking-[0.15em] font-medium rounded-lg transition-all duration-300 cursor-pointer ${
+                  activeRole === tab.key
+                    ? 'bg-[var(--color-accent)] text-black'
+                    : 'border border-white/20 text-white/60 hover:text-white hover:border-white/40'
+                }`}
+              >
+                {tab.label}
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Category Filters */}
+          <div style={{ marginBottom: s.filterToGridGap, textAlign: (s.filterAlign as 'left' | 'center' | 'right') || 'left' }}>
             <FilterBar />
           </div>
+
+          {/* Projects Grid */}
           <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: s.gridGap, paddingTop: s.gridPaddingTop }}>
             <AnimatePresence mode="popLayout">
               {visibleProjects.map((project, i) => (
@@ -74,7 +110,12 @@ export default function Work() {
             </motion.div>
           )}
 
-          {filteredProjects.length === 0 && (<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-24"><p className="text-white/40">{wh.noProjectsText}</p></motion.div>)}
+          {/* No results */}
+          {filteredProjects.length === 0 && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-24">
+              <p className="text-white/40">{wh.noProjectsText}</p>
+            </motion.div>
+          )}
         </div>
         <div style={{ height: s.bottomSpacerHeight }} />
       </section>

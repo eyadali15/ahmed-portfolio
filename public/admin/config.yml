@@ -26,7 +26,7 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "URL Slug", name: "slug", widget: "string" }
       - { label: "Client", name: "client", widget: "string" }
-      - { label: "Your Role", name: "role", widget: "string" }
+      - { label: "Your Role", name: "role", widget: "select", options: [{ label: "Assistant Director", value: "Assistant Director" }, { label: "Director", value: "Director" }, { label: "Director & Writer", value: "Director & Writer" }], default: "Assistant Director" }
       - { label: "Category", name: "category", widget: "select", options: [{ label: "Commercial", value: "commercial" }, { label: "Film", value: "film" }, { label: "Documentary", value: "documentary" }] }
       - { label: "Year", name: "year", widget: "number", value_type: "int", min: 2015, max: 2030 }
       - { label: "Vimeo Video ID", name: "vimeoId", widget: "string", hint: "Enter the Vimeo video ID. Thumbnail will be auto-generated if left empty below." }

@@ -10,6 +10,8 @@ interface AppState {
   toggleMenu: () => void;
   activeFilter: string;
   setActiveFilter: (v: string) => void;
+  activeRole: string;
+  setActiveRole: (v: string) => void;
   scrollProgress: number;
   setScrollProgress: (v: number) => void;
 }
@@ -24,6 +26,8 @@ export const useStore = create<AppState>((set) => ({
   toggleMenu: () => set((s) => ({ isMenuOpen: !s.isMenuOpen })),
   activeFilter: 'all',
   setActiveFilter: (v) => set({ activeFilter: v }),
+  activeRole: 'assistant',
+  setActiveRole: (v) => set({ activeRole: v }),
   scrollProgress: 0,
   setScrollProgress: (v) => set({ scrollProgress: v }),
 }));
