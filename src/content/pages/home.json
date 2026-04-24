@@ -33,7 +33,7 @@
   "featured": {
     "visible": true,
     "content": {
-      "label": "Selected Work",
+      "label": "Selected Portfolio",
       "title": "Projects",
       "buttonText": "Show All"
     },

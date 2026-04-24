@@ -23,16 +23,16 @@
   "workHero": {
     "label": "Portfolio",
     "titlePart1": "Selected",
-    "titlePart2": "Work",
+    "titlePart2": "Portfolio",
     "showMoreText": "Show More",
     "noProjectsText": "No projects found."
   },
   "projectDetail": {
-    "backText": "Back to Work",
+    "backText": "Back to Portfolio",
     "creditsLabel": "Credits",
     "relatedLabel": "Related Projects",
     "notFoundTitle": "Project Not Found",
-    "notFoundButton": "Back to Work",
+    "notFoundButton": "Back to Portfolio",
     "clientLabel": "Client",
     "roleLabel": "Role",
     "yearLabel": "Year",
