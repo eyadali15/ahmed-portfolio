@@ -25,15 +25,15 @@
   },
   "work": {
     "heroBackground": "https://images.unsplash.com/photo-1616530940355-351fabd9524b?auto=format&fit=crop&w=1920&q=80",
-    "topSpacerHeight": 50,
+    "topSpacerHeight": 200,
     "gridPaddingTop": 15,
-    "titleToFilterGap": 40,
+    "titleToFilterGap": 20,
     "sectionPaddingX": 0,
     "sectionPaddingY": 64,
     "filterAlign": "left",
     "titleAlign": "left",
     "gridGap": 32,
-    "filterToGridGap": 80,
+    "filterToGridGap": 40,
     "bottomSpacerHeight": 80
   },
   "about": {
