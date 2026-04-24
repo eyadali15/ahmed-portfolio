@@ -172,6 +172,24 @@ a {
   display: block;
 }
 
+/* ── Suppress native video controls on mobile ── */
+video::-webkit-media-controls {
+  display: none !important;
+}
+video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
+video::-webkit-media-controls-panel {
+  display: none !important;
+}
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+video::-moz-media-controls {
+  display: none !important;
+}
+
 /* ── Utility ── */
 .magnetic-btn {
   transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);

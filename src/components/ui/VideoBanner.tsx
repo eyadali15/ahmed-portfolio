@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import content from '@/content/pages/home.json';
@@ -8,7 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 export default function VideoBanner() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
   const videoSrc = content.hero.content.bannerVideo || '/videos/banner.mp4';
   const vb = content.videoBanner;
   const label = vb.content?.label || 'Behind the Lens';
@@ -17,14 +16,7 @@ export default function VideoBanner() {
   const fallbackImage = vb.content?.fallbackImage || '';
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
-  useEffect(() => {
-    if (!containerRef.current || !videoRef.current || isMobile) return;
+    if (!containerRef.current || !videoRef.current) return;
 
     gsap.to(videoRef.current, {
       yPercent: 15,
@@ -38,32 +30,25 @@ export default function VideoBanner() {
     });
 
     return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
-  }, [isMobile]);
+  }, []);
 
   return (
     <div ref={containerRef} className="relative w-full h-[50vh] md:h-[65vh] lg:h-[75vh] overflow-hidden">
-      {/* Desktop: parallax video, Mobile: static background */}
-      {isMobile ? (
-        <div className="absolute inset-0">
-          {fallbackImage ? (
-            <img src={fallbackImage} alt="" className="w-full h-full object-cover" />
-          ) : (
-            /* No fallback image provided: use a dark cinematic gradient background on mobile */
-            <div className="w-full h-full bg-gradient-to-br from-[#0a0a0a] via-[#1a1a2e] to-[#0f0f0f]" />
-          )}
-        </div>
-      ) : (
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-[130%] object-cover -top-[15%]"
-        >
-          <source src={videoSrc} type="video/mp4" />
-        </video>
-      )}
+      {/* Video background — works on all devices with muted+playsInline */}
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        // @ts-ignore webkit-playsinline for older iOS
+        webkit-playsinline=""
+        preload="auto"
+        poster={fallbackImage || undefined}
+        className="absolute inset-0 w-full h-[130%] object-cover -top-[15%]"
+      >
+        <source src={videoSrc} type="video/mp4" />
+      </video>
 
       {/* Dark overlays */}
       <div className="absolute inset-0 bg-[var(--color-bg)]/40 z-[1]" />
@@ -82,15 +67,11 @@ export default function VideoBanner() {
         </div>
       </div>
 
-      {/* Scan line - desktop only */}
-      {!isMobile && (
-        <>
-          <div className="absolute inset-0 z-[4] pointer-events-none overflow-hidden">
-            <div className="absolute left-0 right-0 h-px bg-white/10" style={{ animation: 'scanline 4s linear infinite' }} />
-          </div>
-          <style>{`@keyframes scanline { 0% { top: -2%; } 100% { top: 102%; } }`}</style>
-        </>
-      )}
+      {/* Scan line */}
+      <div className="absolute inset-0 z-[4] pointer-events-none overflow-hidden">
+        <div className="absolute left-0 right-0 h-px bg-white/10" style={{ animation: 'scanline 4s linear infinite' }} />
+      </div>
+      <style>{`@keyframes scanline { 0% { top: -2%; } 100% { top: 102%; } }`}</style>
     </div>
   );
 }

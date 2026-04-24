@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
@@ -21,22 +21,10 @@ const box = (l: Layout) => ({
 });
 const jm = { left: 'flex-start', center: 'center', right: 'flex-end' } as const;
 
-function useIsMobile() {
-  const [mobile, setMobile] = useState(false);
-  useEffect(() => {
-    const check = () => setMobile(window.innerWidth < 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-  return mobile;
-}
-
 function HeroSection() {
   const { content: c, elements: e, layout: l } = content.hero;
   const titleRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
-  const isMobile = useIsMobile();
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.4 });
@@ -46,20 +34,18 @@ function HeroSection() {
 
   return (
     <section className="relative h-screen w-full overflow-hidden" style={box(l)}>
-      {/* Mobile: static poster image, Desktop: autoplay video */}
-      {isMobile ? (
-        <div className="absolute inset-0 z-0">
-          {c.heroPoster ? (
-            <img src={c.heroPoster} alt="" className="w-full h-full object-cover" />
-          ) : (
-            <div className="w-full h-full bg-gradient-to-br from-[#0a0a0a] via-[#1a1a2e] to-[#0f0f0f]" />
-          )}
-        </div>
-      ) : (
-        <video autoPlay muted loop playsInline preload="metadata" className="absolute inset-0 w-full h-full object-cover z-0">
-          <source src={c.heroVideo || '/videos/banner.mp4'} type="video/mp4" />
-        </video>
-      )}
+      {/* Video background — works on all devices with muted+playsInline */}
+      <video
+        autoPlay muted loop playsInline
+        // @ts-ignore webkit-playsinline for older iOS
+        webkit-playsinline=""
+        preload="auto"
+        poster={c.heroPoster || undefined}
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        style={{ objectFit: 'cover' }}
+      >
+        <source src={c.heroVideo || '/videos/banner.mp4'} type="video/mp4" />
+      </video>
       <div className="absolute inset-0 z-[1] bg-black/60" />
       <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/40 via-transparent to-black/90" />
       <div className="relative z-[3] h-full flex flex-col items-center justify-center px-6" style={{ textAlign: l.align as Align }}>
