@@ -140,6 +140,20 @@ collections:
                   - { label: "Title Part 1", name: "titlePart1", widget: "string", default: "Where Stories" }
                   - { label: "Title Part 2 (accent)", name: "titlePart2", widget: "string", default: "Come Alive" }
                   - { label: "🖼️ Fallback Image (mobile)", name: "fallbackImage", widget: "image", required: false, hint: "Shown on mobile instead of video" }
+              - label: "📐 Section Layout"
+                name: "layout"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Height (vh)", name: "height", widget: "number", default: 65, hint: "Height as percentage of viewport" }
+                  - { label: "Padding Top", name: "paddingTop", widget: "number", default: 0 }
+                  - { label: "Padding Bottom", name: "paddingBottom", widget: "number", default: 0 }
+                  - { label: "Padding Left", name: "paddingLeft", widget: "number", default: 0 }
+                  - { label: "Padding Right", name: "paddingRight", widget: "number", default: 0 }
+                  - { label: "Margin Top", name: "marginTop", widget: "number", default: 0 }
+                  - { label: "Margin Bottom", name: "marginBottom", widget: "number", default: 0 }
+                  - { label: "Margin Left", name: "marginLeft", widget: "number", default: 0 }
+                  - { label: "Margin Right", name: "marginRight", widget: "number", default: 0 }
 
           - label: "4️⃣ Call to Action"
             name: "cta"

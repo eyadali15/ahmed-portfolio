@@ -5,52 +5,52 @@ import content from '@/content/pages/home.json';
 
 gsap.registerPlugin(ScrollTrigger);
 
-function setupScrollVideo(video: HTMLVideoElement, trigger: Element, start: string, end: string) {
+function initScrollVideo(video: HTMLVideoElement, trigger: Element, start: string, end: string) {
   const duration = video.duration;
   if (!duration || isNaN(duration)) return;
   video.pause();
+
+  let targetTime = 0;
+  let currentTime = 0;
+  let raf = 0;
+
+  const tick = () => {
+    currentTime += (targetTime - currentTime) * 0.08;
+    if (Math.abs(currentTime - targetTime) > 0.01) {
+      try { video.currentTime = currentTime; } catch (_) {}
+    }
+    raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
 
   gsap.to({}, {
     scrollTrigger: {
       trigger,
       start,
       end,
-      scrub: 1,
-      onUpdate: (self) => {
-        try {
-          video.currentTime = self.progress * duration;
-        } catch (_) { /* ignore */ }
-      },
+      scrub: true,
+      onUpdate: (self) => { targetTime = self.progress * duration; },
     },
   });
+
+  return () => { cancelAnimationFrame(raf); ScrollTrigger.getAll().forEach((t) => t.kill()); };
 }
 
-function waitForVideo(video: HTMLVideoElement, callback: () => void) {
-  if (video.readyState >= 1 && video.duration > 0) {
-    callback();
-    return;
-  }
+function waitForVideo(video: HTMLVideoElement, cb: () => void) {
+  if (video.readyState >= 1 && video.duration > 0) { cb(); return; }
   const handler = () => {
     if (video.duration > 0) {
       video.removeEventListener('loadedmetadata', handler);
       video.removeEventListener('loadeddata', handler);
       video.removeEventListener('canplay', handler);
-      callback();
+      cb();
     }
   };
   video.addEventListener('loadedmetadata', handler);
   video.addEventListener('loadeddata', handler);
   video.addEventListener('canplay', handler);
-
-  let attempts = 0;
-  const poll = setInterval(() => {
-    attempts++;
-    if (video.readyState >= 1 && video.duration > 0) {
-      clearInterval(poll);
-      handler();
-    }
-    if (attempts > 50) clearInterval(poll);
-  }, 100);
+  let n = 0;
+  const poll = setInterval(() => { n++; if (video.readyState >= 1 && video.duration > 0) { clearInterval(poll); handler(); } if (n > 50) clearInterval(poll); }, 100);
 }
 
 export default function VideoBanner() {
@@ -61,30 +61,41 @@ export default function VideoBanner() {
   const titlePart1 = vb.content?.titlePart1 || 'Where Stories';
   const titlePart2 = vb.content?.titlePart2 || 'Come Alive';
   const videoSrc = content.hero.content.bannerVideo || '/uploads/239444_small.mp4';
+  const layout = (vb as any).layout || {};
+  const h = layout.height || 65;
 
   useEffect(() => {
     const video = videoRef.current;
     const container = containerRef.current;
     if (!video || !container) return;
-
     video.load();
-
+    let cleanup: (() => void) | undefined;
     waitForVideo(video, () => {
-      setupScrollVideo(video, container, 'top bottom', 'bottom top');
+      cleanup = initScrollVideo(video, container, 'top bottom', 'bottom top');
     });
-
-    return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
+    return () => { cleanup?.(); };
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full h-[50vh] md:h-[65vh] lg:h-[75vh] overflow-hidden">
+    <div
+      ref={containerRef}
+      className="relative w-full overflow-hidden"
+      style={{
+        height: `${h}vh`,
+        paddingTop: layout.paddingTop || undefined,
+        paddingBottom: layout.paddingBottom || undefined,
+        paddingLeft: layout.paddingLeft || undefined,
+        paddingRight: layout.paddingRight || undefined,
+        marginTop: layout.marginTop || undefined,
+        marginBottom: layout.marginBottom || undefined,
+        marginLeft: layout.marginLeft || undefined,
+        marginRight: layout.marginRight || undefined,
+      }}
+    >
       <video
         ref={videoRef}
-        muted
-        playsInline
-        preload="auto"
+        muted playsInline preload="auto"
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ objectFit: 'cover' }}
       >
         <source src={videoSrc} type="video/mp4" />
       </video>

@@ -65,6 +65,17 @@
       "titlePart1": "Where Stories",
       "titlePart2": "Come Alive",
       "fallbackImage": ""
+    },
+    "layout": {
+      "paddingTop": 0,
+      "paddingBottom": 0,
+      "paddingLeft": 0,
+      "paddingRight": 0,
+      "marginTop": 0,
+      "marginBottom": 0,
+      "marginLeft": 0,
+      "marginRight": 0,
+      "height": 65
     }
   },
   "cta": {

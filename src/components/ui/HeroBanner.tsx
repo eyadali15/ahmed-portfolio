@@ -14,36 +14,46 @@ const box = (l: Layout) => ({
 });
 const jm = { left: 'flex-start', center: 'center', right: 'flex-end' } as const;
 
-function setupScrollVideo(video: HTMLVideoElement, trigger: Element, start: string, end: string) {
+function initScrollVideo(video: HTMLVideoElement, trigger: Element, start: string, end: string) {
   const duration = video.duration;
   if (!duration || isNaN(duration)) return;
-
-  // Pause autoplay — we control it via scroll
   video.pause();
+
+  let targetTime = 0;
+  let currentTime = 0;
+  let raf = 0;
+
+  // Smooth interpolation loop — updates video frame every animation frame
+  const tick = () => {
+    // Lerp toward target for buttery smoothness
+    currentTime += (targetTime - currentTime) * 0.08;
+    if (Math.abs(currentTime - targetTime) > 0.01) {
+      try { video.currentTime = currentTime; } catch (_) {}
+    }
+    raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
 
   gsap.to({}, {
     scrollTrigger: {
       trigger,
       start,
       end,
-      scrub: 1,
+      scrub: true,
       onUpdate: (self) => {
-        try {
-          video.currentTime = self.progress * duration;
-        } catch (_) { /* ignore seek errors */ }
+        targetTime = self.progress * duration;
       },
     },
   });
+
+  return () => {
+    cancelAnimationFrame(raf);
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+  };
 }
 
 function waitForVideo(video: HTMLVideoElement, callback: () => void) {
-  // Already loaded
-  if (video.readyState >= 1 && video.duration > 0) {
-    callback();
-    return;
-  }
-
-  // Listen for multiple events
+  if (video.readyState >= 1 && video.duration > 0) { callback(); return; }
   const handler = () => {
     if (video.duration > 0) {
       video.removeEventListener('loadedmetadata', handler);
@@ -55,17 +65,8 @@ function waitForVideo(video: HTMLVideoElement, callback: () => void) {
   video.addEventListener('loadedmetadata', handler);
   video.addEventListener('loadeddata', handler);
   video.addEventListener('canplay', handler);
-
-  // Fallback polling — catches cached videos that already fired events
-  let attempts = 0;
-  const poll = setInterval(() => {
-    attempts++;
-    if (video.readyState >= 1 && video.duration > 0) {
-      clearInterval(poll);
-      handler();
-    }
-    if (attempts > 50) clearInterval(poll); // give up after 5s
-  }, 100);
+  let n = 0;
+  const poll = setInterval(() => { n++; if (video.readyState >= 1 && video.duration > 0) { clearInterval(poll); handler(); } if (n > 50) clearInterval(poll); }, 100);
 }
 
 export default function HeroBanner() {
@@ -75,38 +76,30 @@ export default function HeroBanner() {
   const titleRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
 
-  // Text entrance
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.5 });
     if (titleRef.current) tl.fromTo(titleRef.current.querySelectorAll('.hero-word'), { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: 'power4.out' });
     if (subtitleRef.current) tl.fromTo(subtitleRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }, '-=0.4');
   }, []);
 
-  // Scroll-driven video
   useEffect(() => {
     const video = videoRef.current;
     const section = sectionRef.current;
     if (!video || !section) return;
-
-    // Force load
     video.load();
-
+    let cleanup: (() => void) | undefined;
     waitForVideo(video, () => {
-      setupScrollVideo(video, section, 'top top', 'bottom top');
+      cleanup = initScrollVideo(video, section, 'top top', 'bottom top');
     });
-
-    return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
+    return () => { cleanup?.(); };
   }, []);
 
   return (
     <section ref={sectionRef} className="relative h-screen w-full overflow-hidden" style={box(l)}>
       <video
         ref={videoRef}
-        muted
-        playsInline
-        preload="auto"
+        muted playsInline preload="auto"
         className="absolute inset-0 w-full h-full object-cover z-0"
-        style={{ objectFit: 'cover' }}
       >
         <source src={c.heroImage || '/uploads/136726-764934405_small.mp4'} type="video/mp4" />
       </video>
