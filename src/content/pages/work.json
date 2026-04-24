@@ -7,7 +7,7 @@
     "relatedGridGap": 32,
     "relatedTitleMarginBottom": 48,
     "sidebarItemGap": 32,
-    "topSpacerHeight": 70,
+    "topSpacerHeight": 0,
     "sidebarLabelMarginBottom": 8,
     "titleMarginBottom": 32,
     "creditsLabelMarginBottom": 24,
@@ -17,7 +17,7 @@
     "descriptionMarginBottom": 48,
     "categoryMarginBottom": 16,
     "columnsGap": 64,
-    "backButtonSize": "text-sm",
+    "backButtonSize": "text-lg",
     "contentMaxWidth": 1000
   }
 }
