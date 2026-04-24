@@ -15,7 +15,7 @@ function initScrollVideo(video: HTMLVideoElement, trigger: Element, start: strin
   let raf = 0;
 
   const tick = () => {
-    currentTime += (targetTime - currentTime) * 0.08;
+    currentTime += (targetTime - currentTime) * 0.18;
     if (Math.abs(currentTime - targetTime) > 0.01) {
       try { video.currentTime = currentTime; } catch (_) {}
     }
