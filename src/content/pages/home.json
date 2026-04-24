@@ -44,7 +44,7 @@
       "gridToButtonGap": 112
     },
     "layout": {
-      "paddingTop": 164,
+      "paddingTop": 0,
       "align": "left",
       "gapAfter": 0,
       "marginTop": 30,
@@ -68,15 +68,15 @@
     },
     "layout": {
       "paddingTop": 0,
-      "paddingBottom": 0,
-      "paddingLeft": 0,
-      "paddingRight": 0,
+      "gapAfter": 0,
       "marginTop": 0,
-      "marginBottom": 0,
-      "marginLeft": 0,
-      "marginRight": 0,
       "height": 65,
-      "gapAfter": 0
+      "paddingRight": 0,
+      "marginRight": 0,
+      "marginLeft": 0,
+      "paddingLeft": 0,
+      "marginBottom": 0,
+      "paddingBottom": 0
     }
   },
   "cta": {
