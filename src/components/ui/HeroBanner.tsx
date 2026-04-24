@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Button from '@/components/ui/Button';
@@ -14,82 +14,62 @@ const box = (l: Layout) => ({
 });
 const jm = { left: 'flex-start', center: 'center', right: 'flex-end' } as const;
 
-/* ─── Scroll-Driven Video Banner ─── */
 export default function HeroBanner() {
   const { content: c, elements: e, layout: l } = content.hero;
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
+  const [ready, setReady] = useState(false);
 
-  // Text entrance animation
+  // Text entrance
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.5 });
     if (titleRef.current) tl.fromTo(titleRef.current.querySelectorAll('.hero-word'), { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: 'power4.out' });
     if (subtitleRef.current) tl.fromTo(subtitleRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }, '-=0.4');
   }, []);
 
-  // Scroll-driven video: video frame advances with scroll position
+  // Hide video until playing
   useEffect(() => {
-    const video = videoRef.current;
-    const section = sectionRef.current;
-    if (!video || !section) return;
+    const v = videoRef.current;
+    if (!v) return;
+    const onPlay = () => setReady(true);
+    v.addEventListener('playing', onPlay);
+    if (!v.paused) setReady(true);
+    return () => v.removeEventListener('playing', onPlay);
+  }, []);
 
-    // Wait for video metadata to load
-    const setup = () => {
-      const duration = video.duration;
-      if (!duration || isNaN(duration)) return;
-
-      // Scrub video currentTime based on scroll
-      const obj = { t: 0 };
-      gsap.to(obj, {
-        t: duration,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 2,
-          onUpdate: (self) => {
-            const time = self.progress * duration;
-            if (video.readyState >= 2) {
-              video.currentTime = time;
-            }
-          },
-        },
-      });
-    };
-
-    if (video.readyState >= 1) {
-      setup();
-    } else {
-      video.addEventListener('loadedmetadata', setup, { once: true });
-    }
-
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
+  // Parallax: video moves on scroll
+  useEffect(() => {
+    if (!sectionRef.current || !videoRef.current) return;
+    gsap.to(videoRef.current, {
+      yPercent: 20,
+      scale: 1.1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+    return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
   }, []);
 
   return (
     <section ref={sectionRef} className="relative h-screen w-full overflow-hidden" style={box(l)}>
-      {/* Scroll-driven video — no autoplay, no controls, frames advance on scroll */}
+      <div className="absolute inset-0 z-0 bg-[var(--color-bg)]" />
       <video
         ref={videoRef}
-        muted
-        playsInline
+        autoPlay muted loop playsInline
         preload="auto"
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        style={{ objectFit: 'cover' }}
+        className="absolute inset-0 w-full h-[120%] object-cover z-0 transition-opacity duration-700"
+        style={{ opacity: ready ? 1 : 0 }}
       >
         <source src={c.heroImage || '/uploads/136726-764934405_small.mp4'} type="video/mp4" />
       </video>
-
-      {/* Overlays */}
       <div className="absolute inset-0 z-[1] bg-black/50" />
       <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/30 via-transparent to-black/80" />
-
-      {/* Content */}
       <div className="relative z-[3] h-full flex flex-col items-center justify-center px-6" style={{ textAlign: l.align as Align }}>
         <div ref={titleRef} style={{ marginBottom: e.titleMarginBottom }}>
           <h1 className="font-[var(--font-heading)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1] tracking-tight">
