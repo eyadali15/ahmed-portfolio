@@ -88,10 +88,10 @@
       "buttonText": "Start a Conversation"
     },
     "elements": {
-      "labelMarginBottom": 32,
+      "labelMarginBottom": 15,
       "titleMarginBottom": 40,
       "descriptionPaddingTop": 36,
-      "descriptionMarginBottom": 96,
+      "descriptionMarginBottom": 60,
       "buttonMarginTop": 20
     },
     "layout": {
