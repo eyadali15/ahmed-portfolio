@@ -37,7 +37,7 @@ export default function ProjectDetail() {
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <h1 className="font-[var(--font-heading)] text-3xl mb-6">{pd.notFoundTitle}</h1>
-            <Button to="/work">{pd.notFoundButton}</Button>
+            <Button to="/portfolio">{pd.notFoundButton}</Button>
           </div>
         </div>
       </PageTransition>
@@ -57,7 +57,7 @@ export default function ProjectDetail() {
 
         {/* Back button */}
         <div className="container-main" style={{ paddingTop: d.backButtonPaddingY, paddingBottom: d.backButtonPaddingY }}>
-          <button onClick={() => navigate('/work')}
+          <button onClick={() => navigate('/portfolio')}
             className="detail-animate flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors cursor-pointer group"
             style={{ paddingLeft: d.backButtonPaddingX, paddingRight: d.backButtonPaddingX }}>
             <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -129,7 +129,7 @@ export default function ProjectDetail() {
                 style={{ marginBottom: d.relatedTitleMarginBottom }}>{pd.relatedLabel}</h3>
               <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: d.relatedGridGap }}>
                 {related.map((p) => (
-                  <Link key={p.slug} to={`/work/${p.slug}`} className="group">
+                  <Link key={p.slug} to={`/portfolio/${p.slug}`} className="group">
                     <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
                       <div className="relative overflow-hidden aspect-video bg-[var(--color-bg-surface)] mb-4">
                         <img src={p.thumbnail} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />

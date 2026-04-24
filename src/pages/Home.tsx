@@ -39,7 +39,7 @@ function FeaturedSection() {
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <Link to={`/work/${project.slug}`} className="group block text-left">
+              <Link to={`/portfolio/${project.slug}`} className="group block text-left">
                 <div className="relative overflow-hidden aspect-video bg-[var(--color-bg-surface)] rounded-sm">
                   <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500" />
@@ -59,7 +59,7 @@ function FeaturedSection() {
           ))}
         </div>
         <div style={{ marginTop: e.gridToButtonGap, display: 'flex', justifyContent: jm[(l.buttonAlign || 'center') as Align] }}>
-          <Button to="/work">{c.buttonText || 'View All Work'}</Button>
+          <Button to="/portfolio">{c.buttonText || 'View All Work'}</Button>
         </div>
       </div>
     </section>

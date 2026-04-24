@@ -15,7 +15,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.7, delay: index * 0.08, ease: [0.76, 0, 0.24, 1] }}
     >
-      <Link to={`/work/${project.slug}`} className="group block">
+      <Link to={`/portfolio/${project.slug}`} className="group block">
         <div className="relative overflow-hidden bg-[var(--color-bg-surface)] aspect-video rounded-sm">
           <img src={project.thumbnail} alt={project.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />

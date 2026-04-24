@@ -20,7 +20,7 @@ export default function Footer() {
           <div className="flex flex-col justify-center">
             <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-6">{f.navigationTitle}</h4>
             <div className="flex flex-col gap-4">
-              {[{ to: '/', label: 'Home' }, { to: '/work', label: 'Work' }, { to: '/about', label: 'About' }, { to: '/contact', label: 'Contact' }].map((link) => (
+              {[{ to: '/', label: 'Home' }, { to: '/portfolio', label: 'Portfolio' }, { to: '/about', label: 'About' }, { to: '/contact', label: 'Contact' }].map((link) => (
                 <Link key={link.to} to={link.to} className="text-sm text-white/50 hover:text-[var(--color-accent)] transition-colors duration-300 w-fit">{link.label}</Link>
               ))}
             </div>
