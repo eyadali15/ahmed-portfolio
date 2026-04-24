@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Button from '@/components/ui/Button';
@@ -20,7 +20,6 @@ export default function HeroBanner() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
-  const [ready, setReady] = useState(false);
 
   // Text entrance
   useEffect(() => {
@@ -29,42 +28,50 @@ export default function HeroBanner() {
     if (subtitleRef.current) tl.fromTo(subtitleRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }, '-=0.4');
   }, []);
 
-  // Hide video until playing
+  // Scroll-driven video: frame advances with scroll
   useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    const onPlay = () => setReady(true);
-    v.addEventListener('playing', onPlay);
-    if (!v.paused) setReady(true);
-    return () => v.removeEventListener('playing', onPlay);
-  }, []);
+    const video = videoRef.current;
+    const section = sectionRef.current;
+    if (!video || !section) return;
 
-  // Parallax: video moves on scroll
-  useEffect(() => {
-    if (!sectionRef.current || !videoRef.current) return;
-    gsap.to(videoRef.current, {
-      yPercent: 20,
-      scale: 1.1,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-      },
-    });
+    const setup = () => {
+      const duration = video.duration;
+      if (!duration || isNaN(duration)) return;
+
+      gsap.to({}, {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1,
+          onUpdate: (self) => {
+            const time = self.progress * duration;
+            if (video.readyState >= 2) {
+              video.currentTime = time;
+            }
+          },
+        },
+      });
+    };
+
+    if (video.readyState >= 1) {
+      setup();
+    } else {
+      video.addEventListener('loadedmetadata', setup, { once: true });
+    }
+
     return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
   }, []);
 
   return (
     <section ref={sectionRef} className="relative h-screen w-full overflow-hidden" style={box(l)}>
-      <div className="absolute inset-0 z-0 bg-[var(--color-bg)]" />
       <video
         ref={videoRef}
-        autoPlay muted loop playsInline
+        muted
+        playsInline
         preload="auto"
-        className="absolute inset-0 w-full h-[120%] object-cover z-0 transition-opacity duration-700"
-        style={{ opacity: ready ? 1 : 0 }}
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        style={{ objectFit: 'cover' }}
       >
         <source src={c.heroImage || '/uploads/136726-764934405_small.mp4'} type="video/mp4" />
       </video>
