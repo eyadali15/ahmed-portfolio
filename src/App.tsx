@@ -11,74 +11,60 @@ import global from '@/content/pages/global.json';
 function LoadingScreen() {
   const [progress, setProgress] = useState(0);
   const setIsLoading = useStore((s) => s.setIsLoading);
-  const videoReady = useRef(false);
-  const progressRef = useRef(0);
+  const assetsReady = useRef(false);
 
   useEffect(() => {
-    // Preload the hero video in the background
-    const heroSrc = homeContent.hero.content.heroVideo || '/videos/banner.mp4';
+    // Preload hero image + banner video
+    const heroImg = homeContent.hero.content.heroImage || '/uploads/photo_1_2026-04-21_09-17-26.jpg';
     const bannerSrc = homeContent.hero.content.bannerVideo || '/videos/banner.mp4';
-    let videosLoaded = 0;
-    const totalVideos = 2;
+    let loaded = 0;
+    const total = 2;
 
     const checkDone = () => {
-      videosLoaded++;
-      if (videosLoaded >= totalVideos) {
-        videoReady.current = true;
-      }
+      loaded++;
+      if (loaded >= total) assetsReady.current = true;
     };
 
-    // Preload hero video
-    const v1 = document.createElement('video');
-    v1.muted = true;
-    v1.preload = 'auto';
-    v1.oncanplaythrough = checkDone;
-    v1.onerror = checkDone; // Don't block on error
-    v1.src = heroSrc;
+    // Preload hero image
+    const img = new Image();
+    img.onload = checkDone;
+    img.onerror = checkDone;
+    img.src = heroImg;
 
     // Preload banner video
-    const v2 = document.createElement('video');
-    v2.muted = true;
-    v2.preload = 'auto';
-    v2.oncanplaythrough = checkDone;
-    v2.onerror = checkDone;
-    v2.src = bannerSrc;
+    const v = document.createElement('video');
+    v.muted = true;
+    v.preload = 'auto';
+    v.oncanplaythrough = checkDone;
+    v.onerror = checkDone;
+    v.src = bannerSrc;
 
-    // Progress bar: animate to 90% quickly, then wait for video
+    // Progress bar
     const interval = setInterval(() => {
       setProgress((prev) => {
-        const next = prev + Math.random() * 12 + 4;
-        progressRef.current = next;
-
-        if (next >= 90 && !videoReady.current) {
-          // Hold at 90% until video is ready
-          return 90;
-        }
-
-        if (next >= 90 && videoReady.current) {
-          // Video ready — finish to 100%
+        const next = prev + Math.random() * 14 + 5;
+        if (next >= 90 && !assetsReady.current) return 90;
+        if (next >= 90 && assetsReady.current) {
           clearInterval(interval);
           setProgress(100);
           setTimeout(() => setIsLoading(false), 500);
           return 100;
         }
-
         return next;
       });
-    }, 100);
+    }, 80);
 
-    // Safety timeout: don't wait more than 6 seconds
+    // Safety timeout: max 5 seconds
     const timeout = setTimeout(() => {
       clearInterval(interval);
       setProgress(100);
       setTimeout(() => setIsLoading(false), 400);
-    }, 6000);
+    }, 5000);
 
     return () => {
       clearInterval(interval);
       clearTimeout(timeout);
-      v1.src = '';
-      v2.src = '';
+      v.src = '';
     };
   }, [setIsLoading]);
 

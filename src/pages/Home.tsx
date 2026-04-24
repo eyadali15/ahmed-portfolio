@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
@@ -25,8 +25,8 @@ function HeroSection() {
   const { content: c, elements: e, layout: l } = content.hero;
   const titleRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoReady, setVideoReady] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.4 });
@@ -34,32 +34,32 @@ function HeroSection() {
     tl.fromTo(subtitleRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }, '-=0.4');
   }, []);
 
+  // Parallax scroll effect on the image
   useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    const onPlaying = () => setVideoReady(true);
-    v.addEventListener('playing', onPlaying);
-    // Safety: if video somehow plays before listener
-    if (!v.paused) setVideoReady(true);
-    return () => v.removeEventListener('playing', onPlaying);
+    if (!sectionRef.current || !imgRef.current) return;
+    gsap.to(imgRef.current, {
+      yPercent: 20,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+    return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
   }, []);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden" style={box(l)}>
-      {/* Dark base behind video */}
-      <div className="absolute inset-0 z-0 bg-[var(--color-bg)]" />
-      {/* Video — hidden until playing to prevent native poster/play button */}
-      <video
-        ref={videoRef}
-        autoPlay muted loop playsInline
-        // @ts-ignore
-        webkit-playsinline=""
-        preload="auto"
-        className="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-700"
-        style={{ objectFit: 'cover', opacity: videoReady ? 1 : 0 }}
-      >
-        <source src={c.heroVideo || '/videos/banner.mp4'} type="video/mp4" />
-      </video>
+    <section ref={sectionRef} className="relative h-screen w-full overflow-hidden" style={box(l)}>
+      {/* Parallax background image */}
+      <img
+        ref={imgRef}
+        src={c.heroImage || '/uploads/photo_1_2026-04-21_09-17-26.jpg'}
+        alt=""
+        className="absolute inset-0 w-full h-[120%] object-cover z-0"
+        style={{ objectPosition: 'center top' }}
+      />
       <div className="absolute inset-0 z-[1] bg-black/60" />
       <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/40 via-transparent to-black/90" />
       <div className="relative z-[3] h-full flex flex-col items-center justify-center px-6" style={{ textAlign: l.align as Align }}>

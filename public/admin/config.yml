@@ -58,8 +58,7 @@ collections:
                   - { label: "Subtitle", name: "subtitle", widget: "string" }
                   - { label: "Description", name: "description", widget: "string" }
                   - { label: "Button Text", name: "buttonText", widget: "string", default: "View My Work" }
-                  - { label: "🎬 Hero Video Background", name: "heroVideo", widget: "file", default: "/videos/banner.mp4" }
-                  - { label: "🖼️ Hero Poster (mobile fallback)", name: "heroPoster", widget: "image", required: false, hint: "Image shown while video loads on mobile" }
+                  - { label: "🖼️ Hero Background Image", name: "heroImage", widget: "image", hint: "Background image with parallax scroll effect" }
                   - { label: "🎬 Banner Video (mid-page)", name: "bannerVideo", widget: "file", default: "/videos/banner.mp4" }
               - label: "📐 Spacing"
                 name: "elements"
