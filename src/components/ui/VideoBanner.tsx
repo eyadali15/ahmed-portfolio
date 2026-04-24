@@ -1,27 +1,11 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import content from '@/content/pages/home.json';
 
 gsap.registerPlugin(ScrollTrigger);
 
-function initScrollVideo(video: HTMLVideoElement, trigger: Element, start: string, end: string) {
-  const duration = video.duration;
-  if (!duration || isNaN(duration)) return;
-  video.pause();
-
-  gsap.to({}, {
-    scrollTrigger: {
-      trigger,
-      start,
-      end,
-      scrub: 1,
-      onUpdate: (self) => { try { video.currentTime = self.progress * duration; } catch (_) {} },
-    },
-  });
-
-  return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
-}
+const isMobile = () => window.innerWidth < 768;
 
 function waitForVideo(video: HTMLVideoElement, cb: () => void) {
   if (video.readyState >= 1 && video.duration > 0) { cb(); return; }
@@ -43,6 +27,8 @@ function waitForVideo(video: HTMLVideoElement, cb: () => void) {
 export default function VideoBanner() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [ready, setReady] = useState(false);
+  const [mobile] = useState(isMobile);
   const vb = content.videoBanner;
   const label = vb.content?.label || 'Behind the Lens';
   const titlePart1 = vb.content?.titlePart1 || 'Where Stories';
@@ -55,13 +41,48 @@ export default function VideoBanner() {
     const video = videoRef.current;
     const container = containerRef.current;
     if (!video || !container) return;
+
     video.load();
-    let cleanup: (() => void) | undefined;
-    waitForVideo(video, () => {
-      cleanup = initScrollVideo(video, container, 'top bottom', 'bottom top');
-    });
-    return () => { cleanup?.(); };
-  }, []);
+
+    if (mobile) {
+      // MOBILE: scroll-driven
+      waitForVideo(video, () => {
+        const duration = video.duration;
+        if (!duration || isNaN(duration)) return;
+        video.pause();
+        gsap.to({}, {
+          scrollTrigger: {
+            trigger: container,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+            onUpdate: (self) => {
+              try { video.currentTime = self.progress * duration; } catch (_) {}
+            },
+          },
+        });
+      });
+    } else {
+      // DESKTOP: autoplay + parallax
+      video.play().catch(() => {});
+      const onPlay = () => setReady(true);
+      video.addEventListener('playing', onPlay);
+      if (!video.paused) setReady(true);
+
+      gsap.to(video, {
+        yPercent: 10,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: container,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+    }
+
+    return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
+  }, [mobile]);
 
   return (
     <div
@@ -82,7 +103,9 @@ export default function VideoBanner() {
       <video
         ref={videoRef}
         muted playsInline preload="auto"
-        className="absolute inset-0 w-full h-full object-cover"
+        {...(!mobile ? { autoPlay: true, loop: true } : {})}
+        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+        style={{ opacity: mobile || ready ? 1 : 0 }}
       >
         <source src={videoSrc} type="video/mp4" />
       </video>

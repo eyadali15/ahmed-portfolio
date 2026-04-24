@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Button from '@/components/ui/Button';
@@ -13,35 +13,16 @@ const box = (l: Layout) => ({
   marginTop: l.marginTop || undefined, marginBottom: (l.marginBottom || 0) + (l.gapAfter || 0) || undefined, marginLeft: l.marginLeft || undefined, marginRight: l.marginRight || undefined,
 });
 const jm = { left: 'flex-start', center: 'center', right: 'flex-end' } as const;
+const isMobile = () => window.innerWidth < 768;
 
-function initScrollVideo(video: HTMLVideoElement, trigger: Element, start: string, end: string) {
-  const duration = video.duration;
-  if (!duration || isNaN(duration)) return;
-  video.pause();
-
-  gsap.to({}, {
-    scrollTrigger: {
-      trigger,
-      start,
-      end,
-      scrub: 1,
-      onUpdate: (self) => {
-        try { video.currentTime = self.progress * duration; } catch (_) {}
-      },
-    },
-  });
-
-  return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
-}
-
-function waitForVideo(video: HTMLVideoElement, callback: () => void) {
-  if (video.readyState >= 1 && video.duration > 0) { callback(); return; }
+function waitForVideo(video: HTMLVideoElement, cb: () => void) {
+  if (video.readyState >= 1 && video.duration > 0) { cb(); return; }
   const handler = () => {
     if (video.duration > 0) {
       video.removeEventListener('loadedmetadata', handler);
       video.removeEventListener('loadeddata', handler);
       video.removeEventListener('canplay', handler);
-      callback();
+      cb();
     }
   };
   video.addEventListener('loadedmetadata', handler);
@@ -57,7 +38,10 @@ export default function HeroBanner() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
+  const [ready, setReady] = useState(false);
+  const [mobile] = useState(isMobile);
 
+  // Text entrance
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.5 });
     if (titleRef.current) tl.fromTo(titleRef.current.querySelectorAll('.hero-word'), { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: 'power4.out' });
@@ -68,20 +52,57 @@ export default function HeroBanner() {
     const video = videoRef.current;
     const section = sectionRef.current;
     if (!video || !section) return;
+
     video.load();
-    let cleanup: (() => void) | undefined;
-    waitForVideo(video, () => {
-      cleanup = initScrollVideo(video, section, 'top top', 'bottom top');
-    });
-    return () => { cleanup?.(); };
-  }, []);
+
+    if (mobile) {
+      // MOBILE: scroll-driven currentTime (proven working)
+      waitForVideo(video, () => {
+        const duration = video.duration;
+        if (!duration || isNaN(duration)) return;
+        video.pause();
+        gsap.to({}, {
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1,
+            onUpdate: (self) => {
+              try { video.currentTime = self.progress * duration; } catch (_) {}
+            },
+          },
+        });
+      });
+    } else {
+      // DESKTOP: autoplay + parallax (no frame skipping)
+      video.play().catch(() => {});
+      const onPlay = () => setReady(true);
+      video.addEventListener('playing', onPlay);
+      if (!video.paused) setReady(true);
+
+      gsap.to(video, {
+        yPercent: 15,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+    }
+
+    return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
+  }, [mobile]);
 
   return (
     <section ref={sectionRef} className="relative h-screen w-full overflow-hidden" style={box(l)}>
       <video
         ref={videoRef}
         muted playsInline preload="auto"
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        {...(!mobile ? { autoPlay: true, loop: true } : {})}
+        className="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-700"
+        style={{ opacity: mobile || ready ? 1 : 0 }}
       >
         <source src={c.heroImage || '/uploads/136726-764934405_small.mp4'} type="video/mp4" />
       </video>
