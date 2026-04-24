@@ -19,37 +19,19 @@ function initScrollVideo(video: HTMLVideoElement, trigger: Element, start: strin
   if (!duration || isNaN(duration)) return;
   video.pause();
 
-  let targetTime = 0;
-  let currentTime = 0;
-  let raf = 0;
-
-  // Smooth interpolation loop — updates video frame every animation frame
-  const tick = () => {
-    // Lerp toward target for buttery smoothness
-    currentTime += (targetTime - currentTime) * 0.18;
-    if (Math.abs(currentTime - targetTime) > 0.01) {
-      try { video.currentTime = currentTime; } catch (_) {}
-    }
-    raf = requestAnimationFrame(tick);
-  };
-  raf = requestAnimationFrame(tick);
-
   gsap.to({}, {
     scrollTrigger: {
       trigger,
       start,
       end,
-      scrub: true,
+      scrub: 1,
       onUpdate: (self) => {
-        targetTime = self.progress * duration;
+        try { video.currentTime = self.progress * duration; } catch (_) {}
       },
     },
   });
 
-  return () => {
-    cancelAnimationFrame(raf);
-    ScrollTrigger.getAll().forEach((t) => t.kill());
-  };
+  return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
 }
 
 function waitForVideo(video: HTMLVideoElement, callback: () => void) {

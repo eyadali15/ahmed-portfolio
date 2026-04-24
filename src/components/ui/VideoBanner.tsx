@@ -10,30 +10,17 @@ function initScrollVideo(video: HTMLVideoElement, trigger: Element, start: strin
   if (!duration || isNaN(duration)) return;
   video.pause();
 
-  let targetTime = 0;
-  let currentTime = 0;
-  let raf = 0;
-
-  const tick = () => {
-    currentTime += (targetTime - currentTime) * 0.18;
-    if (Math.abs(currentTime - targetTime) > 0.01) {
-      try { video.currentTime = currentTime; } catch (_) {}
-    }
-    raf = requestAnimationFrame(tick);
-  };
-  raf = requestAnimationFrame(tick);
-
   gsap.to({}, {
     scrollTrigger: {
       trigger,
       start,
       end,
-      scrub: true,
-      onUpdate: (self) => { targetTime = self.progress * duration; },
+      scrub: 1,
+      onUpdate: (self) => { try { video.currentTime = self.progress * duration; } catch (_) {} },
     },
   });
 
-  return () => { cancelAnimationFrame(raf); ScrollTrigger.getAll().forEach((t) => t.kill()); };
+  return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
 }
 
 function waitForVideo(video: HTMLVideoElement, cb: () => void) {
