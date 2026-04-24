@@ -655,6 +655,7 @@ collections:
               - { label: "Hero Background Image", name: "heroBackground", widget: "image" }
               - { label: "↕️ Title → Filter Options Gap (All, Films, etc)", name: "titleToFilterGap", widget: "number", default: 40, hint: "Space between page title and filter buttons" }
               - { label: "↕️ Filter Options → Video Grid Gap", name: "filterToGridGap", widget: "number", default: 56, hint: "Space between filter buttons and the video cards grid" }
+              - { label: "↕️ Role Buttons → Filter Options Gap", name: "roleToFilterGap", widget: "number", default: 32, hint: "Space between Assistant Director/Director buttons and category filters" }
               - { label: "↕️ Grid Gap (between cards)", name: "gridGap", widget: "number", default: 32, hint: "Gap between project cards" }
               - { label: "↕️ Grid Padding Top", name: "gridPaddingTop", widget: "number", default: 36 }
               - { label: "↕️ Show More Button → Footer", name: "bottomSpacerHeight", widget: "number", default: 80, hint: "Gap between Show More button and footer" }

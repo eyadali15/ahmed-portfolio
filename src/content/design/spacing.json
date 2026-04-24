@@ -34,6 +34,7 @@
     "titleAlign": "left",
     "gridGap": 32,
     "filterToGridGap": 40,
+    "roleToFilterGap": 32,
     "bottomSpacerHeight": 40
   },
   "about": {

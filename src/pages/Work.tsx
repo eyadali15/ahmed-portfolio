@@ -61,18 +61,25 @@ export default function Work() {
         <div className="container-main" style={{ paddingTop: s.sectionPaddingY, paddingBottom: s.sectionPaddingY, paddingLeft: s.sectionPaddingX || undefined, paddingRight: s.sectionPaddingX || undefined }}>
 
           {/* Role Tabs */}
-          <div className="flex justify-center gap-3 mb-8" style={{ marginTop: s.titleToFilterGap }}>
+          <div className="flex flex-wrap items-center gap-3" style={{ marginTop: s.titleToFilterGap, marginBottom: s.roleToFilterGap, textAlign: (s.filterAlign as 'left' | 'center' | 'right') || 'left' }}>
             {roleTabs.map((tab) => (
               <motion.button
                 key={tab.key}
                 onClick={() => { setActiveRole(tab.key); setActiveFilter('all'); }}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className={`relative px-6 py-3 text-sm uppercase tracking-[0.15em] font-medium rounded-lg transition-all duration-300 cursor-pointer ${
+                className={`text-xs uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer border ${
                   activeRole === tab.key
-                    ? 'bg-[var(--color-accent)] text-black'
-                    : 'border border-white/20 text-white/60 hover:text-white hover:border-white/40'
+                    ? 'bg-white text-black border-white'
+                    : 'bg-transparent text-white border-[var(--color-accent)] hover:bg-white hover:text-black hover:border-white'
                 }`}
+                style={{
+                  borderRadius: spacing.buttons.filterStyle === 'rounded' ? spacing.buttons.filterBorderRadius : 0,
+                  paddingTop: spacing.buttons.filterPaddingTop,
+                  paddingBottom: spacing.buttons.filterPaddingBottom,
+                  paddingLeft: spacing.buttons.filterPaddingLeft,
+                  paddingRight: spacing.buttons.filterPaddingRight,
+                }}
               >
                 {tab.label}
               </motion.button>
@@ -80,7 +87,7 @@ export default function Work() {
           </div>
 
           {/* Category Filters */}
-          <div style={{ marginBottom: s.filterToGridGap, textAlign: (s.filterAlign as 'left' | 'center' | 'right') || 'left' }}>
+          <div className="flex flex-wrap items-center gap-3" style={{ marginBottom: s.filterToGridGap, textAlign: (s.filterAlign as 'left' | 'center' | 'right') || 'left' }}>
             <FilterBar />
           </div>
 
