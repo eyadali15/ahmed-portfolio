@@ -18,7 +18,7 @@
     },
     "layout": {
       "paddingTop": 0,
-      "align": "center",
+      "align": "left",
       "gapAfter": 0,
       "marginTop": 0,
       "paddingRight": 24,
@@ -69,7 +69,7 @@
     "layout": {
       "paddingTop": 0,
       "gapAfter": 0,
-      "marginTop": 0,
+      "marginTop": 10,
       "height": 75,
       "paddingRight": 0,
       "marginRight": 0,
