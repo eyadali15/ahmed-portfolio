@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
@@ -25,6 +25,8 @@ function HeroSection() {
   const { content: c, elements: e, layout: l } = content.hero;
   const titleRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.4 });
@@ -32,17 +34,29 @@ function HeroSection() {
     tl.fromTo(subtitleRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }, '-=0.4');
   }, []);
 
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const onPlaying = () => setVideoReady(true);
+    v.addEventListener('playing', onPlaying);
+    // Safety: if video somehow plays before listener
+    if (!v.paused) setVideoReady(true);
+    return () => v.removeEventListener('playing', onPlaying);
+  }, []);
+
   return (
     <section className="relative h-screen w-full overflow-hidden" style={box(l)}>
-      {/* Video background — works on all devices with muted+playsInline */}
+      {/* Dark base behind video */}
+      <div className="absolute inset-0 z-0 bg-[var(--color-bg)]" />
+      {/* Video — hidden until playing to prevent native poster/play button */}
       <video
+        ref={videoRef}
         autoPlay muted loop playsInline
-        // @ts-ignore webkit-playsinline for older iOS
+        // @ts-ignore
         webkit-playsinline=""
         preload="auto"
-        poster={c.heroPoster || undefined}
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        style={{ objectFit: 'cover' }}
+        className="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-700"
+        style={{ objectFit: 'cover', opacity: videoReady ? 1 : 0 }}
       >
         <source src={c.heroVideo || '/videos/banner.mp4'} type="video/mp4" />
       </video>

@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import content from '@/content/pages/home.json';
@@ -8,13 +8,24 @@ gsap.registerPlugin(ScrollTrigger);
 export default function VideoBanner() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
   const videoSrc = content.hero.content.bannerVideo || '/videos/banner.mp4';
   const vb = content.videoBanner;
   const label = vb.content?.label || 'Behind the Lens';
   const titlePart1 = vb.content?.titlePart1 || 'Where Stories';
   const titlePart2 = vb.content?.titlePart2 || 'Come Alive';
-  const fallbackImage = vb.content?.fallbackImage || '';
 
+  // Fade video in only when it starts playing
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const onPlaying = () => setVideoReady(true);
+    v.addEventListener('playing', onPlaying);
+    if (!v.paused) setVideoReady(true);
+    return () => v.removeEventListener('playing', onPlaying);
+  }, []);
+
+  // Parallax scroll on desktop
   useEffect(() => {
     if (!containerRef.current || !videoRef.current) return;
 
@@ -34,18 +45,18 @@ export default function VideoBanner() {
 
   return (
     <div ref={containerRef} className="relative w-full h-[50vh] md:h-[65vh] lg:h-[75vh] overflow-hidden">
-      {/* Video background — works on all devices with muted+playsInline */}
+      {/* Dark base behind video */}
+      <div className="absolute inset-0 bg-[var(--color-bg)]" />
+
+      {/* Video — hidden until playing */}
       <video
         ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        // @ts-ignore webkit-playsinline for older iOS
+        autoPlay muted loop playsInline
+        // @ts-ignore
         webkit-playsinline=""
         preload="auto"
-        poster={fallbackImage || undefined}
-        className="absolute inset-0 w-full h-[130%] object-cover -top-[15%]"
+        className="absolute inset-0 w-full h-[130%] object-cover -top-[15%] transition-opacity duration-700"
+        style={{ opacity: videoReady ? 1 : 0 }}
       >
         <source src={videoSrc} type="video/mp4" />
       </video>
