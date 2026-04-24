@@ -5,7 +5,7 @@
       "name1": "Ahmed",
       "name2": "Abuzenada",
       "subtitle": "Film & Commercial Director",
-      "description": " ",
+      "description": " Crafting Stories, Frame by frame.",
       "heroImage": "/uploads/136726-764934405_small.mp4",
       "bannerVideo": "/uploads/239444_small.mp4",
       "buttonText": "Portfolio"
@@ -62,8 +62,8 @@
     "visible": true,
     "content": {
       "label": "Behind the Lens",
-      "titlePart1": "Where Stories",
-      "titlePart2": "Come Alive",
+      "titlePart1": "Ready to ",
+      "titlePart2": "tell a story?",
       "fallbackImage": ""
     },
     "layout": {
