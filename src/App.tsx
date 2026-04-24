@@ -5,67 +5,30 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import SmoothScroll from '@/components/layout/SmoothScroll';
 import { useStore } from '@/store/useStore';
-import homeContent from '@/content/pages/home.json';
 import global from '@/content/pages/global.json';
+import homeContent from '@/content/pages/home.json';
 
 function LoadingScreen() {
   const [progress, setProgress] = useState(0);
   const setIsLoading = useStore((s) => s.setIsLoading);
-  const assetsReady = useRef(false);
+  const done = useRef(false);
 
   useEffect(() => {
-    // Preload hero image + banner video
-    const heroImg = homeContent.hero.content.heroImage || '/uploads/photo_1_2026-04-21_09-17-26.jpg';
-    const bannerSrc = homeContent.hero.content.bannerVideo || '/videos/banner.mp4';
-    let loaded = 0;
-    const total = 2;
-
-    const checkDone = () => {
-      loaded++;
-      if (loaded >= total) assetsReady.current = true;
-    };
-
-    // Preload hero image
-    const img = new Image();
-    img.onload = checkDone;
-    img.onerror = checkDone;
-    img.src = heroImg;
-
-    // Preload banner video
-    const v = document.createElement('video');
-    v.muted = true;
-    v.preload = 'auto';
-    v.oncanplaythrough = checkDone;
-    v.onerror = checkDone;
-    v.src = bannerSrc;
-
-    // Progress bar
+    // Fast loading — no heavy videos to preload anymore
     const interval = setInterval(() => {
       setProgress((prev) => {
-        const next = prev + Math.random() * 14 + 5;
-        if (next >= 90 && !assetsReady.current) return 90;
-        if (next >= 90 && assetsReady.current) {
+        const next = prev + Math.random() * 20 + 8;
+        if (next >= 100 && !done.current) {
+          done.current = true;
           clearInterval(interval);
-          setProgress(100);
-          setTimeout(() => setIsLoading(false), 500);
+          setTimeout(() => setIsLoading(false), 400);
           return 100;
         }
-        return next;
+        return Math.min(next, 100);
       });
     }, 80);
 
-    // Safety timeout: max 5 seconds
-    const timeout = setTimeout(() => {
-      clearInterval(interval);
-      setProgress(100);
-      setTimeout(() => setIsLoading(false), 400);
-    }, 5000);
-
-    return () => {
-      clearInterval(interval);
-      clearTimeout(timeout);
-      v.src = '';
-    };
+    return () => clearInterval(interval);
   }, [setIsLoading]);
 
   return (

@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import gsap from 'gsap';
 import SectionTitle from '@/components/ui/SectionTitle';
 import Button from '@/components/ui/Button';
+import HeroBanner from '@/components/ui/HeroBanner';
 import VideoBanner from '@/components/ui/VideoBanner';
 import { useStore } from '@/store/useStore';
 import { getFeaturedProjects } from '@/data/projects';
@@ -20,65 +21,6 @@ const box = (l: Layout) => ({
   marginTop: l.marginTop || undefined, marginBottom: (l.marginBottom || 0) + (l.gapAfter || 0) || undefined, marginLeft: l.marginLeft || undefined, marginRight: l.marginRight || undefined,
 });
 const jm = { left: 'flex-start', center: 'center', right: 'flex-end' } as const;
-
-function HeroSection() {
-  const { content: c, elements: e, layout: l } = content.hero;
-  const titleRef = useRef<HTMLDivElement>(null);
-  const subtitleRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
-
-  useEffect(() => {
-    const tl = gsap.timeline({ delay: 0.4 });
-    if (titleRef.current) tl.fromTo(titleRef.current.querySelectorAll('.hero-word'), { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: 'power4.out' });
-    tl.fromTo(subtitleRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }, '-=0.4');
-  }, []);
-
-  // Parallax scroll effect on the image
-  useEffect(() => {
-    if (!sectionRef.current || !imgRef.current) return;
-    gsap.to(imgRef.current, {
-      yPercent: 20,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-      },
-    });
-    return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
-  }, []);
-
-  return (
-    <section ref={sectionRef} className="relative h-screen w-full overflow-hidden" style={box(l)}>
-      {/* Parallax background image */}
-      <img
-        ref={imgRef}
-        src={c.heroImage || '/uploads/photo_1_2026-04-21_09-17-26.jpg'}
-        alt=""
-        className="absolute inset-0 w-full h-[120%] object-cover z-0"
-        style={{ objectPosition: 'center top' }}
-      />
-      <div className="absolute inset-0 z-[1] bg-black/60" />
-      <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/40 via-transparent to-black/90" />
-      <div className="relative z-[3] h-full flex flex-col items-center justify-center px-6" style={{ textAlign: l.align as Align }}>
-        <div ref={titleRef} style={{ marginBottom: e.titleMarginBottom }}>
-          <h1 className="font-[var(--font-heading)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1] tracking-tight">
-            <span className="hero-word inline-block text-white">{c.name1 || 'Ahmed'}</span>
-            <span className="hero-word inline-block ml-3 md:ml-4 text-[var(--color-accent)]">{c.name2 || 'Abuzenada'}</span>
-          </h1>
-        </div>
-        <div ref={subtitleRef} style={{ textAlign: l.align as Align }}>
-          <p className="text-xs md:text-sm tracking-[0.35em] uppercase text-white/70" style={{ marginBottom: e.subtitleMarginBottom }}>{c.subtitle}</p>
-          <div className="w-12 h-px bg-[var(--color-accent)]" style={{ margin: l.align === 'center' ? `${e.dividerMarginY}px auto` : `${e.dividerMarginY}px 0` }} />
-          <p className="text-white/50 text-sm max-w-md leading-relaxed" style={{ marginBottom: e.descriptionMarginBottom, margin: l.align === 'center' ? `0 auto ${e.descriptionMarginBottom}px` : `0 0 ${e.descriptionMarginBottom}px` }}>{c.description}</p>
-          <div style={{ display: 'flex', justifyContent: jm[l.align as Align] }}><Button to="/work">{c.buttonText || 'View My Work'}</Button></div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function FeaturedSection() {
   const { content: c, elements: e, layout: l } = content.featured;
@@ -150,7 +92,7 @@ export default function Home() {
   useEffect(() => { setIsLoading(false); return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); }; }, [setIsLoading]);
   return (
     <PageTransition>
-      {content.hero.visible !== false && <HeroSection />}
+      {content.hero.visible !== false && <HeroBanner />}
       {content.featured.visible !== false && <FeaturedSection />}
       {content.videoBanner?.visible !== false && <VideoBanner />}
       {content.cta.visible !== false && <CTASection />}
