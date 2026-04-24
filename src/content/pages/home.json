@@ -5,7 +5,7 @@
       "name1": "Ahmed",
       "name2": "Abuzenada",
       "subtitle": "Film & Commercial Director",
-      "description": " Crafting Stories, Frame by frame.",
+      "description": " Crafting Stories, Frame By Frame.",
       "heroImage": "/uploads/136726-764934405_small.mp4",
       "bannerVideo": "/uploads/239444_small.mp4",
       "buttonText": "Portfolio"
@@ -61,7 +61,7 @@
   "videoBanner": {
     "visible": true,
     "content": {
-      "label": "Behind the Lens",
+      "label": "Behind The Lens",
       "titlePart1": "Ready to ",
       "titlePart2": "tell a story?",
       "fallbackImage": ""
@@ -82,8 +82,8 @@
   "cta": {
     "visible": true,
     "content": {
-      "label": "Let's Collaborate",
-      "title": "Always eager for the next adventure.",
+      "label": "Let's Roll",
+      "title": "What's Your Story?",
       "description": "Whether it's a commercial, documentary, or narrative film, every great project starts with a conversation.",
       "buttonText": "Start a Conversation"
     },
