@@ -68,7 +68,7 @@
     },
     "layout": {
       "paddingTop": 0,
-      "gapAfter": 0,
+      "gapAfter": 20,
       "marginTop": 10,
       "height": 75,
       "paddingRight": 0,
