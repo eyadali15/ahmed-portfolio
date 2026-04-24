@@ -44,7 +44,7 @@
       "gridToButtonGap": 60
     },
     "layout": {
-      "paddingTop": 64,
+      "paddingTop": 50,
       "align": "left",
       "gapAfter": 0,
       "marginTop": 0,
@@ -55,7 +55,7 @@
       "marginLeft": 0,
       "paddingLeft": 0,
       "marginBottom": 0,
-      "paddingBottom": 120
+      "paddingBottom": 50
     }
   },
   "videoBanner": {
