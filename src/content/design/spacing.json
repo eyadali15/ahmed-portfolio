@@ -1,8 +1,8 @@
 {
   "home": {
     "heroPaddingX": 24,
-    "ctaTextPaddingTop": 25,
-    "ctaTitleMarginBottom": 40,
+    "ctaTextPaddingTop": 6,
+    "ctaTitleMarginBottom": 27,
     "featuredGridGap": 30,
     "ctaButtonMarginTop": 20,
     "featuredButtonAlign": "center",
@@ -11,14 +11,14 @@
     "videoBannerHeight": 75,
     "featuredGridToButtonGap": 15,
     "ctaAlign": "center",
-    "ctaTextMarginBottom": 96,
+    "ctaTextMarginBottom": 40,
     "heroTitleMarginBottom": 36,
     "heroDescriptionMarginBottom": 36,
     "featuredTitleAlign": "center",
     "ctaButtonMarginBottom": 20,
     "ctaSectionPaddingX": 0,
     "ctaSectionPaddingY": 0,
-    "ctaLabelMarginBottom": 32,
+    "ctaLabelMarginBottom": 20,
     "featuredSectionPaddingX": 0,
     "heroTextAlign": "center",
     "featuredSectionPaddingY": 160
