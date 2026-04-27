@@ -49,6 +49,9 @@
         <a class="sidebar__link" data-section="design">
           <span class="sidebar__link-icon">🎨</span> Design Settings
         </a>
+        <a class="sidebar__link" data-section="layout">
+          <span class="sidebar__link-icon">📐</span> Layout & Spacing
+        </a>
       </nav>
       <div class="sidebar__footer">
         <a class="sidebar__footer-link" href="/" target="_blank">↗ View Live Site</a>
@@ -439,7 +442,10 @@
           <div class="form-row--inline" style="grid-template-columns:1fr 1fr 1fr;">
             <div class="form-row">
               <label>Accent Color</label>
-              <input type="color" id="design-accent">
+              <div style="display:flex;gap:0.5rem;align-items:center;">
+                <input type="color" id="design-accent">
+                <span id="design-accent-hex" style="font-family:monospace;font-size:0.8rem;color:var(--admin-text-muted);"></span>
+              </div>
             </div>
             <div class="form-row">
               <label>Background</label>
@@ -449,6 +455,46 @@
               <label>Text Color</label>
               <input type="color" id="design-text">
             </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">✨</span> Features</div>
+          <div class="toggle-row">
+            <span class="toggle-row__label">Preloader Animation</span>
+            <label class="toggle"><input type="checkbox" id="design-preloader"><span class="toggle__slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-row__label">Page Transitions</span>
+            <label class="toggle"><input type="checkbox" id="design-transitions"><span class="toggle__slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-row__label">Smooth Scrolling (Lenis)</span>
+            <label class="toggle"><input type="checkbox" id="design-smooth"><span class="toggle__slider"></span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== LAYOUT & SPACING ===== -->
+      <div class="admin-section" id="section-layout">
+        <div class="admin-main__header">
+          <h1 class="admin-main__title">Layout & Spacing</h1>
+          <button class="btn-admin btn-admin--primary" data-action="save">💾 Save All</button>
+        </div>
+        <div class="admin-card">
+          <p style="color:var(--admin-text-muted);font-size:0.85rem;margin-bottom:1rem;">
+            Control the exact top and bottom padding (inner spacing), margin (outer spacing), alignment, and grid columns for every section across the website.
+          </p>
+          <div style="display:flex;gap:1rem;margin-bottom:2rem;">
+            <select id="layout-page-select" class="btn-admin" style="padding:0.6rem 1rem;">
+              <option value="home">Home Page</option>
+              <option value="portfolio">Portfolio Page</option>
+              <option value="about">About Page</option>
+              <option value="contact">Contact Page</option>
+            </select>
+          </div>
+          <div id="layout-editors-container">
+            <!-- Dynamically populated by JS -->
           </div>
         </div>
       </div>

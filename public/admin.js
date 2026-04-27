@@ -1,7 +1,9 @@
 /* ============================================
    ADMIN.JS — Ahmed Abuzenada Admin Panel Logic
+   Complete with Layout Editor, Style Engine,
+   Design Features, Project CRUD, Import/Export
    ============================================ */
-import { ConfigLoader, DEFAULT_CONFIG } from './config-loader.js';
+import { ConfigLoader, DEFAULT_CONFIG, SECTION_SELECTORS as LAYOUT_SECTIONS } from './config-loader.js';
 
 const ADMIN_PASS = 'admin123';
 let loader, config;
@@ -50,11 +52,14 @@ function showDashboard() {
   }
 
   initSidebar();
+  initStyleEngine();
   populateAllForms();
   bindSaveButtons();
   bindProjectActions();
   bindImportExport();
   bindMobileSidebar();
+  initLayoutEditor();
+  initColorHexDisplay();
   switchSection('general');
 }
 
@@ -72,7 +77,216 @@ async function loadProjectsFromStatic() {
       }
     }
   } catch {}
-  // Fallback: projects stay empty, user adds manually
+}
+
+/* ============ DYNAMIC STYLE ENGINE ============ */
+function initStyleEngine() {
+  const customizableIds = {
+    'home-name1':     'home.styles.name1',
+    'home-name2':     'home.styles.name2',
+    'home-subtitle':  'home.styles.subtitle',
+    'home-cta-title': 'home.styles.ctaTitle',
+    'home-cta-desc':  'home.styles.ctaDescription',
+    'about-hero-title':    'about.styles.heroTitle',
+    'about-intro-text1':   'about.styles.introText1',
+    'about-intro-text2':   'about.styles.introText2',
+    'about-quote-text':    'about.styles.quoteText',
+    'contact-header-title': 'contact.styles.headerTitle',
+    'contact-header-desc':  'contact.styles.headerDesc'
+  };
+
+  Object.entries(customizableIds).forEach(([id, path]) => {
+    const input = document.getElementById(id);
+    if (!input) return;
+
+    const wrap = document.createElement('div');
+    wrap.style.marginTop = '8px';
+    wrap.style.background = 'rgba(255,255,255,0.02)';
+    wrap.style.padding = '10px';
+    wrap.style.borderRadius = '8px';
+    wrap.style.border = '1px solid rgba(255,255,255,0.05)';
+    wrap.innerHTML = `
+      <details>
+        <summary style="cursor:pointer; font-size:0.75rem; color:#888; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">⚙ Advanced Styles</summary>
+        <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+          <select id="${id}-font" style="flex:1;min-width:120px;" class="admin-input">
+            <option value="">Default Font</option>
+            <option value="Inter, sans-serif">Inter</option>
+            <option value="Outfit, sans-serif">Outfit</option>
+            <option value="Syne, sans-serif">Syne</option>
+            <option value="Roboto, sans-serif">Roboto</option>
+            <option value="Playfair Display, serif">Playfair Display</option>
+          </select>
+          <input type="text" id="${id}-size" placeholder="Size (e.g. 2rem)" style="flex:1;min-width:100px;" class="admin-input">
+          <select id="${id}-align" style="flex:1;min-width:100px;" class="admin-input">
+            <option value="">Default Align</option>
+            <option value="left">Left</option>
+            <option value="center">Center</option>
+            <option value="right">Right</option>
+          </select>
+          <input type="text" id="${id}-color" placeholder="Color (#fff)" style="max-width:110px;" class="admin-input" title="Text Color (leave blank for default)">
+        </div>
+      </details>
+    `;
+    input.parentNode.appendChild(wrap);
+  });
+}
+
+function populateStyleFields() {
+  const maps = {
+    'home-name1':    config.home?.styles?.name1,
+    'home-name2':    config.home?.styles?.name2,
+    'home-subtitle': config.home?.styles?.subtitle,
+    'home-cta-title': config.home?.styles?.ctaTitle,
+    'home-cta-desc': config.home?.styles?.ctaDescription,
+    'about-hero-title': config.about?.styles?.heroTitle,
+    'about-intro-text1': config.about?.styles?.introText1,
+    'about-intro-text2': config.about?.styles?.introText2,
+    'about-quote-text': config.about?.styles?.quoteText,
+    'contact-header-title': config.contact?.styles?.headerTitle,
+    'contact-header-desc': config.contact?.styles?.headerDesc
+  };
+  Object.entries(maps).forEach(([id, s]) => {
+    if (!s) return;
+    setVal(`${id}-font`, s.font);
+    setVal(`${id}-size`, s.size);
+    setVal(`${id}-align`, s.align);
+    setVal(`${id}-color`, s.color);
+  });
+}
+
+function readStyleFields() {
+  function readStyle(id) {
+    return {
+      font: getVal(`${id}-font`),
+      size: getVal(`${id}-size`),
+      align: getVal(`${id}-align`),
+      color: getVal(`${id}-color`)
+    };
+  }
+  if (!config.home.styles) config.home.styles = {};
+  config.home.styles.name1 = readStyle('home-name1');
+  config.home.styles.name2 = readStyle('home-name2');
+  config.home.styles.subtitle = readStyle('home-subtitle');
+  config.home.styles.ctaTitle = readStyle('home-cta-title');
+  config.home.styles.ctaDescription = readStyle('home-cta-desc');
+
+  if (!config.about.styles) config.about.styles = {};
+  config.about.styles.heroTitle = readStyle('about-hero-title');
+  config.about.styles.introText1 = readStyle('about-intro-text1');
+  config.about.styles.introText2 = readStyle('about-intro-text2');
+  config.about.styles.quoteText = readStyle('about-quote-text');
+
+  if (!config.contact.styles) config.contact.styles = {};
+  config.contact.styles.headerTitle = readStyle('contact-header-title');
+  config.contact.styles.headerDesc = readStyle('contact-header-desc');
+}
+
+/* ============ COLOR HEX DISPLAY ============ */
+function initColorHexDisplay() {
+  const colorInput = document.getElementById('design-accent');
+  const hexSpan = document.getElementById('design-accent-hex');
+  if (colorInput && hexSpan) {
+    const update = () => { hexSpan.textContent = colorInput.value.toUpperCase(); };
+    colorInput.addEventListener('input', update);
+    update();
+  }
+}
+
+/* ============ LAYOUT & SPACING EDITOR ============ */
+function initLayoutEditor() {
+  const pageSelect = document.getElementById('layout-page-select');
+  if (!pageSelect) return;
+  pageSelect.addEventListener('change', () => renderLayoutEditors(pageSelect.value));
+  renderLayoutEditors(pageSelect.value);
+}
+
+function renderLayoutEditors(page) {
+  const container = document.getElementById('layout-editors-container');
+  if (!container) return;
+  
+  const sections = LAYOUT_SECTIONS[page];
+  const pageLayout = config.layout?.[page] || {};
+  
+  if (!sections) {
+    container.innerHTML = '<p style="color:var(--admin-text-muted);">No sections defined for this page.</p>';
+    return;
+  }
+
+  container.innerHTML = Object.keys(sections).map(key => {
+    const info = sections[key];
+    const data = pageLayout[key] || {};
+    const hasGrid = !!info.gridSel;
+    
+    return `
+      <div class="layout-editor" data-page="${page}" data-section="${key}">
+        <div class="layout-editor__header">
+          <span class="layout-editor__title">${info.label}</span>
+          <div class="layout-align">
+            <button type="button" class="layout-align__btn ${data.align === 'left' ? 'active' : ''}" data-align="left" title="Align Left">◀</button>
+            <button type="button" class="layout-align__btn ${data.align === 'center' || !data.align ? 'active' : ''}" data-align="center" title="Align Center">●</button>
+            <button type="button" class="layout-align__btn ${data.align === 'right' ? 'active' : ''}" data-align="right" title="Align Right">▶</button>
+          </div>
+        </div>
+        <div class="box-model">
+          <div class="box-model__input-group">
+            <span>margin-top</span>
+            <input type="number" class="layout-input" data-prop="mt" value="${data.mt || ''}" placeholder="0">
+          </div>
+          <div class="box-model__padding-area">
+            <div class="box-model__input-group">
+              <span>padding-top</span>
+              <input type="number" class="layout-input" data-prop="pt" value="${data.pt || ''}" placeholder="0">
+            </div>
+            <div class="box-model__content-area">${info.label}</div>
+            <div class="box-model__input-group">
+              <span>padding-bottom</span>
+              <input type="number" class="layout-input" data-prop="pb" value="${data.pb || ''}" placeholder="0">
+            </div>
+          </div>
+          <div class="box-model__input-group">
+            <span>margin-bottom</span>
+            <input type="number" class="layout-input" data-prop="mb" value="${data.mb || ''}" placeholder="0">
+          </div>
+          ${hasGrid ? `
+          <div class="box-model__input-group" style="margin-top:12px;">
+            <span>grid columns</span>
+            <input type="number" class="layout-input" data-prop="gridCols" value="${data.gridCols || ''}" placeholder="auto" min="1" max="6">
+          </div>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Bind alignment buttons
+  container.querySelectorAll('.layout-align__btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = btn.closest('.layout-align');
+      group.querySelectorAll('.layout-align__btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+}
+
+function readLayoutEditors() {
+  document.querySelectorAll('.layout-editor').forEach(editor => {
+    const page = editor.dataset.page;
+    const section = editor.dataset.section;
+    if (!config.layout[page]) config.layout[page] = {};
+    if (!config.layout[page][section]) config.layout[page][section] = {};
+    
+    const data = config.layout[page][section];
+    
+    // Read align
+    const activeAlign = editor.querySelector('.layout-align__btn.active');
+    data.align = activeAlign ? activeAlign.dataset.align : '';
+    
+    // Read all layout inputs
+    editor.querySelectorAll('.layout-input').forEach(input => {
+      const prop = input.dataset.prop;
+      data[prop] = input.value;
+    });
+  });
 }
 
 /* ============ SIDEBAR NAV ============ */
@@ -169,6 +383,12 @@ function populateAllForms() {
   setVal('design-accent', c.design.accentColor);
   setVal('design-bg', c.design.bgColor);
   setVal('design-text', c.design.textColor);
+  setChecked('design-preloader', c.design.enablePreloader);
+  setChecked('design-transitions', c.design.enableTransitions);
+  setChecked('design-smooth', c.design.enableSmoothScroll);
+
+  // Style fields
+  populateStyleFields();
 
   // Projects
   renderProjectList();
@@ -249,6 +469,15 @@ function readAllForms() {
   config.design.accentColor = getVal('design-accent');
   config.design.bgColor = getVal('design-bg');
   config.design.textColor = getVal('design-text');
+  config.design.enablePreloader = getChecked('design-preloader');
+  config.design.enableTransitions = getChecked('design-transitions');
+  config.design.enableSmoothScroll = getChecked('design-smooth');
+
+  // Styles
+  readStyleFields();
+
+  // Layout
+  readLayoutEditors();
 }
 
 /* ============ SAVE ============ */
@@ -276,10 +505,10 @@ function renderExpertiseItems() {
   container.innerHTML = items.map((item, i) => `
     <div class="project-list-item" style="flex-direction:column;align-items:stretch;gap:0.5rem;">
       <div style="display:flex;gap:0.5rem;">
-        <input type="text" value="${item.title}" id="exp-title-${i}" placeholder="Title" style="flex:1;">
+        <input type="text" value="${esc(item.title)}" id="exp-title-${i}" placeholder="Title" style="flex:1;">
         <button class="btn-admin btn-admin--sm btn-admin--danger" onclick="removeExpertise(${i})">✕</button>
       </div>
-      <input type="text" value="${item.description}" id="exp-desc-${i}" placeholder="Description">
+      <input type="text" value="${esc(item.description)}" id="exp-desc-${i}" placeholder="Description">
     </div>
   `).join('');
 }
@@ -311,11 +540,11 @@ function renderTimeline() {
   container.innerHTML = items.map((t, i) => `
     <div class="project-list-item" style="flex-direction:column;align-items:stretch;gap:0.5rem;">
       <div style="display:flex;gap:0.5rem;">
-        <input type="text" value="${t.year}" id="tl-year-${i}" placeholder="Year" style="width:100px;">
-        <input type="text" value="${t.title}" id="tl-title-${i}" placeholder="Title" style="flex:1;">
+        <input type="text" value="${esc(t.year)}" id="tl-year-${i}" placeholder="Year" style="width:100px;">
+        <input type="text" value="${esc(t.title)}" id="tl-title-${i}" placeholder="Title" style="flex:1;">
         <button class="btn-admin btn-admin--sm btn-admin--danger" onclick="removeTimeline(${i})">✕</button>
       </div>
-      <textarea id="tl-desc-${i}" placeholder="Description" style="min-height:60px;">${t.description}</textarea>
+      <textarea id="tl-desc-${i}" placeholder="Description" style="min-height:60px;">${esc(t.description)}</textarea>
     </div>
   `).join('');
 }
@@ -352,11 +581,11 @@ function renderProjectList() {
   list.innerHTML = projects.map((p, i) => `
     <div class="project-list-item" data-index="${i}">
       <div class="project-list-item__thumb">
-        ${p.thumbnail ? `<img src="${p.thumbnail}" alt="${p.title}">` : ''}
+        ${p.thumbnail ? `<img src="${p.thumbnail}" alt="${esc(p.title)}">` : ''}
       </div>
       <div class="project-list-item__info">
-        <div class="project-list-item__title">${p.title}</div>
-        <div class="project-list-item__meta">${p.role || 'No role'} · ${p.category} · ${p.year}</div>
+        <div class="project-list-item__title">${esc(p.title)}</div>
+        <div class="project-list-item__meta">${p.role || 'No role'} · ${p.category} · ${p.year}${p.featured ? ' · ⭐' : ''}</div>
       </div>
       <div class="project-list-item__actions">
         <button class="btn-admin btn-admin--sm" onclick="editProject(${i})">Edit</button>
@@ -422,8 +651,8 @@ window.addCreditInput = function(credit = { role: '', name: '' }) {
   const div = document.createElement('div');
   div.className = 'credit-row';
   div.innerHTML = `
-    <input type="text" class="cr-role" value="${credit.role}" placeholder="Role (e.g. Director)">
-    <input type="text" class="cr-name" value="${credit.name}" placeholder="Name">
+    <input type="text" class="cr-role" value="${esc(credit.role)}" placeholder="Role (e.g. Director)">
+    <input type="text" class="cr-name" value="${esc(credit.name)}" placeholder="Name">
     <button class="btn-admin btn-admin--danger btn-admin--sm" type="button" onclick="this.parentElement.remove()">✕</button>
   `;
   container.appendChild(div);
@@ -436,7 +665,6 @@ function closeProjectModal() {
 }
 
 function saveProject() {
-  // Read credits
   const creditRows = document.querySelectorAll('#pm-credits-container .credit-row');
   const credits = [];
   creditRows.forEach(r => {
@@ -543,6 +771,7 @@ function setVal(id, val) { const el = document.getElementById(id); if (el) el.va
 function getVal(id) { return document.getElementById(id)?.value ?? ''; }
 function setChecked(id, val) { const el = document.getElementById(id); if (el) el.checked = !!val; }
 function getChecked(id) { return document.getElementById(id)?.checked ?? false; }
+function esc(str) { return (str || '').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
 
 function showToast(msg) {
   const toast = document.getElementById('toast');

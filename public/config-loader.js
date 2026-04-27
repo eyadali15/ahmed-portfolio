@@ -5,6 +5,11 @@
 
 const STORAGE_KEY = 'aha-site-config';
 
+/* Helper to structure default spacing */
+function s(align='', pt='', pb='', mt='', mb='', gridCols='') {
+  return { align, pt, pb, mt, mb, gridCols };
+}
+
 export const DEFAULT_CONFIG = {
   general: {
     siteTitle: 'Ahmed Hany Abuzenada — Film & Commercial Director',
@@ -48,6 +53,13 @@ export const DEFAULT_CONFIG = {
       title: 'Always eager for the next adventure.',
       description: "Whether it's a commercial, documentary, or narrative film, every great project starts with a conversation.",
       buttonText: 'Start a Conversation'
+    },
+    styles: {
+      name1: { font: '', size: '', align: '', color: '' },
+      name2: { font: '', size: '', align: '', color: '' },
+      subtitle: { font: '', size: '', align: '', color: '' },
+      ctaTitle: { font: '', size: '', align: '', color: '' },
+      ctaDescription: { font: '', size: '', align: '', color: '' }
     }
   },
   about: {
@@ -107,6 +119,12 @@ export const DEFAULT_CONFIG = {
       visible: true,
       text: 'Every frame is an opportunity to reveal something true about the world we live in.',
       author: 'Ahmed Hany Abuzenada'
+    },
+    styles: {
+      heroTitle: { font: '', size: '', align: '', color: '' },
+      introText1: { font: '', size: '', align: '', color: '' },
+      introText2: { font: '', size: '', align: '', color: '' },
+      quoteText: { font: '', size: '', align: '', color: '' }
     }
   },
   contact: {
@@ -122,12 +140,19 @@ export const DEFAULT_CONFIG = {
       linkedinUrl: 'https://linkedin.com',
       whatsappUrl: 'https://wa.me/',
       formButtonText: 'Send Message'
+    },
+    styles: {
+      headerTitle: { font: '', size: '', align: '', color: '' },
+      headerDesc: { font: '', size: '', align: '', color: '' }
     }
   },
   design: {
     accentColor: '#d4af37',
     bgColor: '#0a0a0a',
-    textColor: '#ffffff'
+    textColor: '#ffffff',
+    enablePreloader: true,
+    enableTransitions: true,
+    enableSmoothScroll: true
   },
   spacing: {
     home: {
@@ -167,7 +192,71 @@ export const DEFAULT_CONFIG = {
       paddingBottom: 16, borderRadius: 8
     }
   },
+  layout: {
+    home: {
+      hero:           s(),
+      featured:       s(),
+      featuredGrid:   s(),
+      videoBanner:    s(),
+      cta:            s(),
+      footer:         s()
+    },
+    portfolio: {
+      hero:           s(),
+      roleButtons:    s(),
+      filters:        s(),
+      grid:           s(),
+      footer:         s()
+    },
+    about: {
+      hero:           s(),
+      intro:          s(),
+      gallery:        s(),
+      philosophy:     s(),
+      timeline:       s(),
+      quote:          s(),
+      footer:         s()
+    },
+    contact: {
+      header:         s(),
+      contactInfo:    s(),
+      footer:         s()
+    }
+  },
   projects: []
+};
+
+/* Section ID → CSS selector mapping for layout editor */
+export const SECTION_SELECTORS = {
+  home: {
+    hero:          { label: 'Hero Banner',       sel: '.hero-section' },
+    featured:      { label: 'Featured Projects', sel: '.featured-section' },
+    featuredGrid:  { label: 'Project Grid',      sel: '.featured-grid', gridSel: '.featured-grid' },
+    videoBanner:   { label: 'Video Banner',      sel: '.video-banner-section' },
+    cta:           { label: 'Call to Action',     sel: '.cta-section' },
+    footer:        { label: 'Footer',            sel: '.footer' }
+  },
+  portfolio: {
+    hero:          { label: 'Hero',              sel: '.work-hero' },
+    roleButtons:   { label: 'Role Buttons',      sel: '.role-buttons' },
+    filters:       { label: 'Category Filters',  sel: '.filter-bar' },
+    grid:          { label: 'Project Grid',      sel: '.projects-grid', gridSel: '.projects-grid' },
+    footer:        { label: 'Footer',            sel: '.footer' }
+  },
+  about: {
+    hero:          { label: 'Hero Banner',       sel: '.about-hero' },
+    intro:         { label: 'Intro Section',     sel: '.about-intro' },
+    gallery:       { label: 'Gallery',           sel: '.about-gallery' },
+    philosophy:    { label: 'Philosophy',        sel: '.about-philosophy' },
+    timeline:      { label: 'Timeline',          sel: '.about-timeline' },
+    quote:         { label: 'Quote',             sel: '.about-quote' },
+    footer:        { label: 'Footer',            sel: '.footer' }
+  },
+  contact: {
+    header:        { label: 'Header',            sel: '.contact-header' },
+    contactInfo:   { label: 'Contact Info',      sel: '.contact-info' },
+    footer:        { label: 'Footer',            sel: '.footer' }
+  }
 };
 
 export class ConfigLoader {

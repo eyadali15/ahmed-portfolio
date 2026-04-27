@@ -298,6 +298,31 @@ body {
   padding: 2px;
 }
 
+/* Style engine inputs (injected by JS) */
+.admin-input {
+  padding: 0.55rem 0.7rem;
+  background: var(--admin-surface2);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-sm);
+  color: var(--admin-text);
+  font-family: inherit;
+  font-size: 0.82rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.admin-input:focus {
+  border-color: var(--admin-accent);
+}
+
+details summary {
+  user-select: none;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
 /* Toggle switch */
 .toggle-row {
   display: flex;
