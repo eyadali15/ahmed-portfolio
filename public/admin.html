@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Ahmed Abuzenada Portfolio</title>
+  <link rel="stylesheet" href="admin.css">
+  <script type="module" src="admin.js" defer></script>
+</head>
+<body>
+
+  <!-- ========== LOGIN ========== -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-box">
+      <div class="login-box__logo">AHA<span>.</span></div>
+      <p class="login-box__subtitle">Portfolio Admin Panel</p>
+      <input type="password" id="login-pass" placeholder="Enter password">
+      <p class="login-box__error" id="login-error"></p>
+      <button class="btn-admin btn-admin--primary" id="login-btn" style="width:100%;justify-content:center;">Sign In</button>
+    </div>
+  </div>
+
+  <!-- ========== DASHBOARD ========== -->
+  <div class="admin-layout" id="admin-dashboard" style="display:none;">
+
+    <button class="sidebar-toggle" id="sidebar-toggle">☰</button>
+
+    <aside class="sidebar">
+      <div class="sidebar__header">
+        <div class="sidebar__logo">AHA<span>.</span></div>
+        <div class="sidebar__label">Admin Panel</div>
+      </div>
+      <nav class="sidebar__nav">
+        <a class="sidebar__link active" data-section="general">
+          <span class="sidebar__link-icon">🌐</span> General Settings
+        </a>
+        <a class="sidebar__link" data-section="home">
+          <span class="sidebar__link-icon">🏠</span> Home Page
+        </a>
+        <a class="sidebar__link" data-section="projects">
+          <span class="sidebar__link-icon">🎬</span> Portfolio / Projects
+        </a>
+        <a class="sidebar__link" data-section="about">
+          <span class="sidebar__link-icon">👤</span> About Page
+        </a>
+        <a class="sidebar__link" data-section="contact">
+          <span class="sidebar__link-icon">✉️</span> Contact Page
+        </a>
+        <a class="sidebar__link" data-section="design">
+          <span class="sidebar__link-icon">🎨</span> Design Settings
+        </a>
+      </nav>
+      <div class="sidebar__footer">
+        <a class="sidebar__footer-link" href="/" target="_blank">↗ View Live Site</a>
+        <a class="sidebar__footer-link" id="logout-btn" style="margin-top:0.5rem;">⏻ Logout</a>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+
+      <!-- ===== GENERAL ===== -->
+      <div class="admin-section active" id="section-general">
+        <div class="admin-main__header">
+          <h1 class="admin-main__title">General Settings</h1>
+          <div class="admin-main__actions">
+            <button class="btn-admin" id="export-btn">↓ Export JSON</button>
+            <button class="btn-admin" id="import-btn">↑ Import JSON</button>
+            <input type="file" id="import-file" accept=".json" style="display:none;">
+            <button class="btn-admin btn-admin--danger" id="reset-btn">Reset</button>
+            <button class="btn-admin btn-admin--primary" data-action="save">💾 Save All</button>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">📝</span> Site Info</div>
+          <div class="form-row">
+            <label>Site Title</label>
+            <input type="text" id="gen-site-title">
+          </div>
+          <div class="form-row">
+            <label>Meta Description</label>
+            <textarea id="gen-meta-desc" style="min-height:60px;"></textarea>
+          </div>
+          <div class="form-row--inline">
+            <div class="form-row">
+              <label>Logo Text</label>
+              <input type="text" id="gen-logo">
+            </div>
+            <div class="form-row">
+              <label>Copyright Text</label>
+              <input type="text" id="gen-copyright">
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">🔗</span> Social Links</div>
+          <div class="form-row--inline">
+            <div class="form-row">
+              <label>Vimeo URL</label>
+              <input type="url" id="gen-vimeo">
+            </div>
+            <div class="form-row">
+              <label>LinkedIn URL</label>
+              <input type="url" id="gen-linkedin">
+            </div>
+          </div>
+          <div class="form-row--inline">
+            <div class="form-row">
+              <label>WhatsApp URL</label>
+              <input type="url" id="gen-whatsapp">
+            </div>
+            <div class="form-row">
+              <label>Instagram URL</label>
+              <input type="url" id="gen-instagram">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== HOME ===== -->
+      <div class="admin-section" id="section-home">
+        <div class="admin-main__header">
+          <h1 class="admin-main__title">Home Page</h1>
+          <button class="btn-admin btn-admin--primary" data-action="save">💾 Save All</button>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">🎬</span> Hero Section</div>
+          <div class="toggle-row">
+            <span class="toggle-row__label">Show Hero</span>
+            <label class="toggle"><input type="checkbox" id="home-hero-visible"><span class="toggle__slider"></span></label>
+          </div>
+          <div class="form-row--inline" style="margin-top:1rem;">
+            <div class="form-row">
+              <label>Name Line 1</label>
+              <input type="text" id="home-name1">
+            </div>
+            <div class="form-row">
+              <label>Name Line 2</label>
+              <input type="text" id="home-name2">
+            </div>
+          </div>
+          <div class="form-row">
+            <label>Subtitle</label>
+            <input type="text" id="home-subtitle">
+          </div>
+          <div class="form-row">
+            <label>Description</label>
+            <textarea id="home-description" style="min-height:60px;"></textarea>
+          </div>
+          <div class="form-row">
+            <label>Hero Video URL</label>
+            <input type="text" id="home-hero-video" placeholder="/uploads/video.mp4">
+          </div>
+          <div class="form-row">
+            <label>Banner Video URL (second video)</label>
+            <input type="text" id="home-banner-video" placeholder="/uploads/banner.mp4">
+          </div>
+          <div class="form-row">
+            <label>Button Text</label>
+            <input type="text" id="home-hero-btn">
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">⭐</span> Featured Projects Section</div>
+          <div class="toggle-row">
+            <span class="toggle-row__label">Show Section</span>
+            <label class="toggle"><input type="checkbox" id="home-feat-visible"><span class="toggle__slider"></span></label>
+          </div>
+          <div class="form-row--inline" style="margin-top:1rem;">
+            <div class="form-row">
+              <label>Label</label>
+              <input type="text" id="home-feat-label">
+            </div>
+            <div class="form-row">
+              <label>Title</label>
+              <input type="text" id="home-feat-title">
+            </div>
+          </div>
+          <div class="form-row">
+            <label>Button Text</label>
+            <input type="text" id="home-feat-btn">
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">📹</span> Video Banner</div>
+          <div class="toggle-row">
+            <span class="toggle-row__label">Show Banner</span>
+            <label class="toggle"><input type="checkbox" id="home-vb-visible"><span class="toggle__slider"></span></label>
+          </div>
+          <div class="form-row--inline" style="margin-top:1rem;">
+            <div class="form-row">
+              <label>Label</label>
+              <input type="text" id="home-vb-label">
+            </div>
+            <div class="form-row">
+              <label>Title Part 1</label>
+              <input type="text" id="home-vb-title1">
+            </div>
+          </div>
+          <div class="form-row">
+            <label>Title Part 2</label>
+            <input type="text" id="home-vb-title2">
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">📣</span> CTA Section</div>
+          <div class="toggle-row">
+            <span class="toggle-row__label">Show CTA</span>
+            <label class="toggle"><input type="checkbox" id="home-cta-visible"><span class="toggle__slider"></span></label>
+          </div>
+          <div class="form-row" style="margin-top:1rem;">
+            <label>Label</label>
+            <input type="text" id="home-cta-label">
+          </div>
+          <div class="form-row">
+            <label>Title</label>
+            <textarea id="home-cta-title" style="min-height:60px;"></textarea>
+          </div>
+          <div class="form-row">
+            <label>Description</label>
+            <textarea id="home-cta-desc"></textarea>
+          </div>
+          <div class="form-row">
+            <label>Button Text</label>
+            <input type="text" id="home-cta-btn">
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PROJECTS ===== -->
+      <div class="admin-section" id="section-projects">
+        <div class="admin-main__header">
+          <h1 class="admin-main__title">Portfolio / Projects</h1>
+          <div class="admin-main__actions">
+            <button class="btn-admin btn-admin--primary" id="add-project-btn">+ Add Project</button>
+            <button class="btn-admin btn-admin--primary" data-action="save">💾 Save All</button>
+          </div>
+        </div>
+
+        <div class="admin-card__title" style="margin-bottom:1rem;"><span class="admin-card__title-icon">🖼️</span> Project Database</div>
+        <div id="project-list"></div>
+      </div>
+
+      <!-- ===== ABOUT ===== -->
+      <div class="admin-section" id="section-about">
+        <div class="admin-main__header">
+          <h1 class="admin-main__title">About Page</h1>
+          <button class="btn-admin btn-admin--primary" data-action="save">💾 Save All</button>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">🎬</span> Hero Banner</div>
+          <div class="toggle-row">
+            <span class="toggle-row__label">Show Hero</span>
+            <label class="toggle"><input type="checkbox" id="about-hero-visible"><span class="toggle__slider"></span></label>
+          </div>
+          <div class="form-row" style="margin-top:1rem;">
+            <label>Hero Background Image URL</label>
+            <input type="text" id="about-hero-bg">
+          </div>
+          <div class="form-row--inline">
+            <div class="form-row">
+              <label>Label</label>
+              <input type="text" id="about-hero-label">
+            </div>
+            <div class="form-row">
+              <label>Title</label>
+              <input type="text" id="about-hero-title">
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">📄</span> Intro Section</div>
+          <div class="toggle-row">
+            <span class="toggle-row__label">Show Intro</span>
+            <label class="toggle"><input type="checkbox" id="about-intro-visible"><span class="toggle__slider"></span></label>
+          </div>
+          <div class="form-row" style="margin-top:1rem;">
+            <label>Paragraph 1</label>
+            <textarea id="about-intro-text1"></textarea>
+          </div>
+          <div class="form-row">
+            <label>Paragraph 2</label>
+            <textarea id="about-intro-text2"></textarea>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">🖼️</span> Gallery</div>
+          <div class="toggle-row">
+            <span class="toggle-row__label">Show Gallery</span>
+            <label class="toggle"><input type="checkbox" id="about-gallery-visible"><span class="toggle__slider"></span></label>
+          </div>
+          <div class="form-row--inline" style="margin-top:1rem;">
+            <div class="form-row">
+              <label>Label</label>
+              <input type="text" id="about-gallery-label">
+            </div>
+            <div class="form-row">
+              <label>Title</label>
+              <input type="text" id="about-gallery-title">
+            </div>
+          </div>
+          <div class="form-row">
+            <label>Photo URLs (one per line)</label>
+            <textarea id="about-gallery-photos" style="min-height:150px;" placeholder="/uploads/photo1.jpg&#10;/uploads/photo2.jpg"></textarea>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">💡</span> Philosophy & Expertise</div>
+          <div class="toggle-row">
+            <span class="toggle-row__label">Show Section</span>
+            <label class="toggle"><input type="checkbox" id="about-phil-visible"><span class="toggle__slider"></span></label>
+          </div>
+          <div class="form-row" style="margin-top:1rem;">
+            <label>Philosophy Title</label>
+            <input type="text" id="about-phil-title1">
+          </div>
+          <div class="form-row">
+            <label>Philosophy Text 1</label>
+            <textarea id="about-phil-text1"></textarea>
+          </div>
+          <div class="form-row">
+            <label>Philosophy Text 2</label>
+            <textarea id="about-phil-text2"></textarea>
+          </div>
+          <div class="form-row">
+            <label>Expertise Title</label>
+            <input type="text" id="about-phil-title2">
+          </div>
+          <div class="admin-card__title" style="margin-top:1rem;"><span class="admin-card__title-icon">⚡</span> Expertise Items</div>
+          <div id="expertise-list"></div>
+          <button class="btn-admin btn-admin--sm" onclick="addExpertise()" style="margin-top:0.75rem;">+ Add Item</button>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">📅</span> Career Timeline</div>
+          <div class="toggle-row">
+            <span class="toggle-row__label">Show Timeline</span>
+            <label class="toggle"><input type="checkbox" id="about-tl-visible"><span class="toggle__slider"></span></label>
+          </div>
+          <div class="form-row--inline" style="margin-top:1rem;">
+            <div class="form-row">
+              <label>Label</label>
+              <input type="text" id="about-tl-label">
+            </div>
+            <div class="form-row">
+              <label>Title</label>
+              <input type="text" id="about-tl-title">
+            </div>
+          </div>
+          <div id="timeline-list" style="margin-top:1rem;"></div>
+          <button class="btn-admin btn-admin--sm" onclick="addTimeline()" style="margin-top:0.75rem;">+ Add Entry</button>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">💬</span> Quote</div>
+          <div class="toggle-row">
+            <span class="toggle-row__label">Show Quote</span>
+            <label class="toggle"><input type="checkbox" id="about-quote-visible"><span class="toggle__slider"></span></label>
+          </div>
+          <div class="form-row" style="margin-top:1rem;">
+            <label>Quote Text</label>
+            <textarea id="about-quote-text"></textarea>
+          </div>
+          <div class="form-row">
+            <label>Author</label>
+            <input type="text" id="about-quote-author">
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CONTACT ===== -->
+      <div class="admin-section" id="section-contact">
+        <div class="admin-main__header">
+          <h1 class="admin-main__title">Contact Page</h1>
+          <button class="btn-admin btn-admin--primary" data-action="save">💾 Save All</button>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">📬</span> Header</div>
+          <div class="form-row">
+            <label>Label</label>
+            <input type="text" id="contact-header-label">
+          </div>
+          <div class="form-row">
+            <label>Title</label>
+            <input type="text" id="contact-header-title">
+          </div>
+          <div class="form-row">
+            <label>Description</label>
+            <textarea id="contact-header-desc"></textarea>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">📧</span> Contact Info</div>
+          <div class="form-row">
+            <label>Email</label>
+            <input type="email" id="contact-email">
+          </div>
+          <div class="form-row">
+            <label>Location</label>
+            <input type="text" id="contact-location">
+          </div>
+          <div class="form-row--inline">
+            <div class="form-row">
+              <label>Vimeo URL</label>
+              <input type="url" id="contact-vimeo">
+            </div>
+            <div class="form-row">
+              <label>LinkedIn URL</label>
+              <input type="url" id="contact-linkedin">
+            </div>
+          </div>
+          <div class="form-row">
+            <label>WhatsApp URL</label>
+            <input type="url" id="contact-whatsapp">
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== DESIGN ===== -->
+      <div class="admin-section" id="section-design">
+        <div class="admin-main__header">
+          <h1 class="admin-main__title">Design Settings</h1>
+          <button class="btn-admin btn-admin--primary" data-action="save">💾 Save All</button>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">🎨</span> Colors</div>
+          <div class="form-row--inline" style="grid-template-columns:1fr 1fr 1fr;">
+            <div class="form-row">
+              <label>Accent Color</label>
+              <input type="color" id="design-accent">
+            </div>
+            <div class="form-row">
+              <label>Background</label>
+              <input type="color" id="design-bg">
+            </div>
+            <div class="form-row">
+              <label>Text Color</label>
+              <input type="color" id="design-text">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ===== PROJECT MODAL ===== -->
+  <div class="admin-modal-overlay" id="project-modal-overlay">
+    <div class="admin-modal">
+      <div class="admin-modal__header">
+        <h2 class="admin-modal__title" id="project-modal-title">Edit Project</h2>
+        <button class="admin-modal__close" id="project-modal-close">✕</button>
+      </div>
+      <div class="form-row">
+        <label>Project Title</label>
+        <input type="text" id="pm-title" placeholder="My Project">
+      </div>
+      <div class="form-row--inline">
+        <div class="form-row">
+          <label>Slug (auto-generated)</label>
+          <input type="text" id="pm-slug" placeholder="my-project">
+        </div>
+        <div class="form-row">
+          <label>Year</label>
+          <input type="number" id="pm-year" placeholder="2024">
+        </div>
+      </div>
+      <div class="form-row--inline">
+        <div class="form-row">
+          <label>Role</label>
+          <select id="pm-role">
+            <option value="assistant">Assistant Director</option>
+            <option value="director">Director</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Category</label>
+          <select id="pm-category">
+            <option value="commercial">Commercial</option>
+            <option value="film">Film</option>
+            <option value="documentary">Documentary</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Client</label>
+        <input type="text" id="pm-client" placeholder="Client Name">
+      </div>
+      <div class="form-row">
+        <label>Vimeo Video ID</label>
+        <input type="text" id="pm-vimeoId" placeholder="1034169319">
+      </div>
+      <div class="form-row">
+        <label>Thumbnail URL (auto from Vimeo if blank)</label>
+        <input type="text" id="pm-thumbnail" placeholder="https://vumbnail.com/ID.jpg">
+      </div>
+      <div class="form-row">
+        <label>Description</label>
+        <textarea id="pm-description" placeholder="Project description..."></textarea>
+      </div>
+      <div class="toggle-row">
+        <span class="toggle-row__label">Featured Project</span>
+        <label class="toggle"><input type="checkbox" id="pm-featured"><span class="toggle__slider"></span></label>
+      </div>
+
+      <div class="form-row" style="margin-top:20px;">
+        <label style="display:flex; justify-content:space-between; align-items:center;">
+          Credits
+          <button class="btn-admin btn-admin--sm" id="pm-add-credit" type="button" style="padding:4px 8px;">+ Add Credit</button>
+        </label>
+        <div id="pm-credits-container" style="display:flex; flex-direction:column; gap:8px; margin-top:10px;"></div>
+      </div>
+
+      <div style="display:flex;gap:0.5rem;margin-top:1.5rem;">
+        <button class="btn-admin btn-admin--primary" id="project-modal-save">Save Project</button>
+        <button class="btn-admin" onclick="document.getElementById('project-modal-overlay').classList.remove('active')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+</body>
+</html>
