@@ -716,7 +716,37 @@ details summary::-webkit-details-marker {
   .sidebar { transform: translateX(-100%); }
   .sidebar.open { transform: translateX(0); }
   .sidebar-toggle { display: flex; }
-  .admin-main { margin-left: 0; padding: 1rem; padding-top: 4rem; }
+  .admin-main { margin-left: 0; padding: 0.75rem; padding-top: 4rem; max-width: 100%; }
   .form-row--inline { grid-template-columns: 1fr; }
   .admin-main__header { flex-direction: column; align-items: flex-start; }
+  .admin-main__title { font-size: 1.2rem; }
+  .admin-card { padding: 1rem; }
+
+  /* Layout editor mobile fixes */
+  .layout-editor { gap: 0.5rem; margin-bottom: 1.25rem; padding-bottom: 1.25rem; }
+  .layout-editor__header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .layout-editor__title { font-size: 0.85rem; }
+  .box-model { padding: 0.75rem; }
+  .box-model__padding-area { padding: 0.5rem; margin: 0.5rem 0; }
+  .box-model__content-area { padding: 0.5rem; font-size: 0.7rem; margin: 0.4rem 0; }
+  .box-model__input-group span { font-size: 0.65rem; }
+  .box-model__input-group input { width: 50px; font-size: 0.75rem; }
+  .box-model::before, .box-model__padding-area::before { font-size: 0.5rem; }
+  .layout-align__btn { padding: 0.3rem 0.6rem; font-size: 0.9rem; }
+
+  /* Project list mobile */
+  .project-list-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .project-list-item__actions { width: 100%; justify-content: flex-end; }
+
+  .admin-modal { padding: 1rem; }
+  .admin-modal-overlay { padding: 0.5rem; }
+  .toast { bottom: 1rem; right: 1rem; left: 1rem; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .admin-main { padding: 0.5rem; padding-top: 3.5rem; }
+  .box-model { padding: 0.5rem; }
+  .box-model__input-group { gap: 0.25rem; }
+  .box-model__input-group input { width: 44px; }
+  .btn-admin { padding: 0.5rem 0.8rem; font-size: 0.75rem; }
 }

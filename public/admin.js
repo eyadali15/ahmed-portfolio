@@ -248,6 +248,10 @@ function renderLayoutEditors(page) {
             <span>margin-bottom</span>
             <input type="number" class="layout-input" data-prop="mb" value="${data.mb || ''}" placeholder="0">
           </div>
+          <div class="box-model__input-group" style="margin-top:12px; padding-top:10px; border-top:1px dashed rgba(212,175,55,0.2);">
+            <span style="color:var(--admin-accent);">gap after ↕</span>
+            <input type="number" class="layout-input" data-prop="gap" value="${data.gap || ''}" placeholder="0">
+          </div>
           ${hasGrid ? `
           <div class="box-model__input-group" style="margin-top:12px;">
             <span>grid columns</span>

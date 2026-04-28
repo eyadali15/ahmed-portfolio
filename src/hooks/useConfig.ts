@@ -8,7 +8,7 @@ const STORAGE_KEY = 'aha-site-config';
 const PROJECTS_KEY = 'aha-site-config-projects';
 
 export interface LayoutBox {
-  align: string; pt: string; pb: string; mt: string; mb: string; gridCols: string;
+  align: string; pt: string; pb: string; mt: string; mb: string; gap: string; gridCols: string;
 }
 
 export interface SiteConfig {
@@ -122,7 +122,12 @@ export function getLayoutStyle(page: string, section: string): React.CSSProperti
   if (layout.pt) style.paddingTop = layout.pt + (isNaN(Number(layout.pt)) ? '' : 'px');
   if (layout.pb) style.paddingBottom = layout.pb + (isNaN(Number(layout.pb)) ? '' : 'px');
   if (layout.mt) style.marginTop = layout.mt + (isNaN(Number(layout.mt)) ? '' : 'px');
-  if (layout.mb) style.marginBottom = layout.mb + (isNaN(Number(layout.mb)) ? '' : 'px');
+  // mb + gap combined into marginBottom
+  const mbVal = Number(layout.mb) || 0;
+  const gapVal = Number(layout.gap) || 0;
+  const totalBottom = mbVal + gapVal;
+  if (totalBottom) style.marginBottom = totalBottom + 'px';
+  else if (layout.mb) style.marginBottom = layout.mb + (isNaN(Number(layout.mb)) ? '' : 'px');
   if (layout.align) style.textAlign = layout.align as any;
   return style;
 }
