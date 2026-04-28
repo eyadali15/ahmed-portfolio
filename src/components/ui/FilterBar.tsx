@@ -5,7 +5,11 @@ import spacing from '@/content/design/spacing.json';
 
 const b = spacing.buttons;
 
-export default function FilterBar() {
+interface FilterBarProps {
+  fontSize?: string;
+}
+
+export default function FilterBar({ fontSize }: FilterBarProps) {
   const { activeFilter, setActiveFilter } = useStore();
   const filterRadius = b.filterStyle === 'rounded' ? b.filterBorderRadius : 0;
 
@@ -14,12 +18,13 @@ export default function FilterBar() {
       className="flex flex-wrap items-center gap-3">
       {categories.map((cat) => (
         <button key={cat.key} onClick={() => setActiveFilter(cat.key)}
-          className={`text-xs uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer border ${
+          className={`uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer border ${
             activeFilter === cat.key
               ? 'bg-white text-black border-white'
               : 'bg-transparent text-white border-[var(--color-accent)] hover:bg-white hover:text-black hover:border-white'
           }`}
           style={{
+            fontSize: fontSize || '0.75rem',
             borderRadius: filterRadius,
             paddingTop: b.filterPaddingTop,
             paddingBottom: b.filterPaddingBottom,

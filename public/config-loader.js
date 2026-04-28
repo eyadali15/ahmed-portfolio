@@ -127,6 +127,23 @@ export const DEFAULT_CONFIG = {
       quoteText: { font: '', size: '', align: '', color: '' }
     }
   },
+  portfolio: {
+    hero: {
+      label: 'Portfolio',
+      titlePart1: 'Selected',
+      titlePart2: 'Portfolio',
+      heroBackground: 'https://images.unsplash.com/photo-1616530940355-351fabd9524b?auto=format&fit=crop&w=1920&q=80'
+    },
+    showMoreText: 'Show More',
+    noProjectsText: 'No projects found.',
+    styles: {
+      heroLabel:     { size: '', align: '' },
+      heroTitle:     { size: '', align: '' },
+      roleButtons:   { size: '', align: '' },
+      filterButtons: { size: '', align: '' },
+      showMoreBtn:   { size: '', align: '' }
+    }
+  },
   contact: {
     header: {
       label: 'Get in Touch',

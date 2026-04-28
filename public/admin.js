@@ -379,6 +379,27 @@ function populateAllForms() {
   setVal('contact-linkedin', c.contact.info.linkedinUrl);
   setVal('contact-whatsapp', c.contact.info.whatsappUrl);
 
+  // Portfolio
+  if (c.portfolio) {
+    setVal('port-hero-label', c.portfolio.hero?.label);
+    setVal('port-hero-title1', c.portfolio.hero?.titlePart1);
+    setVal('port-hero-title2', c.portfolio.hero?.titlePart2);
+    setVal('port-hero-bg', c.portfolio.hero?.heroBackground);
+    setVal('port-showmore-text', c.portfolio.showMoreText);
+    setVal('port-noprojects-text', c.portfolio.noProjectsText);
+    // Styles
+    setVal('port-hero-label-size', c.portfolio.styles?.heroLabel?.size);
+    setVal('port-hero-label-align', c.portfolio.styles?.heroLabel?.align);
+    setVal('port-hero-title-size', c.portfolio.styles?.heroTitle?.size);
+    setVal('port-hero-title-align', c.portfolio.styles?.heroTitle?.align);
+    setVal('port-role-btn-size', c.portfolio.styles?.roleButtons?.size);
+    setVal('port-role-btn-align', c.portfolio.styles?.roleButtons?.align);
+    setVal('port-filter-btn-size', c.portfolio.styles?.filterButtons?.size);
+    setVal('port-filter-btn-align', c.portfolio.styles?.filterButtons?.align);
+    setVal('port-showmore-size', c.portfolio.styles?.showMoreBtn?.size);
+    setVal('port-showmore-align', c.portfolio.styles?.showMoreBtn?.align);
+  }
+
   // Design
   setVal('design-accent', c.design.accentColor);
   setVal('design-bg', c.design.bgColor);
@@ -472,6 +493,22 @@ function readAllForms() {
   config.design.enablePreloader = getChecked('design-preloader');
   config.design.enableTransitions = getChecked('design-transitions');
   config.design.enableSmoothScroll = getChecked('design-smooth');
+
+  // Portfolio
+  if (!config.portfolio) config.portfolio = {};
+  if (!config.portfolio.hero) config.portfolio.hero = {};
+  config.portfolio.hero.label = getVal('port-hero-label');
+  config.portfolio.hero.titlePart1 = getVal('port-hero-title1');
+  config.portfolio.hero.titlePart2 = getVal('port-hero-title2');
+  config.portfolio.hero.heroBackground = getVal('port-hero-bg');
+  config.portfolio.showMoreText = getVal('port-showmore-text');
+  config.portfolio.noProjectsText = getVal('port-noprojects-text');
+  if (!config.portfolio.styles) config.portfolio.styles = {};
+  config.portfolio.styles.heroLabel =     { size: getVal('port-hero-label-size'), align: getVal('port-hero-label-align') };
+  config.portfolio.styles.heroTitle =     { size: getVal('port-hero-title-size'), align: getVal('port-hero-title-align') };
+  config.portfolio.styles.roleButtons =   { size: getVal('port-role-btn-size'),   align: getVal('port-role-btn-align') };
+  config.portfolio.styles.filterButtons = { size: getVal('port-filter-btn-size'), align: getVal('port-filter-btn-align') };
+  config.portfolio.styles.showMoreBtn =   { size: getVal('port-showmore-size'),   align: getVal('port-showmore-align') };
 
   // Styles
   readStyleFields();
