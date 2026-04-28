@@ -51,9 +51,15 @@ export default function Contact() {
     { key: 'whatsapp', label: 'WhatsApp', href: info.content.whatsappUrl },
   ].filter(l => l.href);
 
-  /* ── CMS layout box-model merge ── */
-  const headerStyle = mergeLayoutStyle({ ...box(h.layout) }, 'contact', 'header');
-  const infoStyle = mergeLayoutStyle(box(info.layout), 'contact', 'contactInfo');
+  /* ── CMS layout box-model merge — one per element ── */
+  const headerStyle   = mergeLayoutStyle({ ...box(h.layout) }, 'contact', 'header');
+  const labelStyle    = mergeLayoutStyle({}, 'contact', 'label');
+  const titleStyle    = mergeLayoutStyle({}, 'contact', 'title');
+  const descStyle     = mergeLayoutStyle({}, 'contact', 'description');
+  const infoRowStyle  = mergeLayoutStyle({}, 'contact', 'infoRow');
+  const formWrapStyle = mergeLayoutStyle({}, 'contact', 'formWrapper');
+  const formHeadStyle = mergeLayoutStyle({}, 'contact', 'formHeader');
+  const infoStyle     = mergeLayoutStyle(box(info.layout), 'contact', 'contactInfo');
 
   return (
     <PageTransition>
@@ -65,26 +71,31 @@ export default function Contact() {
 
             {/* ── Centered Header ── */}
             {h.visible !== false && (
-            <div className="text-center" style={{ ...headerStyle, marginBottom: 48 }}>
+            <div className="contact-header text-center" style={{ ...headerStyle, marginBottom: 48 }}>
               <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}
-                className="text-[10px] uppercase tracking-[0.4em] text-[var(--color-accent)] mb-4">{h.content.label}</motion.p>
+                className="contact-label text-[10px] uppercase tracking-[0.4em] text-[var(--color-accent)] mb-4"
+                style={labelStyle}>{h.content.label}</motion.p>
               <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-                className="font-[var(--font-heading)] text-3xl md:text-4xl lg:text-5xl leading-tight mb-5">
+                className="contact-title font-[var(--font-heading)] text-3xl md:text-4xl lg:text-5xl leading-tight mb-5"
+                style={titleStyle}>
                 {h.content.title.split('together')[0]}<span className="italic text-[var(--color-accent)]">together</span>
               </motion.h1>
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.35 }}
                 className="w-12 h-px bg-[var(--color-accent)] mx-auto mb-5" />
               <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}
-                className="text-white/50 text-base leading-relaxed mx-auto max-w-md">{h.content.description}</motion.p>
+                className="contact-description text-white/50 text-base leading-relaxed mx-auto max-w-md"
+                style={descStyle}>{h.content.description}</motion.p>
             </div>
             )}
 
-            {/* ── Contact Info Row ── */}
+            {/* ── Contact Info + Form ── */}
             {info.visible !== false && (
-            <div style={infoStyle}>
+            <div className="contact-info" style={infoStyle}>
+              {/* Info Row */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex flex-col sm:flex-row items-center justify-center gap-8 mb-10 text-center"
+                className="contact-info-row flex flex-col sm:flex-row items-center justify-center gap-8 mb-10 text-center"
+                style={infoRowStyle}
               >
                 {/* Email */}
                 <a href={`mailto:${info.content.email}`}
@@ -92,14 +103,12 @@ export default function Contact() {
                   <svg className="w-4 h-4 text-white/25 group-hover:text-[var(--color-accent)] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
                   {info.content.email}
                 </a>
-                {/* Divider */}
                 <span className="hidden sm:block w-px h-4 bg-white/10" />
                 {/* Location */}
                 <div className="flex items-center gap-2.5 text-sm text-white/50">
                   <svg className="w-4 h-4 text-white/25" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
                   {info.content.location}
                 </div>
-                {/* Divider */}
                 <span className="hidden sm:block w-px h-4 bg-white/10" />
                 {/* Social icons */}
                 <div className="flex items-center gap-3">
@@ -115,9 +124,10 @@ export default function Contact() {
               {/* ── Premium Contact Form ── */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4 }}
-                className="p-8 md:p-10 rounded-2xl border border-[var(--color-border)] bg-gradient-to-br from-white/[0.03] to-transparent"
+                className="contact-form-wrapper p-8 md:p-10 rounded-2xl border border-[var(--color-border)] bg-gradient-to-br from-white/[0.03] to-transparent"
+                style={formWrapStyle}
               >
-                <div className="flex items-center justify-center gap-3 mb-8">
+                <div className="contact-form-header flex items-center justify-center gap-3 mb-8" style={formHeadStyle}>
                   <div className="w-8 h-px bg-[var(--color-accent)]" />
                   <span className="text-[10px] uppercase tracking-[0.35em] text-[var(--color-accent)]">Send a Message</span>
                   <div className="w-8 h-px bg-[var(--color-accent)]" />

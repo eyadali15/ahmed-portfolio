@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import PageTransition from '@/components/layout/PageTransition';
 import staticContent from '@/content/pages/about.json';
-import { getConfig } from '@/hooks/useConfig';
+import { getConfig, mergeLayoutStyle } from '@/hooks/useConfig';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,7 +47,7 @@ const DEFAULT_SERVICES = [
   }
 ];
 
-function ServiceCard({ service, index }: { service: typeof DEFAULT_SERVICES[0]; index: number }) {
+function ServiceCard({ service, index, cardStyle }: { service: typeof DEFAULT_SERVICES[0]; index: number; cardStyle?: React.CSSProperties }) {
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -74,6 +74,7 @@ function ServiceCard({ service, index }: { service: typeof DEFAULT_SERVICES[0]; 
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
       className="service-card"
+      style={cardStyle}
     >
       {/* Floating cinema particles */}
       <div className="service-card__particles">
@@ -137,6 +138,12 @@ export default function About() {
 
   const services = (cms as any)?.about?.services || DEFAULT_SERVICES;
 
+  /* ── Layout box-model for services ── */
+  const servicesSectionStyle = mergeLayoutStyle({ paddingTop: 96, paddingBottom: 96 }, 'about', 'servicesSection');
+  const servicesHeaderStyle  = mergeLayoutStyle({}, 'about', 'servicesHeader');
+  const servicesGridStyle    = mergeLayoutStyle({}, 'about', 'servicesGrid');
+  const servicesCardStyle    = mergeLayoutStyle({}, 'about', 'servicesCard');
+
   return (
     <PageTransition>
       {/* 1. Hero Banner */}
@@ -189,11 +196,11 @@ export default function About() {
       )}
 
       {/* 4. Services Section (replaces old Philosophy & Expertise) */}
-      <section className="border-t border-[var(--color-border)] about-services" style={{ paddingTop: 96, paddingBottom: 96 }}>
+      <section className="border-t border-[var(--color-border)] about-services" style={servicesSectionStyle}>
         <div className="container-main">
           {/* Section label like the reference */}
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
-            className="flex items-center gap-4 mb-6">
+            className="services-header flex items-center gap-4 mb-6" style={servicesHeaderStyle}>
             <div className="w-10 h-px bg-[var(--color-accent)]" />
             <span className="text-[10px] uppercase tracking-[0.35em] text-[var(--color-accent)]">Services</span>
             <span className="text-[10px] uppercase tracking-[0.2em] text-white/20">03</span>
@@ -204,9 +211,9 @@ export default function About() {
             What I Do
           </motion.h2>
 
-          <div className="services-grid">
+          <div className="services-grid" style={servicesGridStyle}>
             {services.map((service: typeof DEFAULT_SERVICES[0], i: number) => (
-              <ServiceCard key={i} service={service} index={i} />
+              <ServiceCard key={i} service={service} index={i} cardStyle={servicesCardStyle} />
             ))}
           </div>
         </div>

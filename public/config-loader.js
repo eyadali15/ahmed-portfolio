@@ -277,14 +277,23 @@ export const SECTION_SELECTORS = {
     hero:          { label: 'Hero Banner',       sel: '.about-hero' },
     intro:         { label: 'Intro Section',     sel: '.about-intro' },
     gallery:       { label: 'Gallery',           sel: '.about-gallery' },
-    services:      { label: 'Services',           sel: '.about-services' },
+    servicesSection: { label: 'Services Section', sel: '.about-services' },
+    servicesHeader:  { label: 'Services Header',  sel: '.services-header' },
+    servicesGrid:    { label: 'Services Grid',    sel: '.services-grid', gridSel: '.services-grid' },
+    servicesCard:    { label: 'Service Card',     sel: '.service-card' },
     timeline:      { label: 'Timeline',          sel: '.about-timeline' },
     quote:         { label: 'Quote',             sel: '.about-quote' },
     footer:        { label: 'Footer',            sel: '.footer' }
   },
   contact: {
-    header:        { label: 'Header',            sel: '.contact-header' },
-    contactInfo:   { label: 'Contact Info',      sel: '.contact-info' },
+    header:        { label: 'Header Section',    sel: '.contact-header' },
+    label:         { label: 'Label Text',        sel: '.contact-label' },
+    title:         { label: 'Title Text',        sel: '.contact-title' },
+    description:   { label: 'Description Text',  sel: '.contact-description' },
+    infoRow:       { label: 'Info Row (Email/Location/Social)', sel: '.contact-info-row' },
+    formWrapper:   { label: 'Form Container',    sel: '.contact-form-wrapper' },
+    formHeader:    { label: 'Form Header',       sel: '.contact-form-header' },
+    contactInfo:   { label: 'Contact Info (Overall)', sel: '.contact-info' },
     footer:        { label: 'Footer',            sel: '.footer' }
   }
 };
