@@ -19,7 +19,7 @@ export interface SiteConfig {
     copyrightText: string;
     socialLinks: {
       vimeo: string;
-      linkedin: string;
+      facebook: string;
       whatsapp: string;
       instagram: string;
     };
@@ -43,7 +43,7 @@ export interface SiteConfig {
   };
   contact: {
     header: { label: string; title: string; description: string };
-    info: { email: string; location: string; vimeoUrl: string; linkedinUrl: string; whatsappUrl: string; formButtonText: string };
+    info: { email: string; location: string; vimeoUrl: string; facebookUrl: string; whatsappUrl: string; instagramUrl: string; formButtonText: string };
     styles?: Record<string, { font?: string; size?: string; align?: string; color?: string }>;
   };
   design: {

@@ -313,7 +313,7 @@ function populateAllForms() {
   setVal('gen-logo', c.general.logoText);
   setVal('gen-copyright', c.general.copyrightText);
   setVal('gen-vimeo', c.general.socialLinks.vimeo);
-  setVal('gen-linkedin', c.general.socialLinks.linkedin);
+  setVal('gen-facebook', c.general.socialLinks.facebook);
   setVal('gen-whatsapp', c.general.socialLinks.whatsapp);
   setVal('gen-instagram', c.general.socialLinks.instagram);
 
@@ -376,7 +376,8 @@ function populateAllForms() {
   setVal('contact-email', c.contact.info.email);
   setVal('contact-location', c.contact.info.location);
   setVal('contact-vimeo', c.contact.info.vimeoUrl);
-  setVal('contact-linkedin', c.contact.info.linkedinUrl);
+  setVal('contact-facebook', c.contact.info.facebookUrl);
+  setVal('contact-instagram', c.contact.info.instagramUrl);
   setVal('contact-whatsapp', c.contact.info.whatsappUrl);
 
   // Portfolio
@@ -423,7 +424,7 @@ function readAllForms() {
   config.general.logoText = getVal('gen-logo');
   config.general.copyrightText = getVal('gen-copyright');
   config.general.socialLinks.vimeo = getVal('gen-vimeo');
-  config.general.socialLinks.linkedin = getVal('gen-linkedin');
+  config.general.socialLinks.facebook = getVal('gen-facebook');
   config.general.socialLinks.whatsapp = getVal('gen-whatsapp');
   config.general.socialLinks.instagram = getVal('gen-instagram');
 
@@ -483,7 +484,8 @@ function readAllForms() {
   config.contact.info.email = getVal('contact-email');
   config.contact.info.location = getVal('contact-location');
   config.contact.info.vimeoUrl = getVal('contact-vimeo');
-  config.contact.info.linkedinUrl = getVal('contact-linkedin');
+  config.contact.info.facebookUrl = getVal('contact-facebook');
+  config.contact.info.instagramUrl = getVal('contact-instagram');
   config.contact.info.whatsappUrl = getVal('contact-whatsapp');
 
   // Design

@@ -18,7 +18,7 @@ export const DEFAULT_CONFIG = {
     copyrightText: '© 2025 Ahmed Hany Abuzenada. All rights reserved.',
     socialLinks: {
       vimeo: 'https://vimeo.com/ahmedabuzenada',
-      linkedin: 'https://linkedin.com',
+      facebook: '',
       whatsapp: 'https://wa.me/',
       instagram: ''
     }
@@ -154,8 +154,9 @@ export const DEFAULT_CONFIG = {
       email: 'contact@ahmedabuzenada.com',
       location: 'Saudi Arabia',
       vimeoUrl: 'https://vimeo.com/ahmedabuzenada',
-      linkedinUrl: 'https://linkedin.com',
+      facebookUrl: '',
       whatsappUrl: 'https://wa.me/',
+      instagramUrl: '',
       formButtonText: 'Send Message'
     },
     styles: {
