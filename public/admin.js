@@ -401,6 +401,20 @@ function populateAllForms() {
     setVal('port-showmore-align', c.portfolio.styles?.showMoreBtn?.align);
   }
 
+  // Footer
+  if (c.footer) {
+    setVal('footer-name1', c.footer.name1);
+    setVal('footer-name2', c.footer.name2);
+    setVal('footer-description', c.footer.description);
+    setVal('footer-location', c.footer.location);
+    setVal('footer-email', c.footer.email);
+    setVal('footer-instagram', c.footer.instagramUrl);
+    setVal('footer-facebook', c.footer.facebookUrl);
+    setVal('footer-vimeo', c.footer.vimeoUrl);
+    setVal('footer-copyright', c.footer.copyrightName);
+    setVal('footer-tagline', c.footer.tagline);
+  }
+
   // Design
   setVal('design-accent', c.design.accentColor);
   setVal('design-bg', c.design.bgColor);
@@ -495,6 +509,19 @@ function readAllForms() {
   config.design.enablePreloader = getChecked('design-preloader');
   config.design.enableTransitions = getChecked('design-transitions');
   config.design.enableSmoothScroll = getChecked('design-smooth');
+
+  // Footer
+  if (!config.footer) config.footer = {};
+  config.footer.name1 = getVal('footer-name1');
+  config.footer.name2 = getVal('footer-name2');
+  config.footer.description = getVal('footer-description');
+  config.footer.location = getVal('footer-location');
+  config.footer.email = getVal('footer-email');
+  config.footer.instagramUrl = getVal('footer-instagram');
+  config.footer.facebookUrl = getVal('footer-facebook');
+  config.footer.vimeoUrl = getVal('footer-vimeo');
+  config.footer.copyrightName = getVal('footer-copyright');
+  config.footer.tagline = getVal('footer-tagline');
 
   // Portfolio
   if (!config.portfolio) config.portfolio = {};

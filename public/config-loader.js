@@ -164,6 +164,18 @@ export const DEFAULT_CONFIG = {
       headerDesc: { font: '', size: '', align: '', color: '' }
     }
   },
+  footer: {
+    name1: 'Ahmed',
+    name2: 'Abuzenada',
+    description: 'Award-winning filmmaker & assistant director based in Saudi Arabia. Crafting cinematic stories that inspire.',
+    location: 'Saudi Arabia & Egypt',
+    email: 'abuzfilms@gmail.com',
+    instagramUrl: 'https://www.instagram.com/_ahmedhanyy/',
+    facebookUrl: 'https://www.facebook.com/ahmed.hany.39',
+    vimeoUrl: 'https://vimeo.com/ahmedabuzenada',
+    copyrightName: 'Ahmed Hany Abuzenada',
+    tagline: 'Crafted with passion for cinema'
+  },
   design: {
     accentColor: '#d4af37',
     bgColor: '#0a0a0a',
