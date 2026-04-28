@@ -4,13 +4,11 @@ import ContactForm from '@/components/ui/ContactForm';
 import staticContent from '@/content/pages/contact.json';
 import { getConfig, mergeLayoutStyle } from '@/hooks/useConfig';
 
-type Align = 'left' | 'center' | 'right';
 type Layout = { paddingTop: number; paddingBottom: number; paddingLeft: number; paddingRight: number; marginTop: number; marginBottom: number; marginLeft: number; marginRight: number; gapAfter?: number; align: string };
 const box = (l: Layout) => ({
   paddingTop: l.paddingTop, paddingBottom: l.paddingBottom, paddingLeft: l.paddingLeft || undefined, paddingRight: l.paddingRight || undefined,
   marginTop: l.marginTop || undefined, marginBottom: (l.marginBottom || 0) + (l.gapAfter || 0) || undefined, marginLeft: l.marginLeft || undefined, marginRight: l.marginRight || undefined,
 });
-const jm = { left: 'flex-start', center: 'center', right: 'flex-end' } as const;
 
 /* ── SVG Social Icons ── */
 const icons: Record<string, React.ReactNode> = {
@@ -62,7 +60,7 @@ export default function Contact() {
   ].filter(l => l.href);
 
   /* ── CMS layout box-model merge ── */
-  const headerStyle = mergeLayoutStyle({ ...box(h.layout), textAlign: h.layout.align as any }, 'contact', 'header');
+  const headerStyle = mergeLayoutStyle({ ...box(h.layout) }, 'contact', 'header');
   const infoStyle = mergeLayoutStyle(box(info.layout), 'contact', 'contactInfo');
 
   return (
@@ -70,9 +68,9 @@ export default function Contact() {
       <section className="min-h-screen">
         <div className="h-[110px]" />
         <div className="container-main">
-          {/* 1. Header */}
+          {/* ── Centered Header ── */}
           {h.visible !== false && (
-          <div className="contact-header" style={headerStyle}>
+          <div className="contact-header text-center max-w-2xl mx-auto" style={headerStyle}>
             <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}
               className="text-[10px] uppercase tracking-[0.4em] text-[var(--color-accent)]" style={{ marginBottom: h.elements.labelMarginBottom }}>{h.content.label}</motion.p>
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
@@ -80,42 +78,74 @@ export default function Contact() {
               {h.content.title.split('together')[0]}<span className="italic text-[var(--color-accent)]">together</span>
             </motion.h1>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.35 }}
-              className="w-12 h-px bg-[var(--color-accent)]" style={{ marginBottom: h.elements.dividerMarginBottom, margin: h.layout.align === 'center' ? `0 auto ${h.elements.dividerMarginBottom}px` : `0 0 ${h.elements.dividerMarginBottom}px` }} />
+              className="w-12 h-px bg-[var(--color-accent)] mx-auto" style={{ marginBottom: h.elements.dividerMarginBottom }} />
             <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-white/50 text-base max-w-lg leading-relaxed" style={{ marginBottom: h.elements.descriptionMarginBottom || undefined, margin: h.layout.align === 'center' ? '0 auto' : undefined }}>{h.content.description}</motion.p>
+              className="text-white/50 text-base max-w-lg leading-relaxed mx-auto">{h.content.description}</motion.p>
           </div>
           )}
 
-          {/* 2. Info + Form */}
+          {/* ── Centered Contact Info Cards ── */}
           {info.visible !== false && (
-          <div className="contact-info max-w-4xl mx-auto" style={infoStyle}>
-            <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: info.layout.gridGap }}>
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }} className="flex flex-col justify-center">
-                <div style={{ display: 'flex', flexDirection: 'column', gap: info.elements.infoItemsGap, textAlign: info.layout.align as Align }}>
-                  <div>
-                    <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/30" style={{ marginBottom: info.elements.sectionLabelMarginBottom }}>Email</h4>
-                    <a href={`mailto:${info.content.email}`} className="text-lg text-white hover:text-[var(--color-accent)] transition-colors">{info.content.email}</a>
-                  </div>
-                  <div>
-                    <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/30" style={{ marginBottom: info.elements.sectionLabelMarginBottom }}>Location</h4>
-                    <p className="text-lg text-white">{info.content.location}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/30" style={{ marginBottom: info.elements.sectionLabelMarginBottom + 8 }}>Follow</h4>
-                    <div className="flex items-center gap-4" style={{ justifyContent: jm[(info.layout.align || 'left') as Align], flexWrap: 'wrap' }}>
-                      {socialLinks.map((link) => (
-                        <a key={link.key} href={link.href} target="_blank" rel="noopener noreferrer"
-                          className="group flex items-center gap-2.5 px-5 py-3 rounded-xl border border-[var(--color-border)] text-sm text-white/60 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-all duration-300 hover:bg-[var(--color-accent)]/5">
-                          <span className="text-white/40 group-hover:text-[var(--color-accent)] transition-colors">{icons[link.key]}</span>
-                          {link.label}
-                        </a>
-                      ))}
-                    </div>
+          <div className="contact-info max-w-3xl mx-auto" style={{ ...infoStyle, marginTop: 56 }}>
+            {/* Info cards row */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
+              className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10"
+            >
+              {/* Email Card */}
+              <a href={`mailto:${info.content.email}`}
+                className="group flex flex-col items-center gap-3 p-6 rounded-2xl border border-[var(--color-border)] bg-white/[0.02] hover:border-[var(--color-accent)]/40 hover:bg-[var(--color-accent)]/[0.03] transition-all duration-400">
+                <div className="w-11 h-11 rounded-full border border-[var(--color-border)] flex items-center justify-center group-hover:border-[var(--color-accent)]/50 group-hover:bg-[var(--color-accent)]/10 transition-all duration-300">
+                  <svg className="w-5 h-5 text-white/40 group-hover:text-[var(--color-accent)] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+                </div>
+                <div className="text-center">
+                  <p className="text-[9px] uppercase tracking-[0.3em] text-white/25 mb-1">Email</p>
+                  <p className="text-sm text-white group-hover:text-[var(--color-accent)] transition-colors">{info.content.email}</p>
+                </div>
+              </a>
+
+              {/* Location Card */}
+              <div className="flex flex-col items-center gap-3 p-6 rounded-2xl border border-[var(--color-border)] bg-white/[0.02]">
+                <div className="w-11 h-11 rounded-full border border-[var(--color-border)] flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
+                </div>
+                <div className="text-center">
+                  <p className="text-[9px] uppercase tracking-[0.3em] text-white/25 mb-1">Location</p>
+                  <p className="text-sm text-white">{info.content.location}</p>
+                </div>
+              </div>
+
+              {/* Social Links Card */}
+              <div className="flex flex-col items-center gap-3 p-6 rounded-2xl border border-[var(--color-border)] bg-white/[0.02]">
+                <div className="w-11 h-11 rounded-full border border-[var(--color-border)] flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m9.86-2.54a4.5 4.5 0 00-6.364-6.364L4.5 8.25" /></svg>
+                </div>
+                <div className="text-center">
+                  <p className="text-[9px] uppercase tracking-[0.3em] text-white/25 mb-2">Follow</p>
+                  <div className="flex items-center gap-3">
+                    {socialLinks.map((link) => (
+                      <a key={link.key} href={link.href} target="_blank" rel="noopener noreferrer"
+                        className="text-white/30 hover:text-[var(--color-accent)] transition-colors duration-300"
+                        title={link.label}>
+                        {icons[link.key]}
+                      </a>
+                    ))}
                   </div>
                 </div>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4 }}><ContactForm /></motion.div>
-            </div>
+              </div>
+            </motion.div>
+
+            {/* ── Premium Contact Form ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4 }}
+              className="p-8 md:p-10 rounded-2xl border border-[var(--color-border)] bg-gradient-to-br from-white/[0.03] to-transparent"
+            >
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-8 h-px bg-[var(--color-accent)]" />
+                <span className="text-[10px] uppercase tracking-[0.35em] text-[var(--color-accent)]">Send a Message</span>
+              </div>
+              <ContactForm />
+            </motion.div>
           </div>
           )}
         </div>
