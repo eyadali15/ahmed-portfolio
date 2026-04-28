@@ -7,15 +7,14 @@ import ProjectCard from '@/components/ui/ProjectCard';
 import FilterBar from '@/components/ui/FilterBar';
 import Button from '@/components/ui/Button';
 import { useStore } from '@/store/useStore';
-import { projects } from '@/data/projects';
+import { projects as staticProjects } from '@/data/projects';
 import spacing from '@/content/design/spacing.json';
 import workContent from '@/content/pages/work.json';
 import global from '@/content/pages/global.json';
+import { getConfig, mergeLayoutStyle } from '@/hooks/useConfig';
 
 gsap.registerPlugin(ScrollTrigger);
-const s = spacing.work;
 const d = workContent.detail;
-const wh = global.workHero;
 const ITEMS_PER_PAGE = 9;
 
 const roleTabs = [
@@ -26,26 +25,53 @@ const roleTabs = [
 export default function Work() {
   const { activeFilter, setActiveFilter, activeRole, setActiveRole } = useStore();
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+  const cms = getConfig();
+
+  /* ── CMS text ── */
+  const s = cms?.spacing?.work || spacing.work;
+  const wh = {
+    label: (cms as any)?.portfolio?.hero?.label || global.workHero.label,
+    titlePart1: (cms as any)?.portfolio?.hero?.titlePart1 || global.workHero.titlePart1,
+    titlePart2: (cms as any)?.portfolio?.hero?.titlePart2 || global.workHero.titlePart2,
+    heroBackground: (s as any).heroBackground || 'https://images.unsplash.com/photo-1616530940355-351fabd9524b?auto=format&fit=crop&w=1920&q=80',
+    showMoreText: global.workHero.showMoreText || 'Show More',
+    noProjectsText: global.workHero.noProjectsText || 'No projects found in this category.',
+  };
+
+  /* ── CMS projects or static ── */
+  const allProjects = (cms?.projects && cms.projects.length > 0)
+    ? cms.projects.map(p => ({
+        ...p,
+        role: p.role === 'assistant' ? 'Assistant Director' : (p.role === 'director' ? 'Director' : p.role),
+        category: p.category === 'film' ? 'Film' : p.category === 'documentary' ? 'Documentary' : p.category === 'commercial' ? 'Commercial' : p.category,
+      }))
+    : staticProjects;
 
   // Filter by role first
-  const roleFiltered = projects.filter((p) => {
+  const roleFiltered = allProjects.filter((p) => {
     if (activeRole === 'assistant') return p.role === 'Assistant Director';
     return p.role === 'Director' || p.role === 'Director & Writer';
   });
 
   // Then filter by category
-  const filteredProjects = activeFilter === 'all' ? roleFiltered : roleFiltered.filter((p) => p.category === activeFilter);
+  const filteredProjects = activeFilter === 'all' ? roleFiltered : roleFiltered.filter((p) => p.category.toLowerCase() === activeFilter.toLowerCase());
   const visibleProjects = filteredProjects.slice(0, visibleCount);
   const hasMore = visibleCount < filteredProjects.length;
 
   useEffect(() => { setVisibleCount(ITEMS_PER_PAGE); }, [activeFilter, activeRole]);
   useEffect(() => { setActiveFilter('all'); setActiveRole('assistant'); return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); }; }, [setActiveFilter, setActiveRole]);
 
+  /* ── Layout box model ── */
+  const heroStyle = mergeLayoutStyle({}, 'portfolio', 'hero');
+  const roleStyle = mergeLayoutStyle({}, 'portfolio', 'roleButtons');
+  const filterStyle = mergeLayoutStyle({}, 'portfolio', 'filters');
+  const gridStyle = mergeLayoutStyle({}, 'portfolio', 'grid');
+
   return (
     <PageTransition>
       {/* Hero banner */}
-      <section className="relative h-[50vh] min-h-[350px] w-full overflow-hidden flex items-end">
-        <img src={s.heroBackground} alt="" className="absolute inset-0 w-full h-full object-cover" />
+      <section className="work-hero relative h-[50vh] min-h-[350px] w-full overflow-hidden flex items-end" style={heroStyle}>
+        <img src={wh.heroBackground} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-black/60 to-black/30" />
         <div className="relative z-10 container-main pb-12">
           <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
@@ -58,10 +84,10 @@ export default function Work() {
       </section>
 
       <section className="min-h-screen">
-        <div className="container-main" style={{ paddingTop: s.sectionPaddingY, paddingBottom: s.sectionPaddingY, paddingLeft: s.sectionPaddingX || undefined, paddingRight: s.sectionPaddingX || undefined }}>
+        <div className="container-main" style={{ paddingTop: (s as any).sectionPaddingY, paddingBottom: (s as any).sectionPaddingY, paddingLeft: (s as any).sectionPaddingX || undefined, paddingRight: (s as any).sectionPaddingX || undefined }}>
 
           {/* Role Tabs */}
-          <div className="flex flex-wrap items-center gap-3" style={{ marginTop: s.titleToFilterGap, marginBottom: s.roleToFilterGap, textAlign: (s.filterAlign as 'left' | 'center' | 'right') || 'left' }}>
+          <div className="role-buttons flex flex-wrap items-center gap-3" style={{ ...roleStyle, marginTop: (s as any).titleToFilterGap, marginBottom: (s as any).roleToFilterGap, textAlign: ((s as any).filterAlign as 'left' | 'center' | 'right') || 'left' }}>
             {roleTabs.map((tab) => (
               <motion.button
                 key={tab.key}
@@ -87,16 +113,16 @@ export default function Work() {
           </div>
 
           {/* Category Filters */}
-          <div className="flex flex-wrap items-center gap-3" style={{ marginBottom: s.filterToGridGap, textAlign: (s.filterAlign as 'left' | 'center' | 'right') || 'left' }}>
+          <div className="filter-bar flex flex-wrap items-center gap-3" style={{ ...filterStyle, marginBottom: (s as any).filterToGridGap, textAlign: ((s as any).filterAlign as 'left' | 'center' | 'right') || 'left' }}>
             <FilterBar />
           </div>
 
           {/* Projects Grid */}
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: s.gridGap, paddingTop: s.gridPaddingTop }}>
+          <motion.div layout className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ ...gridStyle, gap: (s as any).gridGap, paddingTop: (s as any).gridPaddingTop }}>
             <AnimatePresence mode="popLayout">
               {visibleProjects.map((project, i) => (
                 <motion.div key={project.slug} layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.35, delay: i < ITEMS_PER_PAGE ? i * 0.04 : (i % ITEMS_PER_PAGE) * 0.04 }}>
-                  <ProjectCard project={project} index={i} />
+                  <ProjectCard project={project as any} index={i} />
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -124,7 +150,7 @@ export default function Work() {
             </motion.div>
           )}
         </div>
-        <div style={{ height: s.bottomSpacerHeight }} />
+        <div style={{ height: (s as any).bottomSpacerHeight }} />
       </section>
     </PageTransition>
   );

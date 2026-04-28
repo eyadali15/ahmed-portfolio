@@ -212,7 +212,7 @@ export const DEFAULT_CONFIG = {
       hero:           s(),
       intro:          s(),
       gallery:        s(),
-      philosophy:     s(),
+      services:       s(),
       timeline:       s(),
       quote:          s(),
       footer:         s()
@@ -247,7 +247,7 @@ export const SECTION_SELECTORS = {
     hero:          { label: 'Hero Banner',       sel: '.about-hero' },
     intro:         { label: 'Intro Section',     sel: '.about-intro' },
     gallery:       { label: 'Gallery',           sel: '.about-gallery' },
-    philosophy:    { label: 'Philosophy',        sel: '.about-philosophy' },
+    services:      { label: 'Services',           sel: '.about-services' },
     timeline:      { label: 'Timeline',          sel: '.about-timeline' },
     quote:         { label: 'Quote',             sel: '.about-quote' },
     footer:        { label: 'Footer',            sel: '.footer' }

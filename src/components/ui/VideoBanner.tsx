@@ -1,7 +1,8 @@
 import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import content from '@/content/pages/home.json';
+import staticContent from '@/content/pages/home.json';
+import { getConfig, mergeLayoutStyle } from '@/hooks/useConfig';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,11 +30,14 @@ export default function VideoBanner() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [ready, setReady] = useState(false);
   const [mobile] = useState(isMobile);
-  const vb = content.videoBanner;
-  const label = vb.content?.label || 'Behind the Lens';
-  const titlePart1 = vb.content?.titlePart1 || 'Where Stories';
-  const titlePart2 = vb.content?.titlePart2 || 'Come Alive';
-  const videoSrc = content.hero.content.bannerVideo || '/uploads/239444_small.mp4';
+
+  /* ── CMS merge ── */
+  const cms = getConfig();
+  const vb = staticContent.videoBanner;
+  const label = cms?.home?.videoBanner?.label || vb.content?.label || 'Behind the Lens';
+  const titlePart1 = cms?.home?.videoBanner?.titlePart1 || vb.content?.titlePart1 || 'Where Stories';
+  const titlePart2 = cms?.home?.videoBanner?.titlePart2 || vb.content?.titlePart2 || 'Come Alive';
+  const videoSrc = cms?.home?.hero?.bannerVideo || staticContent.hero.content.bannerVideo || '/uploads/239444_small.mp4';
   const layout = (vb as any).layout || {};
   const h = layout.height || 65;
 
@@ -45,7 +49,6 @@ export default function VideoBanner() {
     video.load();
 
     if (mobile) {
-      // MOBILE: scroll-driven
       waitForVideo(video, () => {
         const duration = video.duration;
         if (!duration || isNaN(duration)) return;
@@ -63,7 +66,6 @@ export default function VideoBanner() {
         });
       });
     } else {
-      // DESKTOP: autoplay + parallax
       video.play().catch(() => {});
       const onPlay = () => setReady(true);
       video.addEventListener('playing', onPlay);
@@ -84,21 +86,20 @@ export default function VideoBanner() {
     return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
   }, [mobile]);
 
+  const baseStyle: React.CSSProperties = {
+    height: `${h}vh`,
+    paddingTop: layout.paddingTop || undefined,
+    paddingBottom: layout.paddingBottom || undefined,
+    marginTop: layout.marginTop || undefined,
+    marginBottom: ((layout.marginBottom || 0) + (layout.gapAfter || 0)) || undefined,
+  };
+  const sectionStyle = mergeLayoutStyle(baseStyle, 'home', 'videoBanner');
+
   return (
     <div
       ref={containerRef}
-      className="relative w-full overflow-hidden"
-      style={{
-        height: `${h}vh`,
-        paddingTop: layout.paddingTop || undefined,
-        paddingBottom: layout.paddingBottom || undefined,
-        paddingLeft: layout.paddingLeft || undefined,
-        paddingRight: layout.paddingRight || undefined,
-        marginTop: layout.marginTop || undefined,
-        marginBottom: ((layout.marginBottom || 0) + (layout.gapAfter || 0)) || undefined,
-        marginLeft: layout.marginLeft || undefined,
-        marginRight: layout.marginRight || undefined,
-      }}
+      className="video-banner-section relative w-full overflow-hidden"
+      style={sectionStyle}
     >
       <video
         ref={videoRef}

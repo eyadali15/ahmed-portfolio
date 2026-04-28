@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Button from '@/components/ui/Button';
-import content from '@/content/pages/home.json';
+import staticContent from '@/content/pages/home.json';
+import { getConfig, mergeLayoutStyle } from '@/hooks/useConfig';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,10 +35,22 @@ function waitForVideo(video: HTMLVideoElement, cb: () => void) {
 
 import spacing from '@/content/design/spacing.json';
 
-const s = spacing.home;
-
 export default function HeroBanner() {
-  const { content: c, layout: l } = content.hero;
+  /* ── Merge CMS data over static fallback ── */
+  const cms = getConfig();
+  const staticHero = staticContent.hero;
+  const c = {
+    name1: cms?.home?.hero?.name1 || staticHero.content.name1 || 'Ahmed',
+    name2: cms?.home?.hero?.name2 || staticHero.content.name2 || 'Abuzenada',
+    subtitle: cms?.home?.hero?.subtitle || staticHero.content.subtitle || '',
+    description: cms?.home?.hero?.description || staticHero.content.description || '',
+    heroImage: cms?.home?.hero?.heroVideo || staticHero.content.heroImage || '/uploads/136726-764934405_small.mp4',
+    bannerVideo: cms?.home?.hero?.bannerVideo || staticHero.content.bannerVideo || '/uploads/239444_small.mp4',
+    buttonText: cms?.home?.hero?.buttonText || staticHero.content.buttonText || 'View Portfolio',
+  };
+  const l = staticHero.layout;
+  const s = cms?.spacing?.home || spacing.home;
+
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -60,7 +73,6 @@ export default function HeroBanner() {
     video.load();
 
     if (mobile) {
-      // MOBILE: scroll-driven currentTime (proven working)
       waitForVideo(video, () => {
         const duration = video.duration;
         if (!duration || isNaN(duration)) return;
@@ -78,7 +90,6 @@ export default function HeroBanner() {
         });
       });
     } else {
-      // DESKTOP: autoplay + parallax (no frame skipping)
       video.play().catch(() => {});
       const onPlay = () => setReady(true);
       video.addEventListener('playing', onPlay);
@@ -99,8 +110,10 @@ export default function HeroBanner() {
     return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
   }, [mobile]);
 
+  const sectionStyle = mergeLayoutStyle(box(l), 'home', 'hero');
+
   return (
-    <section ref={sectionRef} className="relative h-screen w-full overflow-hidden" style={box(l)}>
+    <section ref={sectionRef} className="hero-section relative h-screen w-full overflow-hidden" style={sectionStyle}>
       <video
         ref={videoRef}
         muted playsInline preload="auto"
@@ -108,22 +121,22 @@ export default function HeroBanner() {
         className="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-700"
         style={{ opacity: mobile || ready ? 1 : 0 }}
       >
-        <source src={c.heroImage || '/uploads/136726-764934405_small.mp4'} type="video/mp4" />
+        <source src={c.heroImage} type="video/mp4" />
       </video>
       <div className="absolute inset-0 z-[1] bg-black/50" />
       <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/30 via-transparent to-black/80" />
-      <div className="relative z-[3] h-full flex flex-col items-center justify-center px-6" style={{ textAlign: s.heroTextAlign as Align }}>
-        <div ref={titleRef} style={{ marginBottom: s.heroTitleMarginBottom }}>
+      <div className="relative z-[3] h-full flex flex-col items-center justify-center px-6" style={{ textAlign: (s as any).heroTextAlign as Align || 'center' }}>
+        <div ref={titleRef} style={{ marginBottom: (s as any).heroTitleMarginBottom || 36 }}>
           <h1 className="font-[var(--font-heading)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1] tracking-tight">
-            <span className="hero-word inline-block text-white">{c.name1 || 'Ahmed'}</span>
-            <span className="hero-word inline-block ml-3 md:ml-4 text-[var(--color-accent)]">{c.name2 || 'Abuzenada'}</span>
+            <span className="hero-word inline-block text-white">{c.name1}</span>
+            <span className="hero-word inline-block ml-3 md:ml-4 text-[var(--color-accent)]">{c.name2}</span>
           </h1>
         </div>
-        <div ref={subtitleRef} style={{ textAlign: s.heroTextAlign as Align }}>
-          <p className="text-xs md:text-sm tracking-[0.35em] uppercase text-white/70" style={{ marginBottom: s.heroSubtitleMarginBottom }}>{c.subtitle}</p>
-          <div className="w-12 h-px bg-[var(--color-accent)]" style={{ margin: s.heroTextAlign === 'center' ? `24px auto` : `24px 0` }} />
-          <p className="text-white/50 text-sm max-w-md leading-relaxed" style={{ marginBottom: s.heroDescriptionMarginBottom, margin: s.heroTextAlign === 'center' ? `0 auto ${s.heroDescriptionMarginBottom}px` : `0 0 ${s.heroDescriptionMarginBottom}px` }}>{c.description}</p>
-          <div style={{ display: 'flex', justifyContent: jm[s.heroTextAlign as Align] }}><Button to="/portfolio">{c.buttonText || 'View Portfolio'}</Button></div>
+        <div ref={subtitleRef} style={{ textAlign: (s as any).heroTextAlign as Align || 'center' }}>
+          <p className="text-xs md:text-sm tracking-[0.35em] uppercase text-white/70" style={{ marginBottom: (s as any).heroSubtitleMarginBottom || 20 }}>{c.subtitle}</p>
+          <div className="w-12 h-px bg-[var(--color-accent)]" style={{ margin: (s as any).heroTextAlign === 'center' ? `24px auto` : `24px 0` }} />
+          <p className="text-white/50 text-sm max-w-md leading-relaxed" style={{ marginBottom: (s as any).heroDescriptionMarginBottom || 36, margin: (s as any).heroTextAlign === 'center' ? `0 auto ${(s as any).heroDescriptionMarginBottom || 36}px` : `0 0 ${(s as any).heroDescriptionMarginBottom || 36}px` }}>{c.description}</p>
+          <div style={{ display: 'flex', justifyContent: jm[((s as any).heroTextAlign || 'center') as Align] }}><Button to="/portfolio">{c.buttonText}</Button></div>
         </div>
       </div>
     </section>

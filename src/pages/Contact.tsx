@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import PageTransition from '@/components/layout/PageTransition';
 import ContactForm from '@/components/ui/ContactForm';
-import content from '@/content/pages/contact.json';
+import staticContent from '@/content/pages/contact.json';
+import { getConfig, mergeLayoutStyle } from '@/hooks/useConfig';
 
 type Align = 'left' | 'center' | 'right';
 type Layout = { paddingTop: number; paddingBottom: number; paddingLeft: number; paddingRight: number; marginTop: number; marginBottom: number; marginLeft: number; marginRight: number; gapAfter?: number; align: string };
@@ -12,8 +13,32 @@ const box = (l: Layout) => ({
 const jm = { left: 'flex-start', center: 'center', right: 'flex-end' } as const;
 
 export default function Contact() {
-  const h = content.header;
-  const info = content.info;
+  const cms = getConfig();
+
+  /* ── CMS text merge ── */
+  const h = {
+    ...staticContent.header,
+    content: {
+      label: cms?.contact?.header?.label || staticContent.header.content.label,
+      title: cms?.contact?.header?.title || staticContent.header.content.title,
+      description: cms?.contact?.header?.description || staticContent.header.content.description,
+    }
+  };
+  const info = {
+    ...staticContent.info,
+    content: {
+      email: cms?.contact?.info?.email || staticContent.info.content.email,
+      location: cms?.contact?.info?.location || staticContent.info.content.location,
+      vimeoUrl: cms?.contact?.info?.vimeoUrl || staticContent.info.content.vimeoUrl,
+      linkedinUrl: cms?.contact?.info?.linkedinUrl || staticContent.info.content.linkedinUrl,
+      whatsappUrl: cms?.contact?.info?.whatsappUrl || staticContent.info.content.whatsappUrl,
+      formButtonText: cms?.contact?.info?.formButtonText || staticContent.info.content.formButtonText || 'Send Message',
+    }
+  };
+
+  /* ── CMS layout box-model merge ── */
+  const headerStyle = mergeLayoutStyle({ ...box(h.layout), textAlign: h.layout.align as any }, 'contact', 'header');
+  const infoStyle = mergeLayoutStyle(box(info.layout), 'contact', 'contactInfo');
 
   return (
     <PageTransition>
@@ -22,7 +47,7 @@ export default function Contact() {
         <div className="container-main">
           {/* 1. Header */}
           {h.visible !== false && (
-          <div style={{ ...box(h.layout), textAlign: h.layout.align as Align }}>
+          <div className="contact-header" style={headerStyle}>
             <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}
               className="text-[10px] uppercase tracking-[0.4em] text-[var(--color-accent)]" style={{ marginBottom: h.elements.labelMarginBottom }}>{h.content.label}</motion.p>
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
@@ -38,7 +63,7 @@ export default function Contact() {
 
           {/* 2. Info + Form */}
           {info.visible !== false && (
-          <div className="max-w-4xl mx-auto" style={box(info.layout)}>
+          <div className="contact-info max-w-4xl mx-auto" style={infoStyle}>
             <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: info.layout.gridGap }}>
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }} className="flex flex-col justify-center">
                 <div style={{ display: 'flex', flexDirection: 'column', gap: info.elements.infoItemsGap, textAlign: info.layout.align as Align }}>

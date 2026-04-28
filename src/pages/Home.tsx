@@ -10,7 +10,8 @@ import VideoBanner from '@/components/ui/VideoBanner';
 import { useStore } from '@/store/useStore';
 import { getFeaturedProjects } from '@/data/projects';
 import PageTransition from '@/components/layout/PageTransition';
-import content from '@/content/pages/home.json';
+import staticContent from '@/content/pages/home.json';
+import { getConfig, mergeLayoutStyle } from '@/hooks/useConfig';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,18 +23,30 @@ const box = (l: Layout) => ({
 });
 const jm = { left: 'flex-start', center: 'center', right: 'flex-end' } as const;
 
-import spacing from '@/content/design/spacing.json';
-const s = spacing.home;
-
 function FeaturedSection() {
-  const { content: c, elements: e, layout: l } = content.featured;
+  const cms = getConfig();
+  const sc = staticContent.featured;
+  
+  /* ── CMS text merge ── */
+  const c = {
+    label: cms?.home?.featured?.label || sc.content.label,
+    title: cms?.home?.featured?.title || sc.content.title,
+    buttonText: cms?.home?.featured?.buttonText || sc.content.buttonText || 'View All Work',
+  };
+
+  const e = sc.elements;
+  const l = sc.layout;
   const featured = getFeaturedProjects();
 
+  /* ── CMS layout box-model merge ── */
+  const sectionStyle = mergeLayoutStyle(box(l), 'home', 'featured');
+  const gridStyle = mergeLayoutStyle({ gap: l.gridGap, marginTop: e.titleToGridGap } as any, 'home', 'featuredGrid');
+
   return (
-    <section style={box(l)}>
+    <section className="featured-section" style={sectionStyle}>
       <div className="container-main" style={{ textAlign: l.align as Align }}>
         <SectionTitle label={c.label} title={c.title} titlePaddingBottom={10} />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: l.gridGap, marginTop: e.titleToGridGap }}>
+        <div className="featured-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={gridStyle}>
           {featured.map((project, i) => (
             <motion.div
               key={project.slug}
@@ -62,7 +75,7 @@ function FeaturedSection() {
           ))}
         </div>
         <div style={{ marginTop: e.gridToButtonGap, display: 'flex', justifyContent: jm[(l.buttonAlign || 'center') as Align] }}>
-          <Button to="/portfolio">{c.buttonText || 'View All Work'}</Button>
+          <Button to="/portfolio">{c.buttonText}</Button>
         </div>
       </div>
     </section>
@@ -70,9 +83,23 @@ function FeaturedSection() {
 }
 
 function CTASection() {
-  const { content: c, elements: e, layout: l } = content.cta;
+  const cms = getConfig();
+  const sc = staticContent.cta;
+  
+  /* ── CMS text merge ── */
+  const c = {
+    label: cms?.home?.cta?.label || sc.content.label,
+    title: cms?.home?.cta?.title || sc.content.title,
+    description: cms?.home?.cta?.description || sc.content.description,
+    buttonText: cms?.home?.cta?.buttonText || sc.content.buttonText,
+  };
+
+  const e = sc.elements;
+  const l = sc.layout;
+  const sectionStyle = mergeLayoutStyle(box(l), 'home', 'cta');
+
   return (
-    <section style={box(l)}>
+    <section className="cta-section" style={sectionStyle}>
       <div className="container-main max-w-[700px]" style={{ textAlign: l.align as Align }}>
         <motion.p initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
           className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-accent)]" style={{ marginBottom: e.labelMarginBottom }}>{c.label}</motion.p>
@@ -92,13 +119,22 @@ function CTASection() {
 
 export default function Home() {
   const setIsLoading = useStore((s) => s.setIsLoading);
+  const cms = getConfig();
+  
+  /* ── CMS visibility overrides ── */
+  const heroVisible = cms?.home?.hero?.visible ?? staticContent.hero.visible;
+  const featuredVisible = cms?.home?.featured?.visible ?? staticContent.featured.visible;
+  const vbVisible = cms?.home?.videoBanner?.visible ?? staticContent.videoBanner?.visible;
+  const ctaVisible = cms?.home?.cta?.visible ?? staticContent.cta.visible;
+  
   useEffect(() => { setIsLoading(false); return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); }; }, [setIsLoading]);
+  
   return (
     <PageTransition>
-      {content.hero.visible !== false && <HeroBanner />}
-      {content.featured.visible !== false && <FeaturedSection />}
-      {content.videoBanner?.visible !== false && <VideoBanner />}
-      {content.cta.visible !== false && <CTASection />}
+      {heroVisible !== false && <HeroBanner />}
+      {featuredVisible !== false && <FeaturedSection />}
+      {vbVisible !== false && <VideoBanner />}
+      {ctaVisible !== false && <CTASection />}
     </PageTransition>
   );
 }
