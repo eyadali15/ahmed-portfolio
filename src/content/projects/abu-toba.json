@@ -1,0 +1,26 @@
+{
+  "slug": "abu-toba",
+  "client": "Abu",
+  "thumbnail": "https://vumbnail.com/1103349644.jpg",
+  "featured": false,
+  "role": "Assistant Director",
+  "title": "Abu - Toba | Official Music Video",
+  "credits": [
+    {
+      "role": "Artist",
+      "name": "Abu"
+    },
+    {
+      "role": "Director",
+      "name": "Omar Donga"
+    },
+    {
+      "role": "Assistant Director",
+      "name": "Ahmed Hany Abuzenada"
+    }
+  ],
+  "description": "Official music video for Abu - Toba (2025).",
+  "year": 2025,
+  "category": "commercial",
+  "vimeoId": "1103349644"
+}

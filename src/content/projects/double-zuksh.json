@@ -1,0 +1,26 @@
+{
+  "title": "Double Zuksh X ELKVP",
+  "slug": "double-zuksh",
+  "client": "ARRB Production",
+  "role": "Assistant Director",
+  "category": "commercial",
+  "year": 2024,
+  "vimeoId": "1034158610",
+  "thumbnail": "https://vumbnail.com/1034158610.jpg",
+  "description": "Music video for Double Zuksh in collaboration with ELKVP - ARRB Production.",
+  "featured": false,
+  "credits": [
+    {
+      "role": "Production",
+      "name": "ARRB Production"
+    },
+    {
+      "role": "Artists",
+      "name": "Double Zuksh X ELKVP"
+    },
+    {
+      "role": "Assistant Director",
+      "name": "Ahmed Hany Abuzenada"
+    }
+  ]
+}

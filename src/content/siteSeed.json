@@ -1,0 +1,1175 @@
+﻿{
+    "pages":  {
+                  "home":  {
+                               "hero":  {
+                                            "content":  {
+                                                            "subtitle":  "Assistant Director \u0026 Filmmaker",
+                                                            "description":  "Crafting cinematic stories that inspire through visual storytelling",
+                                                            "heroVideo":  "/uploads/136726-764934405_small.mp4",
+                                                            "bannerVideo":  "/uploads/239444_small.mp4"
+                                                        },
+                                            "elements":  {
+                                                             "titleMarginBottom":  36,
+                                                             "subtitleMarginBottom":  20,
+                                                             "dividerMarginY":  24,
+                                                             "descriptionMarginBottom":  36
+                                                         },
+                                            "layout":  {
+                                                           "paddingTop":  0,
+                                                           "align":  "center",
+                                                           "gapAfter":  0,
+                                                           "marginTop":  0,
+                                                           "paddingRight":  24,
+                                                           "marginRight":  0,
+                                                           "gridGap":  0,
+                                                           "marginLeft":  0,
+                                                           "paddingLeft":  24,
+                                                           "marginBottom":  0,
+                                                           "paddingBottom":  0
+                                                       }
+                                        },
+                               "featured":  {
+                                                "content":  {
+                                                                "label":  "Selected Work",
+                                                                "title":  "Featured Projects"
+                                                            },
+                                                "elements":  {
+                                                                 "labelMarginBottom":  12,
+                                                                 "titleMarginBottom":  0,
+                                                                 "titleToGridGap":  0,
+                                                                 "gridToButtonGap":  112
+                                                             },
+                                                "layout":  {
+                                                               "paddingTop":  164,
+                                                               "align":  "left",
+                                                               "gapAfter":  0,
+                                                               "marginTop":  30,
+                                                               "paddingRight":  0,
+                                                               "marginRight":  0,
+                                                               "gridGap":  40,
+                                                               "buttonAlign":  "center",
+                                                               "marginLeft":  0,
+                                                               "paddingLeft":  0,
+                                                               "marginBottom":  30,
+                                                               "paddingBottom":  160
+                                                           }
+                                            },
+                               "cta":  {
+                                           "content":  {
+                                                           "label":  "Let\u0027s Collaborate",
+                                                           "title":  "Have a vision? Let\u0027s bring it to life.",
+                                                           "description":  "Whether it\u0027s a commercial, documentary, or narrative film â€” every great project starts with a conversation.",
+                                                           "buttonText":  "Start a Conversation"
+                                                       },
+                                           "elements":  {
+                                                            "labelMarginBottom":  32,
+                                                            "titleMarginBottom":  40,
+                                                            "descriptionPaddingTop":  36,
+                                                            "descriptionMarginBottom":  96,
+                                                            "buttonMarginTop":  20
+                                                        },
+                                           "layout":  {
+                                                          "paddingTop":  176,
+                                                          "align":  "center",
+                                                          "gapAfter":  0,
+                                                          "marginTop":  0,
+                                                          "paddingRight":  0,
+                                                          "marginRight":  0,
+                                                          "gridGap":  0,
+                                                          "marginLeft":  0,
+                                                          "paddingLeft":  0,
+                                                          "marginBottom":  0,
+                                                          "paddingBottom":  176
+                                                      }
+                                       }
+                           },
+                  "about":  {
+                                "heroBanner":  {
+                                                   "content":  {
+                                                                   "heroBackground":  "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format\u0026fit=crop\u0026w=1920\u0026q=80",
+                                                                   "label":  "About",
+                                                                   "title":  "The art of seeing differently"
+                                                               },
+                                                   "elements":  {
+                                                                    "labelMarginBottom":  16,
+                                                                    "titleMarginBottom":  0
+                                                                },
+                                                   "layout":  {
+                                                                  "align":  "left",
+                                                                  "paddingTop":  0,
+                                                                  "paddingRight":  0,
+                                                                  "paddingBottom":  48,
+                                                                  "paddingLeft":  0,
+                                                                  "marginTop":  0,
+                                                                  "marginRight":  0,
+                                                                  "marginBottom":  0,
+                                                                  "marginLeft":  0,
+                                                                  "gridGap":  0,
+                                                                  "gapAfter":  0
+                                                              }
+                                               },
+                                "intro":  {
+                                              "content":  {
+                                                              "text1":  "I\u0027m Ahmed Hany Abuzenada â€” an award-winning Saudi filmmaker and assistant director passionate about making a change through storytelling.",
+                                                              "text2":  "My work sits at the intersection of technical precision and emotional resonance. Every frame serves the story, every cut feels intentional."
+                                                          },
+                                              "elements":  {
+                                                               "dividerMarginBottom":  32,
+                                                               "text1MarginBottom":  24,
+                                                               "text2MarginBottom":  0
+                                                           },
+                                              "layout":  {
+                                                             "align":  "left",
+                                                             "paddingTop":  80,
+                                                             "paddingRight":  0,
+                                                             "paddingBottom":  80,
+                                                             "paddingLeft":  0,
+                                                             "marginTop":  0,
+                                                             "marginRight":  0,
+                                                             "marginBottom":  0,
+                                                             "marginLeft":  0,
+                                                             "gridGap":  0,
+                                                             "gapAfter":  0
+                                                         }
+                                          },
+                                "gallery":  {
+                                                "content":  {
+                                                                "label":  "Behind the Scenes",
+                                                                "title":  "The Filmmaker",
+                                                                "photos":  [
+                                                                               "/uploads/photo_1_2026-04-21_09-17-26.jpg",
+                                                                               "/uploads/photo_2_2026-04-21_09-17-26.jpg",
+                                                                               "/uploads/photo_3_2026-04-21_09-17-26.jpg",
+                                                                               "/uploads/photo_4_2026-04-21_09-17-26.jpg",
+                                                                               "/uploads/photo_5_2026-04-21_09-17-26.jpg",
+                                                                               "/uploads/photo_6_2026-04-21_09-17-26.jpg",
+                                                                               "/uploads/photo_7_2026-04-21_09-17-26.jpg",
+                                                                               "/uploads/photo_8_2026-04-21_09-17-26.jpg"
+                                                                           ]
+                                                            },
+                                                "elements":  {
+                                                                 "labelMarginBottom":  16,
+                                                                 "titleMarginBottom":  48
+                                                             },
+                                                "layout":  {
+                                                               "align":  "left",
+                                                               "paddingTop":  96,
+                                                               "paddingRight":  0,
+                                                               "paddingBottom":  96,
+                                                               "paddingLeft":  0,
+                                                               "marginTop":  0,
+                                                               "marginRight":  0,
+                                                               "marginBottom":  0,
+                                                               "marginLeft":  0,
+                                                               "gridGap":  8,
+                                                               "gapAfter":  0
+                                                           }
+                                            },
+                                "philosophy":  {
+                                                   "content":  {
+                                                                   "title1":  "Philosophy",
+                                                                   "text1":  "Cinema is more than entertainment â€” it\u0027s a mirror reflecting our shared humanity. Every project begins with: what truth are we trying to reveal?",
+                                                                   "text2":  "I approach each production with meticulous attention to detail and deep respect for the collaborative nature of filmmaking.",
+                                                                   "title2":  "Expertise"
+                                                               },
+                                                   "elements":  {
+                                                                    "titleMarginBottom":  24,
+                                                                    "dividerMarginBottom":  32,
+                                                                    "text1MarginBottom":  24,
+                                                                    "expertiseItemPaddingBottom":  24,
+                                                                    "expertiseItemGap":  32
+                                                                },
+                                                   "layout":  {
+                                                                  "align":  "left",
+                                                                  "paddingTop":  96,
+                                                                  "paddingRight":  0,
+                                                                  "paddingBottom":  96,
+                                                                  "paddingLeft":  0,
+                                                                  "marginTop":  0,
+                                                                  "marginRight":  0,
+                                                                  "marginBottom":  0,
+                                                                  "marginLeft":  0,
+                                                                  "gridGap":  80,
+                                                                  "gapAfter":  0
+                                                              }
+                                               },
+                                "timeline":  {
+                                                 "content":  {
+                                                                 "label":  "Journey",
+                                                                 "title":  "Career Timeline"
+                                                             },
+                                                 "elements":  {
+                                                                  "labelMarginBottom":  16,
+                                                                  "titleMarginBottom":  64,
+                                                                  "yearMarginBottom":  12,
+                                                                  "itemTitleMarginBottom":  12
+                                                              },
+                                                 "layout":  {
+                                                                "align":  "left",
+                                                                "paddingTop":  96,
+                                                                "paddingRight":  0,
+                                                                "paddingBottom":  96,
+                                                                "paddingLeft":  0,
+                                                                "marginTop":  0,
+                                                                "marginRight":  0,
+                                                                "marginBottom":  0,
+                                                                "marginLeft":  0,
+                                                                "gridGap":  64,
+                                                                "gapAfter":  0
+                                                            }
+                                             },
+                                "quote":  {
+                                              "content":  {
+                                                              "text":  "Every frame is an opportunity to reveal something true about the world we live in.",
+                                                              "author":  "Ahmed Hany Abuzenada"
+                                                          },
+                                              "elements":  {
+                                                               "iconMarginBottom":  32,
+                                                               "quoteMarginBottom":  32
+                                                           },
+                                              "layout":  {
+                                                             "align":  "center",
+                                                             "paddingTop":  112,
+                                                             "paddingRight":  0,
+                                                             "paddingBottom":  112,
+                                                             "paddingLeft":  0,
+                                                             "marginTop":  0,
+                                                             "marginRight":  0,
+                                                             "marginBottom":  0,
+                                                             "marginLeft":  0,
+                                                             "gridGap":  0,
+                                                             "gapAfter":  0
+                                                         }
+                                          }
+                            },
+                  "contact":  {
+                                  "header":  {
+                                                 "content":  {
+                                                                 "label":  "Get in Touch",
+                                                                 "title":  "Let\u0027s create together",
+                                                                 "description":  "Whether you\u0027re looking for an assistant director or a creative collaborator â€” I\u0027d love to hear from you."
+                                                             },
+                                                 "elements":  {
+                                                                  "labelMarginBottom":  20,
+                                                                  "titleMarginBottom":  24,
+                                                                  "dividerMarginBottom":  24,
+                                                                  "descriptionMarginBottom":  0
+                                                              },
+                                                 "layout":  {
+                                                                "paddingTop":  64,
+                                                                "align":  "center",
+                                                                "gapAfter":  0,
+                                                                "marginTop":  0,
+                                                                "paddingRight":  0,
+                                                                "marginRight":  0,
+                                                                "gridGap":  0,
+                                                                "marginLeft":  0,
+                                                                "paddingLeft":  0,
+                                                                "marginBottom":  80,
+                                                                "paddingBottom":  0
+                                                            }
+                                             },
+                                  "info":  {
+                                               "content":  {
+                                                               "email":  "contact@ahmedabuzenada.com",
+                                                               "location":  "Saudi Arabia",
+                                                               "vimeoUrl":  "https://vimeo.com/ahmedabuzenada",
+                                                               "linkedinUrl":  "https://linkedin.com",
+                                                               "whatsappUrl":  "https://wa.me/"
+                                                           },
+                                               "elements":  {
+                                                                "sectionLabelMarginBottom":  12,
+                                                                "infoItemsGap":  40
+                                                            },
+                                               "layout":  {
+                                                              "paddingTop":  0,
+                                                              "align":  "center",
+                                                              "gapAfter":  0,
+                                                              "marginTop":  0,
+                                                              "paddingRight":  0,
+                                                              "marginRight":  0,
+                                                              "gridGap":  80,
+                                                              "marginLeft":  0,
+                                                              "paddingLeft":  0,
+                                                              "marginBottom":  0,
+                                                              "paddingBottom":  0
+                                                          }
+                                           }
+                              },
+                  "work":  {
+                               "detail":  {
+                                              "backButtonSize":  "text-sm",
+                                              "backButtonPaddingY":  12,
+                                              "backButtonPaddingX":  24,
+                                              "videoMarginBottom":  48,
+                                              "categoryMarginBottom":  16,
+                                              "titleMarginBottom":  32,
+                                              "descriptionMarginBottom":  48,
+                                              "creditsLabelMarginBottom":  24,
+                                              "creditItemPaddingY":  16,
+                                              "sidebarItemGap":  32,
+                                              "sidebarLabelMarginBottom":  8,
+                                              "relatedTitleMarginBottom":  48,
+                                              "relatedGridGap":  32,
+                                              "relatedSectionPaddingY":  64,
+                                              "contentMaxWidth":  1000,
+                                              "contentPaddingY":  32,
+                                              "columnsGap":  64,
+                                              "topSpacerHeight":  100,
+                                              "showMoreMarginTop":  64
+                                          }
+                           }
+              },
+    "projects":  [
+                     {
+                         "slug":  "abu-toba",
+                         "client":  "Abu",
+                         "thumbnail":  "https://vumbnail.com/1103349644.jpg",
+                         "featured":  false,
+                         "role":  "Assistant Director",
+                         "title":  "Abu - Toba | Official Music Video",
+                         "credits":  [
+                                         {
+                                             "role":  "Artist",
+                                             "name":  "Abu"
+                                         },
+                                         {
+                                             "role":  "Director",
+                                             "name":  "Omar Donga"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ],
+                         "description":  "Official music video for Abu - Toba (2025).",
+                         "year":  2025,
+                         "category":  "commercial",
+                         "vimeoId":  "1103349644"
+                     },
+                     {
+                         "slug":  "esseily-baheb",
+                         "client":  "Mahmoud El Esseily",
+                         "thumbnail":  "https://vumbnail.com/1108566332.jpg",
+                         "featured":  false,
+                         "role":  "Assistant Director",
+                         "title":  "Mahmoud El Esseily - Baheb Elly Yehabak",
+                         "credits":  [
+                                         {
+                                             "role":  "Artist",
+                                             "name":  "Mahmoud El Esseily"
+                                         },
+                                         {
+                                             "role":  "Director",
+                                             "name":  "Ahmed Abdulwahed"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ],
+                         "description":  "Official music video for Mahmoud El Esseily - Baheb Elly Yehabak (2025).",
+                         "year":  2025,
+                         "category":  "commercial",
+                         "vimeoId":  "1108566332"
+                     },
+                     {
+                         "slug":  "esseily-eash",
+                         "client":  "Mahmoud El Esseily",
+                         "thumbnail":  "https://vumbnail.com/1150345051.jpg",
+                         "featured":  false,
+                         "role":  "Assistant Director",
+                         "title":  "Mahmoud El Esseily - Eash",
+                         "credits":  [
+                                         {
+                                             "role":  "Artist",
+                                             "name":  "Mahmoud El Esseily"
+                                         },
+                                         {
+                                             "role":  "Director",
+                                             "name":  "Ahmed Abdelwahed"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         },
+                                         {
+                                             "role":  "Production house",
+                                             "name":  "AOne - P90"
+                                         }
+                                     ],
+                         "description":  "Official music video for Mahmoud El Esseily - Eash.",
+                         "year":  2025,
+                         "category":  "commercial",
+                         "vimeoId":  "1150345051"
+                     },
+                     {
+                         "slug":  "esseily-salam",
+                         "client":  "Mahmoud El Esseily",
+                         "thumbnail":  "https://vumbnail.com/1150346052.jpg",
+                         "featured":  true,
+                         "role":  "Assistant Director",
+                         "title":  "Mahmoud El Esseily - Salam Ft Aly Fathalla",
+                         "credits":  [
+                                         {
+                                             "role":  "Artist",
+                                             "name":  "Mahmoud El Esseily"
+                                         },
+                                         {
+                                             "role":  "Featuring",
+                                             "name":  "Aly Fathalla"
+                                         },
+                                         {
+                                             "role":  "Production house",
+                                             "name":  "AOne - P90"
+                                         },
+                                         {
+                                             "role":  "Director",
+                                             "name":  "Ahmed Abdelwahed"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ],
+                         "description":  "Official music video for Mahmoud El Esseily featuring Aly Fathalla - Salam.",
+                         "year":  2025,
+                         "category":  "commercial",
+                         "vimeoId":  "1150346052"
+                     },
+                     {
+                         "slug":  "naqla-leithy",
+                         "client":  "Naqla App",
+                         "thumbnail":  "https://vumbnail.com/1081097705.jpg",
+                         "featured":  false,
+                         "role":  "Assistant Director",
+                         "title":  "NAQLA APP X MAHMOUD EL LEITHY",
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "Naqla App"
+                                         },
+                                         {
+                                             "role":  "Artist",
+                                             "name":  "Mahmoud El Leithy"
+                                         },
+                                         {
+                                             "role":  "Music producer",
+                                             "name":  "Ahmed tarek yehia"
+                                         },
+                                         {
+                                             "role":  "Agency",
+                                             "name":  "Tac.universe"
+                                         },
+                                         {
+                                             "role":  "Executive producer",
+                                             "name":  "Moustapha zaalouk"
+                                         },
+                                         {
+                                             "role":  "Director",
+                                             "name":  "Yousseff mahrous"
+                                         },
+                                         {
+                                             "role":  "Dop",
+                                             "name":  "Omar haitham"
+                                         },
+                                         {
+                                             "role":  "Co-Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         },
+                                         {
+                                             "role":  "Second unit Director",
+                                             "name":  "Amir.a.kurdi"
+                                         },
+                                         {
+                                             "role":  "DOP second unit",
+                                             "name":  "Elzanaty"
+                                         },
+                                         {
+                                             "role":  "Camera operator",
+                                             "name":  "Farghaal"
+                                         },
+                                         {
+                                             "role":  "Producer",
+                                             "name":  "Ahmed elmasry "
+                                         },
+                                         {
+                                             "role":  "Head of production",
+                                             "name":  "Omar ebed"
+                                         },
+                                         {
+                                             "role":  "Production manager",
+                                             "name":  "Mohamed hussein, Mohamedi osama"
+                                         },
+                                         {
+                                             "role":  "Assistant Directors",
+                                             "name":  "Fatima amr, Marwan ahmed, Malak elkotb"
+                                         },
+                                         {
+                                             "name":  "Omar moataz, jrsherif, Amr ali, Ahmed bazoka",
+                                             "role":  "Assistant Directors"
+                                         },
+                                         {
+                                             "role":  "AC",
+                                             "name":  "Ahmed fathy bakr, Mahmoud, Nourelden ahmed, Abdelsattar, Nada saqrr"
+                                         },
+                                         {
+                                             "role":  "Gaffer",
+                                             "name":  "Thabettalii"
+                                         },
+                                         {
+                                             "role":  "Gaffer team grip",
+                                             "name":  "Nesr grip, Seif elnesr, Alaa elnesr"
+                                         },
+                                         {
+                                             "role":  "  Camera",
+                                             "name":  "Ali praazily"
+                                         },
+                                         {
+                                             "role":  "Location manager",
+                                             "name":  "Seif ashraaf"
+                                         },
+                                         {
+                                             "role":  "Creative Director associate \u0026 Lyrics",
+                                             "name":  "Ahmed elhareedy"
+                                         },
+                                         {
+                                             "role":  "Creative Director",
+                                             "name":  "Esraa zakariaa"
+                                         },
+                                         {
+                                             "role":  "Project manager",
+                                             "name":  "Adhamorsi"
+                                         },
+                                         {
+                                             "role":  "Line Producer",
+                                             "name":  "Farah waheedd"
+                                         },
+                                         {
+                                             "role":  "Choreographer",
+                                             "name":  "Rana ihab"
+                                         },
+                                         {
+                                             "role":  "Assistant Choreographer",
+                                             "name":  "Avatar afro"
+                                         },
+                                         {
+                                             "role":  "Post house",
+                                             "name":  "Big bang studios"
+                                         },
+                                         {
+                                             "role":  "Editor",
+                                             "name":  "Hassan sadek edits"
+                                         },
+                                         {
+                                             "role":  "Post Producer",
+                                             "name":  "Yasmin hisham"
+                                         },
+                                         {
+                                             "role":  "Colorist",
+                                             "name":  "Yakooooota"
+                                         },
+                                         {
+                                             "role":  "VFX Artist",
+                                             "name":  "Mohamed adell, Omar mabrouk"
+                                         },
+                                         {
+                                             "role":  "Stylist",
+                                             "name":  "Ahmed maher"
+                                         },
+                                         {
+                                             "role":  "Art Director",
+                                             "name":  "Mazen tagrida"
+                                         },
+                                         {
+                                             "role":  "Photography",
+                                             "name":  "Youssef fahmy"
+                                         },
+                                         {
+                                             "role":  "Special thanks",
+                                             "name":  "Emad mousa, Eslam khllaf"
+                                         }
+                                     ],
+                         "description":  "Commercial for Naqla App featuring Mahmoud El Leithy.",
+                         "year":  2025,
+                         "category":  "commercial",
+                         "vimeoId":  "1081097705"
+                     },
+                     {
+                         "slug":  "pepsi-saudi-ayed",
+                         "client":  "Pepsi Saudi",
+                         "thumbnail":  "https://vumbnail.com/1149329410.jpg",
+                         "featured":  true,
+                         "role":  "Assistant Director",
+                         "title":  "PEPSI SAUDI X AYED",
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "Pepsi Saudi"
+                                         },
+                                         {
+                                             "role":  "Artist",
+                                             "name":  "Ayed"
+                                         },
+                                         {
+                                             "role":  "Director",
+                                             "name":  "Hamdallah"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ],
+                         "description":  "Pepsi Saudi Arabia commercial campaign featuring Ayed.",
+                         "year":  2025,
+                         "category":  "commercial",
+                         "vimeoId":  "1149329410"
+                     },
+                     {
+                         "slug":  "shell-alahly",
+                         "client":  "Shell",
+                         "thumbnail":  "https://vumbnail.com/1134900346.jpg",
+                         "featured":  true,
+                         "role":  "Assistant Director",
+                         "title":  "SHELL X AL AHLY",
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "Shell"
+                                         },
+                                         {
+                                             "role":  "Partner",
+                                             "name":  "Al Ahly SC"
+                                         },
+                                         {
+                                             "role":  "Director",
+                                             "name":  "Essam Abdelhamid"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ],
+                         "description":  "Shell commercial campaign in collaboration with Al Ahly football club.",
+                         "year":  2025,
+                         "category":  "commercial",
+                         "vimeoId":  "1134900346"
+                     },
+                     {
+                         "slug":  "yamez-albawadi",
+                         "client":  "Yamez",
+                         "thumbnail":  "https://vumbnail.com/1150343808.jpg",
+                         "featured":  false,
+                         "role":  "Assistant Director",
+                         "title":  "Yamez Min Albawadi",
+                         "credits":  [
+                                         {
+                                             "role":  "Director",
+                                             "name":  "Hamdallah"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         },
+                                         {
+                                             "role":  "Agency",
+                                             "name":  "KingTut"
+                                         },
+                                         {
+                                             "role":  "Production house",
+                                             "name":  "Lighthouse films"
+                                         }
+                                     ],
+                         "description":  "Yamez commercial - a fun and energetic food brand advertisement.",
+                         "year":  2025,
+                         "category":  "commercial",
+                         "vimeoId":  "1150343808"
+                     },
+                     {
+                         "slug":  "3esabat",
+                         "client":  "Abo El Anwar",
+                         "thumbnail":  "https://vumbnail.com/913867907.jpg",
+                         "featured":  false,
+                         "role":  "Assistant Director",
+                         "title":  "Abo El Anwar X Essam Sasa - 3esabat",
+                         "credits":  [
+                                         {
+                                             "role":  "Artists",
+                                             "name":  "Abo El Anwar X Essam Sasa"
+                                         },
+                                         {
+                                             "role":  "Director",
+                                             "name":  "Ahmed Abdelwahed"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ],
+                         "description":  "Official music video for Abo El Anwar and Essam Sasa - 3esabat.",
+                         "year":  2024,
+                         "category":  "commercial",
+                         "vimeoId":  "913867907"
+                     },
+                     {
+                         "title":  "Ahmed Helmy - Or2os",
+                         "slug":  "ahmed-helmy-or2os",
+                         "client":  "Ahmed Helmy",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "1034169319",
+                         "thumbnail":  "https://vumbnail.com/1034169319.jpg",
+                         "description":  "Commercial featuring Egyptian star Ahmed Helmy.",
+                         "featured":  true,
+                         "credits":  [
+                                         {
+                                             "role":  "Talent",
+                                             "name":  "Ahmed Helmy"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "BDC - Balad Development Company",
+                         "slug":  "bdc",
+                         "client":  "BDC",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "1034153830",
+                         "thumbnail":  "https://vumbnail.com/1034153830.jpg",
+                         "description":  "Commercial for BDC - Balad Development Company.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "BDC"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "Bonjorno Coffee Mix 1",
+                         "slug":  "bonjorno-1",
+                         "client":  "Bonjorno",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "1034175439",
+                         "thumbnail":  "https://vumbnail.com/1034175439.jpg",
+                         "description":  "Bonjorno coffee mix commercial - version 1.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "Bonjorno"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "Bonjorno Coffee Mix 2",
+                         "slug":  "bonjorno-2",
+                         "client":  "Bonjorno",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "1034176085",
+                         "thumbnail":  "https://vumbnail.com/1034176085.jpg",
+                         "description":  "Bonjorno coffee mix commercial - version 2.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "Bonjorno"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "Bonjorno Coffee Mix 3",
+                         "slug":  "bonjorno-3",
+                         "client":  "Bonjorno",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "1034176662",
+                         "thumbnail":  "https://vumbnail.com/1034176662.jpg",
+                         "description":  "Bonjorno coffee mix commercial - version 3.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "Bonjorno"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "Cairo Bank - Give Him a Chance",
+                         "slug":  "cairo-bank",
+                         "client":  "Cairo Bank",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "1034184345",
+                         "thumbnail":  "https://vumbnail.com/1034184345.jpg",
+                         "description":  "Cairo Bank commercial campaign.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "Cairo Bank"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "Double Zuksh X ELKVP",
+                         "slug":  "double-zuksh",
+                         "client":  "ARRB Production",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "1034158610",
+                         "thumbnail":  "https://vumbnail.com/1034158610.jpg",
+                         "description":  "Music video for Double Zuksh in collaboration with ELKVP - ARRB Production.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Production",
+                                             "name":  "ARRB Production"
+                                         },
+                                         {
+                                             "role":  "Artists",
+                                             "name":  "Double Zuksh X ELKVP"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "Eelaf Residence - Egypt\u0027s First Millennial Compound",
+                         "slug":  "eelaf-residence",
+                         "client":  "Eelaf Residence",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "1034158080",
+                         "thumbnail":  "https://vumbnail.com/1034158080.jpg",
+                         "description":  "Commercial for Eelaf Residence, Egypt\u0027s first millennial compound.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "Eelaf Residence"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "GOSI Insurance",
+                         "slug":  "gosi-insurance",
+                         "client":  "GOSI",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "1042253106",
+                         "thumbnail":  "https://vumbnail.com/1042253106.jpg",
+                         "description":  "Commercial for GOSI Insurance - General Organization for Social Insurance.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "GOSI"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "Molto Magnum Mix",
+                         "slug":  "molto-magnum",
+                         "client":  "Molto / Magnum",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "1034166778",
+                         "thumbnail":  "https://vumbnail.com/1034166778.jpg",
+                         "description":  "Commercial for Molto and Magnum ice cream brands.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "Molto / Magnum"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "NOON SA / UAE X AMY ROKO",
+                         "slug":  "noon-amyroko",
+                         "client":  "NOON",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "1032409036",
+                         "thumbnail":  "https://vumbnail.com/1032409036.jpg",
+                         "description":  "Commercial for NOON e-commerce platform featuring Amy Roko - directed content for Saudi and UAE markets.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "NOON"
+                                         },
+                                         {
+                                             "role":  "Talent",
+                                             "name":  "Amy Roko"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "Palm Hills Sports Club | Break the Limits",
+                         "slug":  "palm-hills",
+                         "client":  "Palm Hills",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "1034187698",
+                         "thumbnail":  "https://vumbnail.com/1034187698.jpg",
+                         "description":  "Palm Hills Sports Club campaign - Break the Limits. A dynamic sports and lifestyle commercial.",
+                         "featured":  true,
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "Palm Hills Developments"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "Police Day Training Film",
+                         "slug":  "police-day",
+                         "client":  "Egyptian Police",
+                         "role":  "Assistant Director",
+                         "category":  "film",
+                         "year":  2024,
+                         "vimeoId":  "1034155563",
+                         "thumbnail":  "https://vumbnail.com/1034155563.jpg",
+                         "description":  "Training film produced for Police Day celebrations in Egypt.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "Egyptian Police"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "Riyadh Season - Salah El Sharnoubi Tribute",
+                         "slug":  "riyadh-season",
+                         "client":  "Riyadh Season",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "1034173461",
+                         "thumbnail":  "https://vumbnail.com/1034173461.jpg",
+                         "description":  "Riyadh Season tribute to musician Salah El Sharnoubi.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "Riyadh Season"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "SAMSUNG X TALABAT",
+                         "slug":  "samsung-talabat",
+                         "client":  "Samsung / Talabat",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "914887059",
+                         "thumbnail":  "https://vumbnail.com/914887059.jpg",
+                         "description":  "Commercial campaign for Samsung in collaboration with Talabat delivery service.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "Samsung"
+                                         },
+                                         {
+                                             "role":  "Partner",
+                                             "name":  "Talabat"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "SAR - Saudi Railway",
+                         "slug":  "sar",
+                         "client":  "SAR",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "1034159974",
+                         "thumbnail":  "https://vumbnail.com/1034159974.jpg",
+                         "description":  "Commercial for SAR - Saudi Arabia Railways.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "SAR"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "Sports Boulevard",
+                         "slug":  "sports-boulevard",
+                         "client":  "Sports Boulevard",
+                         "role":  "Assistant Director",
+                         "category":  "commercial",
+                         "year":  2024,
+                         "vimeoId":  "1034162350",
+                         "thumbnail":  "https://vumbnail.com/1034162350.jpg",
+                         "description":  "Commercial for the Sports Boulevard project in Riyadh, Saudi Arabia.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Client",
+                                             "name":  "Sports Boulevard"
+                                         },
+                                         {
+                                             "role":  "Assistant Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "A Story of a Heart",
+                         "slug":  "story-of-heart",
+                         "client":  "Independent",
+                         "role":  "Director",
+                         "category":  "film",
+                         "year":  2021,
+                         "vimeoId":  "640960065",
+                         "thumbnail":  "https://vumbnail.com/640960065.jpg",
+                         "description":  "A short film exploring the emotional journey of the human heart through visual storytelling.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "Trucage",
+                         "slug":  "trucage",
+                         "client":  "Independent",
+                         "role":  "Director \u0026 Writer",
+                         "category":  "documentary",
+                         "year":  2021,
+                         "vimeoId":  "809385807",
+                         "thumbnail":  "https://vumbnail.com/809385807.jpg",
+                         "description":  "- Grand prix winner for the documentary category at VII Golden Baklava international student film festival in Turkey, 2022.\n\n\n- Golden Palm for the unique documentary subject at Saudi Film Festival, 2023\n\n\n- Got the 2nd rank out of 108 other international short films according to the audience vote in liftoff global film festival in UK, 2021.\n\n\n-Honorable mention at student world impact film festival U.S, 2022\n\n\n-Excellence trophy in the 2nd edition of the annual media forum in Egypt â€œfaces of Egyptâ€, Sept 2021.\n\n\n- Official selection in the international competition of festival Internacional de cinema escolar de Alvorada in brazil, dec 2021.\n\n\n- Finalist in Meihodo international youth visual media festival in US, 2021\n\n\n- Finalist in the 5th international folklore film festival in India, Jan 2022.\n\n\n- Official selection in international Alexandria short film festival in Egypt, Feb 2022.\n\n\n- Official selection in Visions Cairo Egyptian short Film festival, 2023.\n\n\n- Official selection in Saudi film festival, may 2023.\n\n\n-Official selection in Africa international film festival in Nigeria, 2022.\n\n\n-Official selection in International interuniversity film festival in India, 2022.\n\n\n\n- Official selection in Ekurhuleni international film festival in south Africa, 2022.\n\n\n- 3 Awards winner in MSA star awards, 2021 (Best Film, Best directing, and best editing)\n\n\nA short documentary provides the realties of stunt profession featuring four professional stunts performers in Egyptian film industry as well as highlighting the importance of the stunt industry during the film production or other mediums, showing how integral stunt performer\u0027s roles are in producing content and showing the complexities of the stunt profession.",
+                         "featured":  true,
+                         "credits":  [
+                                         {
+                                             "role":  "Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         },
+                                         {
+                                             "role":  "Dop",
+                                             "name":  "Abdallah Ashry"
+                                         },
+                                         {
+                                             "role":  "Production designer:",
+                                             "name":  "Suhayla Seliman"
+                                         },
+                                         {
+                                             "role":  "Producer",
+                                             "name":  "Youssef Hossam "
+                                         },
+                                         {
+                                             "role":  "Production house",
+                                             "name":  "The makers "
+                                         },
+                                         {
+                                             "role":  "Focus puller",
+                                             "name":  "Adham Ramzy"
+                                         }
+                                     ]
+                     },
+                     {
+                         "title":  "Trucage Trailer",
+                         "slug":  "trucage-trailer",
+                         "client":  "Independent",
+                         "role":  "Director",
+                         "category":  "documentary",
+                         "year":  2021,
+                         "vimeoId":  "617941592",
+                         "thumbnail":  "https://vumbnail.com/617941592.jpg",
+                         "description":  "Official trailer for Trucage, the award-winning short documentary about stunt performers in the Egyptian film industry.",
+                         "featured":  false,
+                         "credits":  [
+                                         {
+                                             "role":  "Director",
+                                             "name":  "Ahmed Hany Abuzenada"
+                                         }
+                                     ]
+                     }
+                 ]
+}

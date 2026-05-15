@@ -1,0 +1,22 @@
+{
+  "title": "Ahmed Helmy - Or2os",
+  "slug": "ahmed-helmy-or2os",
+  "client": "Ahmed Helmy",
+  "role": "Assistant Director",
+  "category": "commercial",
+  "year": 2024,
+  "vimeoId": "1034169319",
+  "thumbnail": "https://vumbnail.com/1034169319.jpg",
+  "description": "Commercial featuring Egyptian star Ahmed Helmy.",
+  "featured": true,
+  "credits": [
+    {
+      "role": "Talent",
+      "name": "Ahmed Helmy"
+    },
+    {
+      "role": "Assistant Director",
+      "name": "Ahmed Hany Abuzenada"
+    }
+  ]
+}

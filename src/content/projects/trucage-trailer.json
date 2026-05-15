@@ -1,0 +1,18 @@
+{
+  "title": "Trucage Trailer",
+  "slug": "trucage-trailer",
+  "client": "Independent",
+  "role": "Director",
+  "category": "documentary",
+  "year": 2021,
+  "vimeoId": "617941592",
+  "thumbnail": "https://vumbnail.com/617941592.jpg",
+  "description": "Official trailer for Trucage, the award-winning short documentary about stunt performers in the Egyptian film industry.",
+  "featured": false,
+  "credits": [
+    {
+      "role": "Director",
+      "name": "Ahmed Hany Abuzenada"
+    }
+  ]
+}

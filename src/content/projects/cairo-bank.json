@@ -1,0 +1,22 @@
+{
+  "title": "Cairo Bank - Give Him a Chance",
+  "slug": "cairo-bank",
+  "client": "Cairo Bank",
+  "role": "Assistant Director",
+  "category": "commercial",
+  "year": 2024,
+  "vimeoId": "1034184345",
+  "thumbnail": "https://vumbnail.com/1034184345.jpg",
+  "description": "Cairo Bank commercial campaign.",
+  "featured": false,
+  "credits": [
+    {
+      "role": "Client",
+      "name": "Cairo Bank"
+    },
+    {
+      "role": "Assistant Director",
+      "name": "Ahmed Hany Abuzenada"
+    }
+  ]
+}

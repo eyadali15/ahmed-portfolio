@@ -1,0 +1,30 @@
+{
+  "slug": "shell-alahly",
+  "client": "Shell",
+  "thumbnail": "https://vumbnail.com/1134900346.jpg",
+  "featured": true,
+  "role": "Assistant Director",
+  "title": "SHELL X AL AHLY",
+  "credits": [
+    {
+      "role": "Client",
+      "name": "Shell"
+    },
+    {
+      "role": "Partner",
+      "name": "Al Ahly SC"
+    },
+    {
+      "role": "Director",
+      "name": "Essam Abdelhamid"
+    },
+    {
+      "role": "Assistant Director",
+      "name": "Ahmed Hany Abuzenada"
+    }
+  ],
+  "description": "Shell commercial campaign in collaboration with Al Ahly football club.",
+  "year": 2025,
+  "category": "commercial",
+  "vimeoId": "1134900346"
+}

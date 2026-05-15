@@ -1,0 +1,111 @@
+{
+  "hero": {
+    "visible": true,
+    "content": {
+      "name1": "Ahmed",
+      "name2": "Abuzenada",
+      "subtitle": "Film & Commercial Director",
+      "description": " Crafting Stories, Frame By Frame.",
+      "heroImage": "/uploads/136726-764934405_small.mp4",
+      "bannerVideo": "/uploads/239444_small.mp4",
+      "buttonText": "Portfolio"
+    },
+    "elements": {
+      "titleMarginBottom": 36,
+      "subtitleMarginBottom": 20,
+      "dividerMarginY": 24,
+      "descriptionMarginBottom": 36
+    },
+    "layout": {
+      "paddingTop": 0,
+      "align": "left",
+      "gapAfter": 0,
+      "marginTop": 0,
+      "paddingRight": 24,
+      "marginRight": 0,
+      "gridGap": 0,
+      "marginLeft": 0,
+      "paddingLeft": 24,
+      "marginBottom": 0,
+      "paddingBottom": 0
+    }
+  },
+  "featured": {
+    "visible": true,
+    "content": {
+      "label": "Selected Portfolio",
+      "title": "Projects",
+      "buttonText": "Show All"
+    },
+    "elements": {
+      "labelMarginBottom": 12,
+      "titleMarginBottom": 0,
+      "titleToGridGap": 48,
+      "gridToButtonGap": 60
+    },
+    "layout": {
+      "paddingTop": 50,
+      "align": "left",
+      "gapAfter": 0,
+      "marginTop": 0,
+      "paddingRight": 0,
+      "marginRight": 0,
+      "gridGap": 40,
+      "buttonAlign": "center",
+      "marginLeft": 0,
+      "paddingLeft": 0,
+      "marginBottom": 0,
+      "paddingBottom": 50
+    }
+  },
+  "videoBanner": {
+    "visible": true,
+    "content": {
+      "label": "Behind The Lens",
+      "titlePart1": "Ready to ",
+      "titlePart2": "tell a story?",
+      "fallbackImage": ""
+    },
+    "layout": {
+      "paddingTop": 0,
+      "gapAfter": 20,
+      "marginTop": 10,
+      "height": 75,
+      "paddingRight": 0,
+      "marginRight": 0,
+      "marginLeft": 0,
+      "paddingLeft": 0,
+      "marginBottom": 0,
+      "paddingBottom": 0
+    }
+  },
+  "cta": {
+    "visible": true,
+    "content": {
+      "label": "Let's Roll",
+      "title": "What's Your Story?",
+      "description": "Whether it's a commercial, documentary, or narrative film, every great project starts with a conversation.",
+      "buttonText": "Start a Conversation"
+    },
+    "elements": {
+      "labelMarginBottom": 15,
+      "titleMarginBottom": 40,
+      "descriptionPaddingTop": 36,
+      "descriptionMarginBottom": 60,
+      "buttonMarginTop": 20
+    },
+    "layout": {
+      "paddingTop": 176,
+      "align": "center",
+      "gapAfter": 0,
+      "marginTop": 0,
+      "paddingRight": 0,
+      "marginRight": 0,
+      "gridGap": 0,
+      "marginLeft": 0,
+      "paddingLeft": 0,
+      "marginBottom": 0,
+      "paddingBottom": 176
+    }
+  }
+}
