@@ -122,6 +122,15 @@
             </div>
           </div>
         </div>
+
+        <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">📁</span> Media Library</div>
+          <div class="media-upload-zone" id="media-upload-zone">
+            <input type="file" id="media-file-input" accept="image/*" multiple>
+            📤 Click or drag images here to upload (max 500KB each)
+          </div>
+          <div class="media-grid" id="media-library-grid" style="margin-top:1rem;"></div>
+        </div>
       </div>
 
       <!-- ===== HOME ===== -->
@@ -265,8 +274,17 @@
               </div>
             </div>
             <div class="form-row">
-              <label>Hero Background URL</label>
-              <input type="text" id="port-hero-bg">
+              <label>Hero Background</label>
+              <div class="hero-preview" id="port-hero-preview">
+                <div class="hero-preview__empty">No image selected</div>
+              </div>
+              <input type="hidden" id="port-hero-bg">
+              <div class="hero-actions">
+                <button type="button" class="btn-admin btn-admin--sm" onclick="openMediaPicker('port-hero-bg')">📁 Choose from Library</button>
+                <button type="button" class="btn-admin btn-admin--sm" onclick="triggerHeroUpload('port-hero-bg')">📤 Upload New</button>
+                <button type="button" class="btn-admin btn-admin--sm btn-admin--danger" onclick="clearHeroImage('port-hero-bg')">✕</button>
+              </div>
+              <input type="file" id="port-hero-bg-upload" accept="image/*" style="display:none">
             </div>
           </div>
           <div class="form-row--inline" style="margin-top:1rem;">
@@ -357,8 +375,17 @@
             <label class="toggle"><input type="checkbox" id="about-hero-visible"><span class="toggle__slider"></span></label>
           </div>
           <div class="form-row" style="margin-top:1rem;">
-            <label>Hero Background Image URL</label>
-            <input type="text" id="about-hero-bg">
+            <label>Hero Background</label>
+            <div class="hero-preview" id="about-hero-preview">
+              <div class="hero-preview__empty">No image selected</div>
+            </div>
+            <input type="hidden" id="about-hero-bg">
+            <div class="hero-actions">
+              <button type="button" class="btn-admin btn-admin--sm" onclick="openMediaPicker('about-hero-bg')">📁 Choose from Library</button>
+              <button type="button" class="btn-admin btn-admin--sm" onclick="triggerHeroUpload('about-hero-bg')">📤 Upload New</button>
+              <button type="button" class="btn-admin btn-admin--sm btn-admin--danger" onclick="clearHeroImage('about-hero-bg')">✕</button>
+            </div>
+            <input type="file" id="about-hero-bg-upload" accept="image/*" style="display:none">
           </div>
           <div class="form-row--inline">
             <div class="form-row">
@@ -405,8 +432,9 @@
             </div>
           </div>
           <div class="form-row">
-            <label>Photo URLs (one per line)</label>
-            <textarea id="about-gallery-photos" style="min-height:150px;" placeholder="/uploads/photo1.jpg&#10;/uploads/photo2.jpg"></textarea>
+            <label>Photos</label>
+            <div class="gallery-manager" id="gallery-manager"></div>
+            <input type="hidden" id="about-gallery-photos">
           </div>
         </div>
 
@@ -744,6 +772,29 @@
 
   <!-- Toast -->
   <div class="toast" id="toast"></div>
+
+    <div class="admin-modal-overlay" id="media-picker-overlay">
+      <div class="admin-modal media-picker-modal">
+        <div class="admin-modal__header">
+          <h2 class="admin-modal__title">Choose Image</h2>
+          <button class="admin-modal__close" onclick="closeMediaPicker()">✕</button>
+        </div>
+        <div class="media-picker-tabs">
+          <button class="media-picker-tab active" onclick="switchPickerTab(this,'picker-library')">Library</button>
+          <button class="media-picker-tab" onclick="switchPickerTab(this,'picker-upload')">Upload New</button>
+        </div>
+        <div id="picker-library">
+          <div class="media-grid" id="picker-media-grid"></div>
+          <p style="color:var(--admin-text-muted);font-size:0.8rem;margin-top:0.75rem;" id="picker-empty-msg">No images uploaded yet. Use the Upload tab to add images.</p>
+        </div>
+        <div id="picker-upload" style="display:none">
+          <div class="media-upload-zone" id="picker-upload-zone">
+            <input type="file" id="picker-file-input" accept="image/*" multiple>
+            📤 Click or drag images here to upload
+          </div>
+        </div>
+      </div>
+    </div>
 
 </body>
 </html>

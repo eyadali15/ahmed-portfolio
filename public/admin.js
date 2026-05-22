@@ -60,6 +60,7 @@ function showDashboard() {
   bindMobileSidebar();
   initLayoutEditor();
   initColorHexDisplay();
+  initMediaLibrary();
   switchSection('general');
 }
 
@@ -381,7 +382,10 @@ function populateAllForms() {
   setChecked('about-intro-visible', c.about.intro.visible);
   setVal('about-gallery-label', c.about.gallery.label);
   setVal('about-gallery-title', c.about.gallery.title);
-  setVal('about-gallery-photos', (c.about.gallery.photos || []).join('\n'));
+  setVal('about-gallery-photos', JSON.stringify(c.about.gallery.photos || []));
+  renderGalleryManager(c.about.gallery.photos || []);
+  updateHeroPreview('port-hero-bg');
+  updateHeroPreview('about-hero-bg');
   setChecked('about-gallery-visible', c.about.gallery.visible);
   // Services (replaced Philosophy)
   if (c.about.services) {
@@ -501,7 +505,7 @@ function readAllForms() {
   config.about.intro.visible = getChecked('about-intro-visible');
   config.about.gallery.label = getVal('about-gallery-label');
   config.about.gallery.title = getVal('about-gallery-title');
-  config.about.gallery.photos = getVal('about-gallery-photos').split('\n').map(s => s.trim()).filter(Boolean);
+  try { config.about.gallery.photos = JSON.parse(getVal('about-gallery-photos')); } catch { config.about.gallery.photos = []; }
   config.about.gallery.visible = getChecked('about-gallery-visible');
   // Services (replaced Philosophy)
   config.about.servicesLabel = getVal('about-svc-label');
@@ -872,3 +876,197 @@ function showToast(msg) {
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 3000);
 }
+
+/* ============ MEDIA LIBRARY ============ */
+const MEDIA_KEY = 'aha-media-library';
+const MAX_FILE_SIZE = 500 * 1024; // 500KB
+let pickerTargetId = null;
+
+function getMediaLibrary() {
+  try { return JSON.parse(localStorage.getItem(MEDIA_KEY) || '[]'); } catch { return []; }
+}
+
+function saveMediaLibrary(items) {
+  localStorage.setItem(MEDIA_KEY, JSON.stringify(items));
+}
+
+function handleFileUpload(files, callback) {
+  Array.from(files).forEach(file => {
+    if (!file.type.startsWith('image/')) { showToast('Only images allowed'); return; }
+    if (file.size > MAX_FILE_SIZE) { showToast(`${file.name} exceeds 500KB limit`); return; }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const item = {
+        id: Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+        name: file.name,
+        dataUrl: reader.result,
+        size: file.size,
+        date: new Date().toISOString()
+      };
+      const lib = getMediaLibrary();
+      lib.push(item);
+      saveMediaLibrary(lib);
+      renderMediaGrid();
+      if (callback) callback(item.dataUrl);
+      showToast(`Uploaded ${file.name}`);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderMediaGrid() {
+  const lib = getMediaLibrary();
+  const grid = document.getElementById('media-library-grid');
+  if (!grid) return;
+  grid.innerHTML = lib.map(item => `
+    <div class="media-grid__item" title="${esc(item.name)}">
+      <img src="${item.dataUrl}" alt="${esc(item.name)}">
+      <span class="media-grid__name">${esc(item.name)}</span>
+      <button class="media-grid__delete" onclick="deleteMediaItem('${item.id}')">&times;</button>
+    </div>
+  `).join('');
+}
+
+function deleteMediaItem(id) {
+  if (!confirm('Delete this image?')) return;
+  const lib = getMediaLibrary().filter(i => i.id !== id);
+  saveMediaLibrary(lib);
+  renderMediaGrid();
+  showToast('Image deleted');
+}
+
+function initMediaLibrary() {
+  // Main upload zone
+  const zone = document.getElementById('media-upload-zone');
+  const input = document.getElementById('media-file-input');
+  if (zone && input) {
+    zone.addEventListener('click', () => input.click());
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.style.borderColor = 'var(--admin-accent)'; });
+    zone.addEventListener('dragleave', () => { zone.style.borderColor = ''; });
+    zone.addEventListener('drop', e => { e.preventDefault(); zone.style.borderColor = ''; handleFileUpload(e.dataTransfer.files); });
+    input.addEventListener('change', () => { handleFileUpload(input.files); input.value = ''; });
+  }
+
+  // Picker upload zone
+  const pZone = document.getElementById('picker-upload-zone');
+  const pInput = document.getElementById('picker-file-input');
+  if (pZone && pInput) {
+    pZone.addEventListener('click', () => pInput.click());
+    pZone.addEventListener('dragover', e => { e.preventDefault(); });
+    pZone.addEventListener('drop', e => { e.preventDefault(); handleFileUpload(e.dataTransfer.files, url => { if (pickerTargetId) { setVal(pickerTargetId, url); updateHeroPreview(pickerTargetId); closeMediaPicker(); } }); });
+    pInput.addEventListener('change', () => { handleFileUpload(pInput.files, url => { if (pickerTargetId) { setVal(pickerTargetId, url); updateHeroPreview(pickerTargetId); closeMediaPicker(); } }); pInput.value = ''; });
+  }
+
+  // Hero direct upload handlers
+  ['port-hero-bg', 'about-hero-bg'].forEach(id => {
+    const fileInput = document.getElementById(id + '-upload');
+    if (fileInput) {
+      fileInput.addEventListener('change', () => {
+        handleFileUpload(fileInput.files, url => { setVal(id, url); updateHeroPreview(id); });
+        fileInput.value = '';
+      });
+    }
+  });
+
+  renderMediaGrid();
+}
+
+// Media picker modal
+window.openMediaPicker = function(targetInputId) {
+  pickerTargetId = targetInputId;
+  const overlay = document.getElementById('media-picker-overlay');
+  overlay.classList.add('active');
+  renderPickerGrid();
+};
+
+window.closeMediaPicker = function() {
+  document.getElementById('media-picker-overlay').classList.remove('active');
+  pickerTargetId = null;
+};
+
+window.switchPickerTab = function(btn, panelId) {
+  document.querySelectorAll('.media-picker-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('picker-library').style.display = panelId === 'picker-library' ? '' : 'none';
+  document.getElementById('picker-upload').style.display = panelId === 'picker-upload' ? '' : 'none';
+};
+
+function renderPickerGrid() {
+  const lib = getMediaLibrary();
+  const grid = document.getElementById('picker-media-grid');
+  const empty = document.getElementById('picker-empty-msg');
+  if (!grid) return;
+  empty.style.display = lib.length ? 'none' : '';
+  grid.innerHTML = lib.map(item => `
+    <div class="media-grid__item" onclick="pickImage('${item.dataUrl.replace(/'/g, "\\'")}')"
+      title="${esc(item.name)}" style="cursor:pointer">
+      <img src="${item.dataUrl}" alt="${esc(item.name)}">
+      <span class="media-grid__name">${esc(item.name)}</span>
+    </div>
+  `).join('');
+}
+
+window.pickImage = function(dataUrl) {
+  if (pickerTargetId === '_gallery') {
+    addGalleryPhoto(dataUrl);
+  } else if (pickerTargetId) {
+    setVal(pickerTargetId, dataUrl);
+    updateHeroPreview(pickerTargetId);
+  }
+  closeMediaPicker();
+};
+
+// Hero preview
+function updateHeroPreview(inputId) {
+  const val = getVal(inputId);
+  const preview = document.getElementById(inputId.replace('-bg', '-preview') || inputId + '-preview');
+  if (!preview) return;
+  if (val) {
+    preview.innerHTML = `<img src="${val}" alt="Hero preview">`;
+  } else {
+    preview.innerHTML = '<div class="hero-preview__empty">No image selected</div>';
+  }
+}
+
+window.triggerHeroUpload = function(inputId) {
+  document.getElementById(inputId + '-upload')?.click();
+};
+
+window.clearHeroImage = function(inputId) {
+  setVal(inputId, '');
+  updateHeroPreview(inputId);
+};
+
+// Gallery manager
+let galleryPhotos = [];
+
+function renderGalleryManager(photos) {
+  galleryPhotos = photos || [];
+  const container = document.getElementById('gallery-manager');
+  if (!container) return;
+  container.innerHTML = galleryPhotos.map((url, i) => `
+    <div class="gallery-manager__item">
+      <img src="${url}" alt="Photo ${i + 1}">
+      <button class="gallery-manager__delete" onclick="removeGalleryPhoto(${i})">&times;</button>
+    </div>
+  `).join('') + `
+    <div class="gallery-manager__add" onclick="openGalleryPicker()" title="Add photo">+</div>
+  `;
+  setVal('about-gallery-photos', JSON.stringify(galleryPhotos));
+}
+
+function addGalleryPhoto(url) {
+  galleryPhotos.push(url);
+  renderGalleryManager(galleryPhotos);
+}
+
+window.removeGalleryPhoto = function(index) {
+  galleryPhotos.splice(index, 1);
+  renderGalleryManager(galleryPhotos);
+};
+
+window.openGalleryPicker = function() {
+  pickerTargetId = '_gallery';
+  document.getElementById('media-picker-overlay').classList.add('active');
+  renderPickerGrid();
+};
