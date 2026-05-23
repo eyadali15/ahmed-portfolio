@@ -148,6 +148,12 @@ export const DEFAULT_CONFIG = {
     }
   },
   contact: {
+    heroBanner: {
+      visible: true,
+      heroBackground: 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=1920&q=80',
+      label: 'Contact',
+      title: 'Get in Touch'
+    },
     header: {
       label: 'Get in Touch',
       title: "Let's create together",

@@ -71,10 +71,31 @@ export default function Contact() {
   const headerTitleStyle = getElementStyle('contact', 'headerTitle');
   const headerDescStyle  = getElementStyle('contact', 'headerDesc');
 
+  const contactHero = {
+    visible: (cms?.contact as any)?.heroBanner?.visible ?? true,
+    heroBackground: (cms?.contact as any)?.heroBanner?.heroBackground || 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=1920&q=80',
+    label: (cms?.contact as any)?.heroBanner?.label || 'Contact',
+    title: (cms?.contact as any)?.heroBanner?.title || 'Get in Touch',
+  };
+
   return (
     <PageTransition>
       <section className="min-h-screen flex flex-col">
-        <div className="h-[110px]" />
+
+        {contactHero.visible !== false && (
+        <div className="relative h-[50vh] min-h-[350px] w-full overflow-hidden flex items-end contact-hero">
+          <img src={contactHero.heroBackground} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-black/60 to-black/30" />
+          <div className="relative z-10 container-main pb-12 text-center">
+            <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-[10px] uppercase tracking-[0.4em] text-[var(--color-accent)] mb-3">{contactHero.label}</motion.p>
+            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
+              className="font-[var(--font-heading)] text-4xl md:text-5xl lg:text-6xl text-white">{contactHero.title}</motion.h1>
+          </div>
+        </div>
+        )}
+
+        {!contactHero.visible && <div className="h-[110px]" />}
 
         <div className="flex-1 flex flex-col items-center justify-center px-4">
           <div className="w-full max-w-2xl mx-auto">

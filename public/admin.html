@@ -510,6 +510,37 @@
         </div>
 
         <div class="admin-card">
+          <div class="admin-card__title"><span class="admin-card__title-icon">🎬</span> Hero Banner</div>
+          <div class="toggle-row">
+            <span class="toggle-row__label">Show Hero</span>
+            <label class="toggle"><input type="checkbox" id="contact-hero-visible" checked><span class="toggle__slider"></span></label>
+          </div>
+          <div class="form-row" style="margin-top:1rem;">
+            <label>Hero Background</label>
+            <div class="hero-preview" id="contact-hero-preview">
+              <div class="hero-preview__empty">No image selected</div>
+            </div>
+            <input type="hidden" id="contact-hero-bg">
+            <div class="hero-actions">
+              <button type="button" class="btn-admin btn-admin--sm" onclick="openMediaPicker('contact-hero-bg')">📁 Choose from Library</button>
+              <button type="button" class="btn-admin btn-admin--sm" onclick="triggerHeroUpload('contact-hero-bg')">📤 Upload New</button>
+              <button type="button" class="btn-admin btn-admin--sm btn-admin--danger" onclick="clearHeroImage('contact-hero-bg')">✕</button>
+            </div>
+            <input type="file" id="contact-hero-bg-upload" accept="image/*" style="display:none">
+          </div>
+          <div class="form-row--inline" style="margin-top:1rem;">
+            <div class="form-row">
+              <label>Label</label>
+              <input type="text" id="contact-hero-label" placeholder="Contact">
+            </div>
+            <div class="form-row">
+              <label>Title</label>
+              <input type="text" id="contact-hero-title" placeholder="Get in Touch">
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
           <div class="admin-card__title"><span class="admin-card__title-icon">📬</span> Header</div>
           <div class="form-row">
             <label>Label</label>

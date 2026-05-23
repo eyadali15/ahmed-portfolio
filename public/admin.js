@@ -402,6 +402,14 @@ function populateAllForms() {
   setChecked('about-quote-visible', c.about.quote.visible);
 
   // Contact
+  // Contact hero banner
+  if (!c.contact.heroBanner) c.contact.heroBanner = {};
+  setVal('contact-hero-bg', c.contact.heroBanner.heroBackground || '');
+  setVal('contact-hero-label', c.contact.heroBanner.label || '');
+  setVal('contact-hero-title', c.contact.heroBanner.title || '');
+  setChecked('contact-hero-visible', c.contact.heroBanner.visible ?? true);
+  updateHeroPreview('contact-hero-bg');
+
   setVal('contact-header-label', c.contact.header.label);
   setVal('contact-header-title', c.contact.header.title);
   setVal('contact-header-desc', c.contact.header.description);
@@ -519,7 +527,13 @@ function readAllForms() {
   config.about.quote.author = getVal('about-quote-author');
   config.about.quote.visible = getChecked('about-quote-visible');
 
-  // Contact
+  // Contact hero banner
+  if (!config.contact.heroBanner) config.contact.heroBanner = {};
+  config.contact.heroBanner.heroBackground = getVal('contact-hero-bg');
+  config.contact.heroBanner.label = getVal('contact-hero-label');
+  config.contact.heroBanner.title = getVal('contact-hero-title');
+  config.contact.heroBanner.visible = getChecked('contact-hero-visible');
+
   config.contact.header.label = getVal('contact-header-label');
   config.contact.header.title = getVal('contact-header-title');
   config.contact.header.description = getVal('contact-header-desc');
@@ -958,7 +972,7 @@ function initMediaLibrary() {
   }
 
   // Hero direct upload handlers
-  ['port-hero-bg', 'about-hero-bg'].forEach(id => {
+  ['port-hero-bg', 'about-hero-bg', 'contact-hero-bg'].forEach(id => {
     const fileInput = document.getElementById(id + '-upload');
     if (fileInput) {
       fileInput.addEventListener('change', () => {
