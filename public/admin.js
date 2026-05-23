@@ -1,4 +1,4 @@
-// admin.js — CMS panel logic
+// admin.js ï¿½ CMS panel logic
 import { ConfigLoader, DEFAULT_CONFIG, SECTION_SELECTORS as LAYOUT_SECTIONS } from './config-loader.js';
 
 const ADMIN_PASS = 'admin123';
@@ -370,6 +370,7 @@ function populateAllForms() {
 
   // About
   setVal('about-hero-bg', c.about.heroBanner.heroBackground);
+  setVal('about-hero-bg-pos', c.about.heroBanner.heroPosition || '50% 50%');
   setVal('about-hero-label', c.about.heroBanner.label);
   setVal('about-hero-title', c.about.heroBanner.title);
   setChecked('about-hero-visible', c.about.heroBanner.visible);
@@ -401,6 +402,7 @@ function populateAllForms() {
   // Contact hero banner
   if (!c.contact.heroBanner) c.contact.heroBanner = {};
   setVal('contact-hero-bg', c.contact.heroBanner.heroBackground || '');
+  setVal('contact-hero-bg-pos', c.contact.heroBanner.heroPosition || '50% 50%');
   setChecked('contact-hero-visible', c.contact.heroBanner.visible ?? true);
   updateHeroPreview('contact-hero-bg');
 
@@ -418,6 +420,7 @@ function populateAllForms() {
     setVal('port-hero-title1', c.portfolio.hero?.titlePart1);
     setVal('port-hero-title2', c.portfolio.hero?.titlePart2);
     setVal('port-hero-bg', c.portfolio.hero?.heroBackground);
+    setVal('port-hero-bg-pos', c.portfolio.hero?.heroPosition || '50% 50%');
     setVal('port-showmore-text', c.portfolio.showMoreText);
     setVal('port-noprojects-text', c.portfolio.noProjectsText);
     // Styles
@@ -499,6 +502,7 @@ function readAllForms() {
 
   // About
   config.about.heroBanner.heroBackground = getVal('about-hero-bg');
+  config.about.heroBanner.heroPosition = getVal('about-hero-bg-pos') || '50% 50%';
   config.about.heroBanner.label = getVal('about-hero-label');
   config.about.heroBanner.title = getVal('about-hero-title');
   config.about.heroBanner.visible = getChecked('about-hero-visible');
@@ -524,6 +528,7 @@ function readAllForms() {
   // Contact hero banner
   if (!config.contact.heroBanner) config.contact.heroBanner = {};
   config.contact.heroBanner.heroBackground = getVal('contact-hero-bg');
+  config.contact.heroBanner.heroPosition = getVal('contact-hero-bg-pos') || '50% 50%';
   config.contact.heroBanner.visible = getChecked('contact-hero-visible');
 
   config.contact.header.label = getVal('contact-header-label');
@@ -562,6 +567,7 @@ function readAllForms() {
   config.portfolio.hero.titlePart1 = getVal('port-hero-title1');
   config.portfolio.hero.titlePart2 = getVal('port-hero-title2');
   config.portfolio.hero.heroBackground = getVal('port-hero-bg');
+  config.portfolio.hero.heroPosition = getVal('port-hero-bg-pos') || '50% 50%';
   config.portfolio.showMoreText = getVal('port-showmore-text');
   config.portfolio.noProjectsText = getVal('port-noprojects-text');
   if (!config.portfolio.styles) config.portfolio.styles = {};
@@ -1022,16 +1028,43 @@ window.pickImage = function(dataUrl) {
   closeMediaPicker();
 };
 
-// Hero preview
+// hero preview with drag-to-reposition
 function updateHeroPreview(inputId) {
   const val = getVal(inputId);
-  const preview = document.getElementById(inputId.replace('-bg', '-preview') || inputId + '-preview');
+  const pos = getVal(inputId + '-pos') || '50% 50%';
+  const preview = document.getElementById(inputId.replace('-bg', '-preview'));
   if (!preview) return;
+
   if (val) {
-    preview.innerHTML = `<img src="${val}" alt="Hero preview">`;
+    preview.innerHTML = '<img src="' + val + '" alt="Hero preview" style="object-position:' + pos + '"><span class="hero-preview__hint">Drag to reposition</span>';
+    bindPreviewDrag(preview, inputId);
   } else {
     preview.innerHTML = '<div class="hero-preview__empty">No image selected</div>';
   }
+}
+
+function bindPreviewDrag(preview, inputId) {
+  const img = preview.querySelector('img');
+  if (!img) return;
+  let dragging = false;
+
+  preview.addEventListener('mousedown', function(e) {
+    if (e.target !== img) return;
+    e.preventDefault();
+    dragging = true;
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    const rect = preview.getBoundingClientRect();
+    const x = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+    const y = Math.max(0, Math.min(100, ((e.clientY - rect.top) / rect.height) * 100));
+    const pos = Math.round(x) + '% ' + Math.round(y) + '%';
+    img.style.objectPosition = pos;
+    setVal(inputId + '-pos', pos);
+  });
+
+  document.addEventListener('mouseup', function() { dragging = false; });
 }
 
 window.triggerHeroUpload = function(inputId) {
@@ -1040,6 +1073,7 @@ window.triggerHeroUpload = function(inputId) {
 
 window.clearHeroImage = function(inputId) {
   setVal(inputId, '');
+  setVal(inputId + '-pos', '50% 50%');
   updateHeroPreview(inputId);
 };
 
@@ -1115,3 +1149,4 @@ window.openGalleryPicker = function() {
   document.getElementById('media-picker-overlay').classList.add('active');
   renderPickerGrid();
 };
+

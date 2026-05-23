@@ -851,6 +851,23 @@ details summary::-webkit-details-marker {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: move;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.hero-preview__hint {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.6);
+  background: rgba(0,0,0,0.5);
+  padding: 2px 8px;
+  border-radius: 3px;
+  pointer-events: none;
+  white-space: nowrap;
 }
 
 .hero-preview__empty {
