@@ -971,8 +971,8 @@ async function handleFileUpload(files, callback) {
           method: 'POST',
           body: form
         });
-        if (!res.ok) throw new Error('Upload failed: ' + res.status);
         const data = await res.json();
+        if (!res.ok) throw new Error(data.error?.message || 'Upload failed: ' + res.status);
         url = data.secure_url;
       } catch (err) {
         console.error('Cloudinary upload error:', err);
