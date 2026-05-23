@@ -74,8 +74,6 @@ export default function Contact() {
   const contactHero = {
     visible: (cms?.contact as any)?.heroBanner?.visible ?? true,
     heroBackground: (cms?.contact as any)?.heroBanner?.heroBackground || 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=1920&q=80',
-    label: (cms?.contact as any)?.heroBanner?.label || 'Contact',
-    title: (cms?.contact as any)?.heroBanner?.title || 'Get in Touch',
   };
 
   return (
@@ -97,7 +95,7 @@ export default function Contact() {
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}
               className="contact-description text-white/50 text-base leading-relaxed max-w-md mx-auto"
-              style={{ ...descStyle, ...headerDescStyle }}>{h.content.description}</motion.p>
+              style={{ textAlign: 'center', ...descStyle, ...headerDescStyle }}>{h.content.description}</motion.p>
           </div>
         </div>
         )}

@@ -405,8 +405,6 @@ function populateAllForms() {
   // Contact hero banner
   if (!c.contact.heroBanner) c.contact.heroBanner = {};
   setVal('contact-hero-bg', c.contact.heroBanner.heroBackground || '');
-  setVal('contact-hero-label', c.contact.heroBanner.label || '');
-  setVal('contact-hero-title', c.contact.heroBanner.title || '');
   setChecked('contact-hero-visible', c.contact.heroBanner.visible ?? true);
   updateHeroPreview('contact-hero-bg');
 
@@ -530,8 +528,6 @@ function readAllForms() {
   // Contact hero banner
   if (!config.contact.heroBanner) config.contact.heroBanner = {};
   config.contact.heroBanner.heroBackground = getVal('contact-hero-bg');
-  config.contact.heroBanner.label = getVal('contact-hero-label');
-  config.contact.heroBanner.title = getVal('contact-hero-title');
   config.contact.heroBanner.visible = getChecked('contact-hero-visible');
 
   config.contact.header.label = getVal('contact-header-label');
