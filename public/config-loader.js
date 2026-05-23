@@ -1,7 +1,4 @@
-/* ============================================
-   CONFIG LOADER — localStorage-based CMS config
-   for Ahmed Hany Abuzenada Portfolio
-   ============================================ */
+// config-loader.js — localStorage-based CMS config
 
 const STORAGE_KEY = 'aha-site-config';
 

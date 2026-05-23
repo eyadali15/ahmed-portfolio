@@ -1,6 +1,4 @@
-/* ============================================
-   AHMED ABUZENADA — Admin Panel Styles
-   ============================================ */
+/* admin.css — CMS panel styles */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
@@ -30,7 +28,7 @@ body {
   line-height: 1.5;
 }
 
-/* ============ LOGIN ============ */
+/* --- LOGIN --- */
 .login-screen {
   min-height: 100vh;
   display: flex;
@@ -89,13 +87,13 @@ body {
   display: none;
 }
 
-/* ============ LAYOUT ============ */
+/* --- LAYOUT --- */
 .admin-layout {
   display: flex;
   min-height: 100vh;
 }
 
-/* ============ SIDEBAR ============ */
+/* --- SIDEBAR --- */
 .sidebar {
   width: var(--admin-sidebar-w);
   background: var(--admin-surface);
@@ -186,7 +184,7 @@ body {
 
 .sidebar__footer-link:hover { color: var(--admin-accent); }
 
-/* ============ MAIN CONTENT ============ */
+/* --- MAIN CONTENT --- */
 .admin-main {
   flex: 1;
   margin-left: var(--admin-sidebar-w);
@@ -214,11 +212,11 @@ body {
   flex-wrap: wrap;
 }
 
-/* ============ SECTIONS ============ */
+/* --- SECTIONS --- */
 .admin-section { display: none; }
 .admin-section.active { display: block; }
 
-/* ============ CARDS ============ */
+/* --- CARDS --- */
 .admin-card {
   background: var(--admin-surface);
   border: 1px solid var(--admin-border);
@@ -238,7 +236,7 @@ body {
 
 .admin-card__title-icon { color: var(--admin-accent); }
 
-/* ============ FORM CONTROLS ============ */
+/* --- FORM CONTROLS --- */
 .form-row { margin-bottom: 1.25rem; }
 .form-row:last-child { margin-bottom: 0; }
 
@@ -380,7 +378,7 @@ details summary::-webkit-details-marker {
   background: var(--admin-accent);
 }
 
-/* ============ BUTTONS ============ */
+/* --- BUTTONS --- */
 .btn-admin {
   display: inline-flex;
   align-items: center;
@@ -428,7 +426,7 @@ details summary::-webkit-details-marker {
   font-size: 0.75rem;
 }
 
-/* ============ PROJECT LIST ============ */
+/* --- PROJECT LIST --- */
 .project-list-item {
   display: flex;
   align-items: center;
@@ -482,7 +480,7 @@ details summary::-webkit-details-marker {
   flex-shrink: 0;
 }
 
-/* ============ TOAST ============ */
+/* --- TOAST --- */
 .toast {
   position: fixed;
   bottom: 2rem;
@@ -505,7 +503,7 @@ details summary::-webkit-details-marker {
   opacity: 1;
 }
 
-/* ============ MODAL ============ */
+/* --- MODAL --- */
 .admin-modal-overlay {
   position: fixed;
   inset: 0;
@@ -564,7 +562,7 @@ details summary::-webkit-details-marker {
   color: var(--admin-danger);
 }
 
-/* ============ MOBILE ============ */
+/* --- MOBILE --- */
 .sidebar-toggle {
   display: none;
   position: fixed;
@@ -583,7 +581,7 @@ details summary::-webkit-details-marker {
   font-size: 1.2rem;
 }
 
-/* ============ LAYOUT EDITOR ============ */
+/* --- LAYOUT EDITOR --- */
 .layout-editor {
   display: flex;
   flex-direction: column;
@@ -702,7 +700,7 @@ details summary::-webkit-details-marker {
   font-size: 0.8rem;
 }
 
-/* ============ CREDITS LIST ============ */
+/* --- CREDITS LIST --- */
 .credit-row {
   display: flex;
   gap: 0.5rem;
@@ -885,6 +883,18 @@ details summary::-webkit-details-marker {
   border-radius: var(--admin-radius-sm);
   overflow: hidden;
   border: 1px solid var(--admin-border);
+  cursor: grab;
+  transition: opacity 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.gallery-manager__item.dragging {
+  opacity: 0.4;
+  transform: scale(0.95);
+}
+
+.gallery-manager__item.drag-over {
+  border-color: var(--admin-accent);
+  border-width: 2px;
 }
 
 .gallery-manager__item img {

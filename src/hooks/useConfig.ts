@@ -99,7 +99,7 @@ export function getConfig(): SiteConfig | null {
   }
 }
 
-/** Clear cache so next getConfig() re-reads localStorage */
+// clear cache so next getConfig() re-reads localStorage
 export function clearConfigCache() {
   _cachedConfig = null;
 }

@@ -22,7 +22,7 @@ const roleTabs = [
   { key: 'director', label: 'Director' },
 ];
 
-/** Build inline style from a {size, align} CMS style object */
+// build inline style from a {size, align} CMS style object
 function textStyle(s?: { size?: string; align?: string }): React.CSSProperties {
   if (!s) return {};
   const out: React.CSSProperties = {};
@@ -31,7 +31,7 @@ function textStyle(s?: { size?: string; align?: string }): React.CSSProperties {
   return out;
 }
 
-/** Get justifyContent from align string */
+// map align string to flex justify
 function justifyFromAlign(align?: string): string {
   if (align === 'center') return 'center';
   if (align === 'right') return 'flex-end';

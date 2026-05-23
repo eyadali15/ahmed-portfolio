@@ -1,15 +1,11 @@
-/* ============================================
-   ADMIN.JS — Ahmed Abuzenada Admin Panel Logic
-   Complete with Layout Editor, Style Engine,
-   Design Features, Project CRUD, Import/Export
-   ============================================ */
+// admin.js � CMS panel logic
 import { ConfigLoader, DEFAULT_CONFIG, SECTION_SELECTORS as LAYOUT_SECTIONS } from './config-loader.js';
 
 const ADMIN_PASS = 'admin123';
 let loader, config;
 let editingProjectIndex = -1;
 
-/* ============ INIT ============ */
+// --- INIT ---
 document.addEventListener('DOMContentLoaded', () => {
   if (sessionStorage.getItem('admin-auth') === 'true') {
     showDashboard();
@@ -18,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-/* ============ LOGIN ============ */
+// --- LOGIN ---
 function showLogin() {
   document.getElementById('login-screen').style.display = 'flex';
   document.getElementById('admin-dashboard').style.display = 'none';
@@ -38,7 +34,7 @@ function doLogin() {
   }
 }
 
-/* ============ DASHBOARD ============ */
+// --- DASHBOARD ---
 function showDashboard() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('admin-dashboard').style.display = 'flex';
@@ -80,7 +76,7 @@ async function loadProjectsFromStatic() {
   } catch {}
 }
 
-/* ============ DYNAMIC STYLE ENGINE ============ */
+// --- DYNAMIC STYLE ENGINE ---
 function initStyleEngine() {
   const customizableIds = {
     'home-name1':     'home.styles.name1',
@@ -207,7 +203,7 @@ function readStyleFields() {
   config.contact.styles.headerDesc = readStyle('contact-header-desc');
 }
 
-/* ============ COLOR HEX DISPLAY ============ */
+// --- COLOR HEX DISPLAY ---
 function initColorHexDisplay() {
   const colorInput = document.getElementById('design-accent');
   const hexSpan = document.getElementById('design-accent-hex');
@@ -218,7 +214,7 @@ function initColorHexDisplay() {
   }
 }
 
-/* ============ LAYOUT & SPACING EDITOR ============ */
+// --- LAYOUT & SPACING EDITOR ---
 function initLayoutEditor() {
   const pageSelect = document.getElementById('layout-page-select');
   if (!pageSelect) return;
@@ -318,7 +314,7 @@ function readLayoutEditors() {
   });
 }
 
-/* ============ SIDEBAR NAV ============ */
+// --- SIDEBAR NAV ---
 function initSidebar() {
   document.querySelectorAll('.sidebar__link[data-section]').forEach(link => {
     link.addEventListener('click', () => switchSection(link.dataset.section));
@@ -333,7 +329,7 @@ function switchSection(id) {
   document.querySelector('.sidebar')?.classList.remove('open');
 }
 
-/* ============ POPULATE ============ */
+// --- POPULATE ---
 function populateAllForms() {
   const c = config;
   // General
@@ -466,7 +462,7 @@ function populateAllForms() {
   renderProjectList();
 }
 
-/* ============ READ ALL ============ */
+// --- READ ALL ---
 function readAllForms() {
   // General
   config.general.siteTitle = getVal('gen-site-title');
@@ -582,7 +578,7 @@ function readAllForms() {
   readLayoutEditors();
 }
 
-/* ============ SAVE ============ */
+// --- SAVE ---
 function bindSaveButtons() {
   document.querySelectorAll('[data-action="save"]').forEach(btn => {
     btn.addEventListener('click', saveAll);
@@ -599,7 +595,7 @@ function saveAll() {
   showToast('✓ Settings saved! Refresh the live site to see changes.');
 }
 
-/* ============ SERVICES ITEMS ============ */
+// --- SERVICES ITEMS ---
 function renderServiceItems() {
   const container = document.getElementById('services-list');
   if (!container) return;
@@ -638,7 +634,7 @@ window.addServiceItem = function() {
   renderServiceItems();
 };
 
-/* ============ TIMELINE ============ */
+// --- TIMELINE ---
 function renderTimeline() {
   const container = document.getElementById('timeline-list');
   if (!container) return;
@@ -675,7 +671,7 @@ window.addTimeline = function() {
   renderTimeline();
 };
 
-/* ============ PROJECTS ============ */
+// --- PROJECTS ---
 function renderProjectList() {
   const list = document.getElementById('project-list');
   if (!list) return;
@@ -813,7 +809,7 @@ function saveProject() {
   showToast(editingProjectIndex === -1 ? 'Project added' : 'Project updated');
 }
 
-/* ============ IMPORT / EXPORT ============ */
+// --- IMPORT / EXPORT ---
 function bindImportExport() {
   document.getElementById('export-btn')?.addEventListener('click', () => {
     readAllForms();
@@ -865,14 +861,14 @@ function bindImportExport() {
   });
 }
 
-/* ============ MOBILE SIDEBAR ============ */
+// --- MOBILE SIDEBAR ---
 function bindMobileSidebar() {
   document.getElementById('sidebar-toggle')?.addEventListener('click', () => {
     document.querySelector('.sidebar').classList.toggle('open');
   });
 }
 
-/* ============ HELPERS ============ */
+// --- HELPERS ---
 function setVal(id, val) { const el = document.getElementById(id); if (el) el.value = val ?? ''; }
 function getVal(id) { return document.getElementById(id)?.value ?? ''; }
 function setChecked(id, val) { const el = document.getElementById(id); if (el) el.checked = !!val; }
@@ -887,7 +883,7 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
-/* ============ MEDIA LIBRARY ============ */
+// --- MEDIA LIBRARY ---
 const MEDIA_KEY = 'aha-media-library';
 const MAX_FILE_SIZE = 500 * 1024; // 500KB
 let pickerTargetId = null;
@@ -1049,19 +1045,58 @@ window.clearHeroImage = function(inputId) {
 
 // Gallery manager
 let galleryPhotos = [];
+let dragFromIndex = -1;
 
 function renderGalleryManager(photos) {
   galleryPhotos = photos || [];
   const container = document.getElementById('gallery-manager');
   if (!container) return;
+
   container.innerHTML = galleryPhotos.map((url, i) => `
-    <div class="gallery-manager__item">
-      <img src="${url}" alt="Photo ${i + 1}">
+    <div class="gallery-manager__item" draggable="true" data-index="${i}">
+      <img src="${url}" alt="Photo ${i + 1}" draggable="false">
       <button class="gallery-manager__delete" onclick="removeGalleryPhoto(${i})">&times;</button>
     </div>
   `).join('') + `
     <div class="gallery-manager__add" onclick="openGalleryPicker()" title="Add photo">+</div>
   `;
+
+  // bind drag events to each item
+  container.querySelectorAll('.gallery-manager__item').forEach(item => {
+    item.addEventListener('dragstart', e => {
+      dragFromIndex = +item.dataset.index;
+      item.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+
+    item.addEventListener('dragend', () => {
+      item.classList.remove('dragging');
+      container.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+    });
+
+    item.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      item.classList.add('drag-over');
+    });
+
+    item.addEventListener('dragleave', () => {
+      item.classList.remove('drag-over');
+    });
+
+    item.addEventListener('drop', e => {
+      e.preventDefault();
+      item.classList.remove('drag-over');
+      const toIndex = +item.dataset.index;
+      if (dragFromIndex === toIndex || dragFromIndex < 0) return;
+
+      const moved = galleryPhotos.splice(dragFromIndex, 1)[0];
+      galleryPhotos.splice(toIndex, 0, moved);
+      renderGalleryManager(galleryPhotos);
+      showToast('Photo moved');
+    });
+  });
+
   setVal('about-gallery-photos', JSON.stringify(galleryPhotos));
 }
 
