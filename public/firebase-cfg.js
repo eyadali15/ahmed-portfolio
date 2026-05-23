@@ -1,17 +1,13 @@
-// firebase-cfg.js — external service configs
-
-// Firebase (Firestore for data persistence)
 export const firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
+  apiKey: "AIzaSyB-JFDiVbYJ8eM6ktOZsQTycP_yB7uCKuk",
+  authDomain: "ahmed-portfolio-17566.firebaseapp.com",
+  projectId: "ahmed-portfolio-17566",
+  storageBucket: "ahmed-portfolio-17566.firebasestorage.app",
+  messagingSenderId: "717991526790",
+  appId: "1:717991526790:web:163e7ad6a688332a0bac07"
 };
 
-// Cloudinary (free image CDN — no credit card needed)
 export const cloudinaryConfig = {
-  cloudName: "",
-  uploadPreset: ""
+  cloudName: "dk81hf6gu",
+  uploadPreset: "ahmed_portfolio"
 };
