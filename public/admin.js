@@ -934,17 +934,20 @@ function renderMediaGrid() {
     <div class="media-grid__item" title="${esc(item.name)}">
       <img src="${item.dataUrl}" alt="${esc(item.name)}">
       <span class="media-grid__name">${esc(item.name)}</span>
-      <button class="media-grid__delete" onclick="deleteMediaItem('${item.id}')">&times;</button>
+      <button class="media-grid__delete" data-media-id="${item.id}">&times;</button>
     </div>
   `).join('');
-}
 
-function deleteMediaItem(id) {
-  if (!confirm('Delete this image?')) return;
-  const lib = getMediaLibrary().filter(i => i.id !== id);
-  saveMediaLibrary(lib);
-  renderMediaGrid();
-  showToast('Image deleted');
+  grid.querySelectorAll('.media-grid__delete').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.mediaId;
+      if (!confirm('Delete this image?')) return;
+      const filtered = getMediaLibrary().filter(i => i.id !== id);
+      saveMediaLibrary(filtered);
+      renderMediaGrid();
+      showToast('Image deleted');
+    });
+  });
 }
 
 function initMediaLibrary() {
@@ -1009,24 +1012,29 @@ function renderPickerGrid() {
   const empty = document.getElementById('picker-empty-msg');
   if (!grid) return;
   empty.style.display = lib.length ? 'none' : '';
-  grid.innerHTML = lib.map(item => `
-    <div class="media-grid__item" onclick="pickImage('${item.dataUrl.replace(/'/g, "\\'")}')"
+  grid.innerHTML = lib.map((item, i) => `
+    <div class="media-grid__item" data-pick="${i}"
       title="${esc(item.name)}" style="cursor:pointer">
       <img src="${item.dataUrl}" alt="${esc(item.name)}">
       <span class="media-grid__name">${esc(item.name)}</span>
     </div>
   `).join('');
-}
 
-window.pickImage = function(dataUrl) {
-  if (pickerTargetId === '_gallery') {
-    addGalleryPhoto(dataUrl);
-  } else if (pickerTargetId) {
-    setVal(pickerTargetId, dataUrl);
-    updateHeroPreview(pickerTargetId);
-  }
-  closeMediaPicker();
-};
+  grid.querySelectorAll('[data-pick]').forEach(el => {
+    el.addEventListener('click', () => {
+      const idx = +el.dataset.pick;
+      const item = lib[idx];
+      if (!item) return;
+      if (pickerTargetId === '_gallery') {
+        addGalleryPhoto(item.dataUrl);
+      } else if (pickerTargetId) {
+        setVal(pickerTargetId, item.dataUrl);
+        updateHeroPreview(pickerTargetId);
+      }
+      closeMediaPicker();
+    });
+  });
+}
 
 // hero preview with drag-to-reposition
 function updateHeroPreview(inputId) {
@@ -1089,18 +1097,35 @@ function renderGalleryManager(photos) {
   container.innerHTML = galleryPhotos.map((url, i) => `
     <div class="gallery-manager__item" draggable="true" data-index="${i}">
       <img src="${url}" alt="Photo ${i + 1}" draggable="false">
-      <button class="gallery-manager__delete" onclick="removeGalleryPhoto(${i})">&times;</button>
+      <button class="gallery-manager__delete" data-gi="${i}">&times;</button>
     </div>
   `).join('') + `
-    <div class="gallery-manager__add" onclick="openGalleryPicker()" title="Add photo">+</div>
+    <div class="gallery-manager__add" title="Add photo">+</div>
   `;
 
-  // bind drag events to each item
+  // delete buttons
+  container.querySelectorAll('.gallery-manager__delete').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      galleryPhotos.splice(+btn.dataset.gi, 1);
+      renderGalleryManager(galleryPhotos);
+    });
+  });
+
+  // add button
+  container.querySelector('.gallery-manager__add')?.addEventListener('click', () => {
+    pickerTargetId = '_gallery';
+    document.getElementById('media-picker-overlay').classList.add('active');
+    renderPickerGrid();
+  });
+
+  // drag reorder
   container.querySelectorAll('.gallery-manager__item').forEach(item => {
     item.addEventListener('dragstart', e => {
       dragFromIndex = +item.dataset.index;
       item.classList.add('dragging');
       e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', item.dataset.index);
     });
 
     item.addEventListener('dragend', () => {
@@ -1138,15 +1163,3 @@ function addGalleryPhoto(url) {
   galleryPhotos.push(url);
   renderGalleryManager(galleryPhotos);
 }
-
-window.removeGalleryPhoto = function(index) {
-  galleryPhotos.splice(index, 1);
-  renderGalleryManager(galleryPhotos);
-};
-
-window.openGalleryPicker = function() {
-  pickerTargetId = '_gallery';
-  document.getElementById('media-picker-overlay').classList.add('active');
-  renderPickerGrid();
-};
-
