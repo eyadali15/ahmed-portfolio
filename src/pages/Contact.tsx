@@ -83,14 +83,21 @@ export default function Contact() {
       <section className="min-h-screen flex flex-col">
 
         {contactHero.visible !== false && (
-        <div className="relative h-[50vh] min-h-[350px] w-full overflow-hidden flex items-end contact-hero">
+        <div className="relative h-[60vh] min-h-[420px] w-full overflow-hidden flex items-center justify-center contact-hero">
           <img src={contactHero.heroBackground} alt="" className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-black/60 to-black/30" />
-          <div className="relative z-10 container-main pb-12 text-center">
-            <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-[10px] uppercase tracking-[0.4em] text-[var(--color-accent)] mb-3">{contactHero.label}</motion.p>
-            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
-              className="font-[var(--font-heading)] text-4xl md:text-5xl lg:text-6xl text-white">{contactHero.title}</motion.h1>
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-black/60 to-black/40" />
+          <div className="relative z-10 container-main text-center max-w-2xl mx-auto px-4">
+            <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}
+              className="contact-label text-[10px] uppercase tracking-[0.4em] text-[var(--color-accent)] mb-4"
+              style={labelStyle}>{h.content.label}</motion.p>
+            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
+              className="contact-title font-[var(--font-heading)] text-3xl md:text-4xl lg:text-5xl leading-tight mb-5 text-white"
+              style={{ ...titleStyle, ...headerTitleStyle }}>
+              {h.content.title.split('together')[0]}<span className="italic text-[var(--color-accent)]">together</span>
+            </motion.h1>
+            <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}
+              className="contact-description text-white/50 text-base leading-relaxed max-w-md mx-auto"
+              style={{ ...descStyle, ...headerDescStyle }}>{h.content.description}</motion.p>
           </div>
         </div>
         )}
@@ -98,24 +105,7 @@ export default function Contact() {
         {!contactHero.visible && <div className="h-[110px]" />}
 
         <div className="flex-1 flex flex-col items-center justify-center px-4">
-          <div className="w-full max-w-2xl mx-auto">
-
-            {}
-            {h.visible !== false && (
-            <div className="contact-header text-center" style={{ ...headerStyle, marginBottom: 48 }}>
-              <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}
-                className="contact-label text-[10px] uppercase tracking-[0.4em] text-[var(--color-accent)] mb-4"
-                style={labelStyle}>{h.content.label}</motion.p>
-              <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-                className="contact-title font-[var(--font-heading)] text-3xl md:text-4xl lg:text-5xl leading-tight mb-5"
-                style={{ ...titleStyle, ...headerTitleStyle }}>
-                {h.content.title.split('together')[0]}<span className="italic text-[var(--color-accent)]">together</span>
-              </motion.h1>
-              <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}
-                className="contact-description text-white/50 text-base leading-relaxed max-w-md"
-                style={{ marginLeft: 'auto', marginRight: 'auto', textAlign: 'center' as const, ...descStyle, ...headerDescStyle }}>{h.content.description}</motion.p>
-            </div>
-            )}
+          <div className="w-full max-w-2xl mx-auto" style={{ paddingTop: 48 }}>
 
             {}
             {info.visible !== false && (
