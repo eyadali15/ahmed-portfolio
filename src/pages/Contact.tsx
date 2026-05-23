@@ -94,8 +94,8 @@ export default function Contact() {
               {h.content.title.split('together')[0]}<span className="italic text-[var(--color-accent)]">together</span>
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}
-              className="contact-description text-white/50 text-base leading-relaxed max-w-md mx-auto"
-              style={{ textAlign: 'center', ...descStyle, ...headerDescStyle }}>{h.content.description}</motion.p>
+              className="contact-description text-white/50 text-base leading-relaxed max-w-md mx-auto text-center"
+              style={{ ...descStyle, ...headerDescStyle }}>{h.content.description}</motion.p>
           </div>
         </div>
         )}
