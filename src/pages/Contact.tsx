@@ -84,7 +84,7 @@ export default function Contact() {
         <div className="relative h-[60vh] min-h-[420px] w-full overflow-hidden flex items-center justify-center contact-hero">
           <img src={contactHero.heroBackground} alt="" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-black/60 to-black/40" />
-          <div className="relative z-10 container-main text-center max-w-2xl mx-auto px-4">
+          <div className="relative z-10 container-main flex flex-col items-center text-center max-w-2xl mx-auto px-4">
             <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}
               className="contact-label text-[10px] uppercase tracking-[0.4em] text-[var(--color-accent)] mb-4"
               style={labelStyle}>{h.content.label}</motion.p>
@@ -94,7 +94,7 @@ export default function Contact() {
               {h.content.title.split('together')[0]}<span className="italic text-[var(--color-accent)]">together</span>
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}
-              className="contact-description text-white/50 text-base leading-relaxed max-w-md mx-auto text-center"
+              className="contact-description text-white/50 text-base leading-relaxed max-w-md text-center"
               style={{ ...descStyle, ...headerDescStyle }}>{h.content.description}</motion.p>
           </div>
         </div>
