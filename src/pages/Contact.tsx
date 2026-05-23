@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import PageTransition from '@/components/layout/PageTransition';
 import ContactForm from '@/components/ui/ContactForm';
 import staticContent from '@/content/pages/contact.json';
-import { getConfig, mergeLayoutStyle, getElementStyle } from '@/hooks/useConfig';
+import { useConfig, mergeLayoutStyle, getElementStyle } from '@/hooks/useConfig';
 
 type Layout = { paddingTop: number; paddingBottom: number; paddingLeft: number; paddingRight: number; marginTop: number; marginBottom: number; marginLeft: number; marginRight: number; gapAfter?: number; align: string };
 const box = (l: Layout) => ({
@@ -18,7 +18,7 @@ const icons: Record<string, React.ReactNode> = {
 };
 
 export default function Contact() {
-  const cms = getConfig();
+  const cms = useConfig();
 
   
   const h = {

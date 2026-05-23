@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import PageTransition from '@/components/layout/PageTransition';
 import staticContent from '@/content/pages/about.json';
-import { getConfig, mergeLayoutStyle, getElementStyle } from '@/hooks/useConfig';
+import { useConfig, mergeLayoutStyle, getElementStyle } from '@/hooks/useConfig';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -115,7 +115,7 @@ export default function About() {
   const galleryRef = useRef<HTMLDivElement>(null);
 
   
-  const cms = getConfig();
+  const cms = useConfig();
 
   useEffect(() => {
     if (heroRef.current) gsap.fromTo(heroRef.current.querySelectorAll('.about-reveal'), { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.12, ease: 'power4.out', delay: 0.2 });

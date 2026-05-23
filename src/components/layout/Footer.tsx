@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import spacing from '@/content/design/spacing.json';
 import global from '@/content/pages/global.json';
-import { getConfig, mergeLayoutStyle } from '@/hooks/useConfig';
+import { useConfig, mergeLayoutStyle } from '@/hooks/useConfig';
 
 const s = spacing.footer;
 const f = global.footer;
@@ -24,7 +24,7 @@ const navLinks = [
 ];
 
 export default function Footer() {
-  const cms = getConfig();
+  const cms = useConfig();
   const ft = (cms as any)?.footer || {};
   const gen = (cms as any)?.general?.socialLinks || {};
 

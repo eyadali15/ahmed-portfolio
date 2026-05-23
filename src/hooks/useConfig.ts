@@ -1,3 +1,7 @@
+// useConfig.ts — site config reader
+// Priority: Firestore (cloud) → localStorage (local) → defaults
+import React from 'react';
+import { fetchSiteConfig } from '@/lib/firebase';
 
 const STORAGE_KEY = 'aha-site-config';
 const PROJECTS_KEY = 'aha-site-config-projects';
@@ -72,48 +76,91 @@ export interface SiteConfig {
 }
 
 let _cachedConfig: SiteConfig | null = null;
+let _firebaseFetched = false;
+let _fetchPromise: Promise<void> | null = null;
 
-export function getConfig(): SiteConfig | null {
-  if (_cachedConfig) return _cachedConfig;
-  
+// kick off Firebase fetch as early as possible
+function startFetch() {
+  if (_fetchPromise) return _fetchPromise;
+  _fetchPromise = fetchSiteConfig().then(data => {
+    if (data) {
+      _cachedConfig = data as SiteConfig;
+      _firebaseFetched = true;
+      // cache in localStorage for offline fallback
+      try {
+        const { projects, ...rest } = data as any;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(rest));
+        if (projects) localStorage.setItem(PROJECTS_KEY, JSON.stringify(projects));
+      } catch {}
+    } else {
+      // no Firebase data, fall back to localStorage
+      _cachedConfig = readFromLocalStorage();
+      _firebaseFetched = true;
+    }
+  }).catch(() => {
+    _cachedConfig = readFromLocalStorage();
+    _firebaseFetched = true;
+  });
+  return _fetchPromise;
+}
+
+// start immediately on module load
+startFetch();
+
+function readFromLocalStorage(): SiteConfig | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
-    
     const parsed = JSON.parse(raw);
-    
-    // Load projects separately
     const projRaw = localStorage.getItem(PROJECTS_KEY);
     if (projRaw) {
-      try {
-        parsed.projects = JSON.parse(projRaw);
-      } catch {
-        parsed.projects = [];
-      }
+      try { parsed.projects = JSON.parse(projRaw); } catch {}
     }
-    
-    _cachedConfig = parsed as SiteConfig;
-    return _cachedConfig;
+    return parsed as SiteConfig;
   } catch {
     return null;
   }
 }
 
-// clear cache so next getConfig() re-reads localStorage
+// synchronous getter — returns cached config or null on first paint
+export function getConfig(): SiteConfig | null {
+  if (_cachedConfig) return _cachedConfig;
+  // sync fallback while Firebase fetch is in flight
+  _cachedConfig = readFromLocalStorage();
+  return _cachedConfig;
+}
+
+// clear cache so next getConfig() re-reads
 export function clearConfigCache() {
   _cachedConfig = null;
+  _firebaseFetched = false;
+  _fetchPromise = null;
+}
+
+// React hook that re-renders when Firebase data arrives
+export function useConfig(): SiteConfig | null {
+  const [cfg, setCfg] = React.useState<SiteConfig | null>(() => getConfig());
+
+  React.useEffect(() => {
+    if (_firebaseFetched) {
+      setCfg(_cachedConfig);
+      return;
+    }
+    startFetch().then(() => setCfg(_cachedConfig));
+  }, []);
+
+  return cfg;
 }
 
 export function getLayoutStyle(page: string, section: string): React.CSSProperties {
   const cms = getConfig();
   const layout = cms?.layout?.[page as keyof typeof cms.layout]?.[section];
   if (!layout) return {};
-  
+
   const style: React.CSSProperties = {};
   if (layout.pt) style.paddingTop = layout.pt + (isNaN(Number(layout.pt)) ? '' : 'px');
   if (layout.pb) style.paddingBottom = layout.pb + (isNaN(Number(layout.pb)) ? '' : 'px');
   if (layout.mt) style.marginTop = layout.mt + (isNaN(Number(layout.mt)) ? '' : 'px');
-  // mb + gap combined into marginBottom
   const mbVal = Number(layout.mb) || 0;
   const gapVal = Number(layout.gap) || 0;
   const totalBottom = mbVal + gapVal;

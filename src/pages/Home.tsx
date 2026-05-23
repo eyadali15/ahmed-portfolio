@@ -11,7 +11,7 @@ import { useStore } from '@/store/useStore';
 import { getFeaturedProjects } from '@/data/projects';
 import PageTransition from '@/components/layout/PageTransition';
 import staticContent from '@/content/pages/home.json';
-import { getConfig, mergeLayoutStyle, getElementStyle } from '@/hooks/useConfig';
+import { useConfig, mergeLayoutStyle, getElementStyle } from '@/hooks/useConfig';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,7 +24,7 @@ const box = (l: Layout) => ({
 const jm = { left: 'flex-start', center: 'center', right: 'flex-end' } as const;
 
 function FeaturedSection() {
-  const cms = getConfig();
+  const cms = useConfig();
   const sc = staticContent.featured;
   
   
@@ -83,7 +83,7 @@ function FeaturedSection() {
 }
 
 function CTASection() {
-  const cms = getConfig();
+  const cms = useConfig();
   const sc = staticContent.cta;
   
   
@@ -123,7 +123,7 @@ function CTASection() {
 
 export default function Home() {
   const setIsLoading = useStore((s) => s.setIsLoading);
-  const cms = getConfig();
+  const cms = useConfig();
   
   
   const heroVisible = cms?.home?.hero?.visible ?? staticContent.hero.visible;

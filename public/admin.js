@@ -1,5 +1,15 @@
-// admin.js � CMS panel logic
+// admin.js - CMS panel logic
 import { ConfigLoader, DEFAULT_CONFIG, SECTION_SELECTORS as LAYOUT_SECTIONS } from './config-loader.js';
+import { firebaseConfig } from './firebase-cfg.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js';
+import { getFirestore, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js';
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/11.8.1/firebase-storage.js';
+
+// Firebase setup
+const fbApp = firebaseConfig.projectId ? initializeApp(firebaseConfig) : null;
+const db = fbApp ? getFirestore(fbApp) : null;
+const storage = fbApp ? getStorage(fbApp) : null;
+const useFirebase = !!db;
 
 const ADMIN_PASS = 'admin123';
 let loader, config;
@@ -35,14 +45,28 @@ function doLogin() {
 }
 
 // --- DASHBOARD ---
-function showDashboard() {
+async function showDashboard() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('admin-dashboard').style.display = 'flex';
 
   loader = new ConfigLoader();
   config = loader.config;
 
-  // If projects are empty, try loading from the static JSON files
+  // try loading config from Firestore (cloud-first)
+  if (useFirebase) {
+    try {
+      showToast('Loading from cloud...');
+      const snap = await getDoc(doc(db, 'site', 'config'));
+      if (snap.exists()) {
+        const cloud = snap.data();
+        config = loader.deepMerge(structuredClone(DEFAULT_CONFIG), cloud);
+        loader.config = config;
+      }
+    } catch (err) {
+      console.warn('Firestore load failed, using local:', err);
+    }
+  }
+
   if (!config.projects || config.projects.length === 0) {
     loadProjectsFromStatic();
   }
@@ -595,10 +619,22 @@ function bindSaveButtons() {
   });
 }
 
-function saveAll() {
+async function saveAll() {
   readAllForms();
-  loader.save(config);
-  showToast('✓ Settings saved! Refresh the live site to see changes.');
+  loader.save(config); // localStorage backup
+
+  if (useFirebase) {
+    try {
+      showToast('Saving to cloud...');
+      await setDoc(doc(db, 'site', 'config'), JSON.parse(JSON.stringify(config)));
+      showToast('Saved to cloud! Changes are live.');
+    } catch (err) {
+      console.error('Firestore save error:', err);
+      showToast('Cloud save failed — saved locally only.');
+    }
+  } else {
+    showToast('Saved locally. Set up Firebase for cross-device sync.');
+  }
 }
 
 // --- SERVICES ITEMS ---
@@ -891,43 +927,73 @@ function showToast(msg) {
 
 // --- MEDIA LIBRARY ---
 const MEDIA_KEY = 'aha-media-library';
-const MAX_FILE_SIZE = 500 * 1024; // 500KB
+const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB with Firebase Storage
 let pickerTargetId = null;
+let mediaCache = [];
 
-function getMediaLibrary() {
-  try { return JSON.parse(localStorage.getItem(MEDIA_KEY) || '[]'); } catch { return []; }
+async function getMediaLibrary() {
+  if (mediaCache.length) return mediaCache;
+  // cloud first
+  if (useFirebase) {
+    try {
+      const snap = await getDoc(doc(db, 'site', 'media'));
+      if (snap.exists()) { mediaCache = snap.data().items || []; return mediaCache; }
+    } catch {}
+  }
+  // fallback to localStorage
+  try { mediaCache = JSON.parse(localStorage.getItem(MEDIA_KEY) || '[]'); } catch { mediaCache = []; }
+  return mediaCache;
 }
 
-function saveMediaLibrary(items) {
+async function saveMediaLibrary(items) {
+  mediaCache = items;
   localStorage.setItem(MEDIA_KEY, JSON.stringify(items));
+  if (useFirebase) {
+    try { await setDoc(doc(db, 'site', 'media'), { items }); } catch (err) { console.warn('Media save error:', err); }
+  }
 }
 
-function handleFileUpload(files, callback) {
-  Array.from(files).forEach(file => {
-    if (!file.type.startsWith('image/')) { showToast('Only images allowed'); return; }
-    if (file.size > MAX_FILE_SIZE) { showToast(`${file.name} exceeds 500KB limit`); return; }
-    const reader = new FileReader();
-    reader.onload = () => {
-      const item = {
-        id: Date.now() + '_' + Math.random().toString(36).slice(2, 8),
-        name: file.name,
-        dataUrl: reader.result,
-        size: file.size,
-        date: new Date().toISOString()
-      };
-      const lib = getMediaLibrary();
-      lib.push(item);
-      saveMediaLibrary(lib);
-      renderMediaGrid();
-      if (callback) callback(item.dataUrl);
-      showToast(`Uploaded ${file.name}`);
-    };
-    reader.readAsDataURL(file);
-  });
+async function handleFileUpload(files, callback) {
+  for (const file of Array.from(files)) {
+    if (!file.type.startsWith('image/')) { showToast('Only images allowed'); continue; }
+    if (file.size > MAX_FILE_SIZE) { showToast(file.name + ' exceeds 2MB limit'); continue; }
+
+    const id = Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+    let url = '';
+
+    if (useFirebase && storage) {
+      // upload to Firebase Storage
+      try {
+        showToast('Uploading ' + file.name + '...');
+        const sRef = storageRef(storage, 'media/' + id + '_' + file.name);
+        await uploadBytes(sRef, file);
+        url = await getDownloadURL(sRef);
+      } catch (err) {
+        console.error('Storage upload error:', err);
+        showToast('Upload failed: ' + err.message);
+        continue;
+      }
+    } else {
+      // fallback: base64 in localStorage
+      url = await new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(file);
+      });
+    }
+
+    const item = { id, name: file.name, dataUrl: url, size: file.size, date: new Date().toISOString() };
+    const lib = await getMediaLibrary();
+    lib.push(item);
+    await saveMediaLibrary(lib);
+    renderMediaGrid();
+    if (callback) callback(url);
+    showToast('Uploaded ' + file.name);
+  }
 }
 
-function renderMediaGrid() {
-  const lib = getMediaLibrary();
+async function renderMediaGrid() {
+  const lib = await getMediaLibrary();
   const grid = document.getElementById('media-library-grid');
   if (!grid) return;
   grid.innerHTML = lib.map(item => `
@@ -939,11 +1005,12 @@ function renderMediaGrid() {
   `).join('');
 
   grid.querySelectorAll('.media-grid__delete').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', async () => {
       const id = btn.dataset.mediaId;
       if (!confirm('Delete this image?')) return;
-      const filtered = getMediaLibrary().filter(i => i.id !== id);
-      saveMediaLibrary(filtered);
+      const current = await getMediaLibrary();
+      const filtered = current.filter(i => i.id !== id);
+      await saveMediaLibrary(filtered);
       renderMediaGrid();
       showToast('Image deleted');
     });
@@ -1006,8 +1073,8 @@ window.switchPickerTab = function(btn, panelId) {
   document.getElementById('picker-upload').style.display = panelId === 'picker-upload' ? '' : 'none';
 };
 
-function renderPickerGrid() {
-  const lib = getMediaLibrary();
+async function renderPickerGrid() {
+  const lib = await getMediaLibrary();
   const grid = document.getElementById('picker-media-grid');
   const empty = document.getElementById('picker-empty-msg');
   if (!grid) return;

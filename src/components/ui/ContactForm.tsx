@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import spacing from '@/content/design/spacing.json';
-import { getConfig } from '@/hooks/useConfig';
+import { useConfig } from '@/hooks/useConfig';
 
 const b = spacing.buttons;
 const TARGET_EMAIL = 'abuzfilms@gmail.com';
@@ -19,7 +19,7 @@ export default function ContactForm({ formStyle, fieldGroupStyle, labelsStyle, i
   const [sending, setSending] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const cms = getConfig();
+  const cms = useConfig();
   const buttonText = (cms?.contact?.info as any)?.formButtonText || 'Send Message';
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

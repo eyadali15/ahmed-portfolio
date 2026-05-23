@@ -11,7 +11,7 @@ import { projects as staticProjects } from '@/data/projects';
 import spacing from '@/content/design/spacing.json';
 import workContent from '@/content/pages/work.json';
 import global from '@/content/pages/global.json';
-import { getConfig, mergeLayoutStyle } from '@/hooks/useConfig';
+import { useConfig, mergeLayoutStyle } from '@/hooks/useConfig';
 
 gsap.registerPlugin(ScrollTrigger);
 const d = workContent.detail;
@@ -41,7 +41,7 @@ function justifyFromAlign(align?: string): string {
 export default function Work() {
   const { activeFilter, setActiveFilter, activeRole, setActiveRole } = useStore();
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
-  const cms = getConfig();
+  const cms = useConfig();
 
   
   const s = cms?.spacing?.work || spacing.work;

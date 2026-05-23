@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Button from '@/components/ui/Button';
 import staticContent from '@/content/pages/home.json';
-import { getConfig, mergeLayoutStyle, getElementStyle } from '@/hooks/useConfig';
+import { useConfig, mergeLayoutStyle, getElementStyle } from '@/hooks/useConfig';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,7 +37,7 @@ import spacing from '@/content/design/spacing.json';
 
 export default function HeroBanner() {
   
-  const cms = getConfig();
+  const cms = useConfig();
   const staticHero = staticContent.hero;
   const c = {
     name1: cms?.home?.hero?.name1 || staticHero.content.name1 || 'Ahmed',

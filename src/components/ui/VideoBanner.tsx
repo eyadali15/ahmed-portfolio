@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import staticContent from '@/content/pages/home.json';
-import { getConfig, mergeLayoutStyle } from '@/hooks/useConfig';
+import { useConfig, mergeLayoutStyle } from '@/hooks/useConfig';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,7 +32,7 @@ export default function VideoBanner() {
   const [mobile] = useState(isMobile);
 
   
-  const cms = getConfig();
+  const cms = useConfig();
   const vb = staticContent.videoBanner;
   const label = cms?.home?.videoBanner?.label || vb.content?.label || 'Behind the Lens';
   const titlePart1 = cms?.home?.videoBanner?.titlePart1 || vb.content?.titlePart1 || 'Where Stories';
