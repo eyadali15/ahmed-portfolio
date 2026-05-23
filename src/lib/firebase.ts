@@ -28,15 +28,3 @@ export async function fetchSiteConfig(): Promise<Record<string, any> | null> {
     return null;
   }
 }
-
-// fetch media library from Firestore
-export async function fetchMediaLibrary(): Promise<any[]> {
-  if (!db) return [];
-  try {
-    const snap = await getDoc(doc(db, 'site', 'media'));
-    if (snap.exists()) return snap.data().items || [];
-    return [];
-  } catch {
-    return [];
-  }
-}

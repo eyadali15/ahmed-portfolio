@@ -1,6 +1,6 @@
-// firebase-cfg.js — shared Firebase project config
-// Fill in your Firebase project credentials from:
-// https://console.firebase.google.com → Project Settings → Web App
+// firebase-cfg.js — external service configs
+
+// Firebase (Firestore for data persistence)
 export const firebaseConfig = {
   apiKey: "",
   authDomain: "",
@@ -8,4 +8,10 @@ export const firebaseConfig = {
   storageBucket: "",
   messagingSenderId: "",
   appId: ""
+};
+
+// Cloudinary (free image CDN — no credit card needed)
+export const cloudinaryConfig = {
+  cloudName: "",
+  uploadPreset: ""
 };

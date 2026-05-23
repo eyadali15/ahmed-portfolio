@@ -1,15 +1,14 @@
 // admin.js - CMS panel logic
 import { ConfigLoader, DEFAULT_CONFIG, SECTION_SELECTORS as LAYOUT_SECTIONS } from './config-loader.js';
-import { firebaseConfig } from './firebase-cfg.js';
+import { firebaseConfig, cloudinaryConfig } from './firebase-cfg.js';
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js';
 import { getFirestore, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js';
-import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/11.8.1/firebase-storage.js';
 
-// Firebase setup
+// Firebase (Firestore only — no Storage needed)
 const fbApp = firebaseConfig.projectId ? initializeApp(firebaseConfig) : null;
 const db = fbApp ? getFirestore(fbApp) : null;
-const storage = fbApp ? getStorage(fbApp) : null;
 const useFirebase = !!db;
+const useCloudinary = !!(cloudinaryConfig.cloudName && cloudinaryConfig.uploadPreset);
 
 const ADMIN_PASS = 'admin123';
 let loader, config;
@@ -961,15 +960,22 @@ async function handleFileUpload(files, callback) {
     const id = Date.now() + '_' + Math.random().toString(36).slice(2, 8);
     let url = '';
 
-    if (useFirebase && storage) {
-      // upload to Firebase Storage
+    if (useCloudinary) {
+      // upload to Cloudinary (free CDN)
       try {
         showToast('Uploading ' + file.name + '...');
-        const sRef = storageRef(storage, 'media/' + id + '_' + file.name);
-        await uploadBytes(sRef, file);
-        url = await getDownloadURL(sRef);
+        const form = new FormData();
+        form.append('file', file);
+        form.append('upload_preset', cloudinaryConfig.uploadPreset);
+        const res = await fetch('https://api.cloudinary.com/v1_1/' + cloudinaryConfig.cloudName + '/image/upload', {
+          method: 'POST',
+          body: form
+        });
+        if (!res.ok) throw new Error('Upload failed: ' + res.status);
+        const data = await res.json();
+        url = data.secure_url;
       } catch (err) {
-        console.error('Storage upload error:', err);
+        console.error('Cloudinary upload error:', err);
         showToast('Upload failed: ' + err.message);
         continue;
       }
