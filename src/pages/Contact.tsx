@@ -81,7 +81,7 @@ export default function Contact() {
       <section className="min-h-screen flex flex-col">
 
         {contactHero.visible !== false && (
-        <div className="relative h-[60vh] min-h-[420px] w-full overflow-hidden flex items-center justify-center contact-hero">
+        <div className="relative h-[70vh] min-h-[500px] w-full overflow-hidden flex items-center justify-center contact-hero">
           <img src={contactHero.heroBackground} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: (cms?.contact as any)?.heroBanner?.heroPosition || '50% 50%' }} />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-black/60 to-black/40" />
           <div className="relative z-10 container-main flex flex-col items-center text-center max-w-2xl mx-auto px-4">

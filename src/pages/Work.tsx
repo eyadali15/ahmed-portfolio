@@ -100,7 +100,7 @@ export default function Work() {
   return (
     <PageTransition>
       {/* Hero banner */}
-      <section className="work-hero relative h-[50vh] min-h-[350px] w-full overflow-hidden flex items-end" style={heroStyle}>
+      <section className="work-hero relative h-[65vh] min-h-[450px] w-full overflow-hidden flex items-end" style={heroStyle}>
         <img src={wh.heroBackground} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: port?.hero?.heroPosition || '50% 50%' }} />
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-black/60 to-black/30" />
         <div className="relative z-10 container-main pb-12" style={titleStyle.textAlign ? { textAlign: titleStyle.textAlign } : undefined}>
